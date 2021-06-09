@@ -11,7 +11,38 @@
 		2B5AC1DF2670EBAF00CB80F6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DE2670EBAF00CB80F6 /* ContentView.swift */; };
 		2B5AC1E12670EBB300CB80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */; };
 		2B5AC1E42670EBB300CB80F6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1E32670EBB300CB80F6 /* Preview Assets.xcassets */; };
+		2B5AC1F32670EDA300CB80F6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5AC1F22670EDA300CB80F6 /* WidgetKit.framework */; };
+		2B5AC1F52670EDA400CB80F6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5AC1F42670EDA400CB80F6 /* SwiftUI.framework */; };
+		2B5AC1F82670EDA400CB80F6 /* BlackCarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F72670EDA400CB80F6 /* BlackCarWidget.swift */; };
+		2B5AC1FB2670EDAB00CB80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */; };
+		2B5AC1FD2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
+		2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
+		2B5AC2012670EDAB00CB80F6 /* BlackCarWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2B5AC1FF2670EDAB00CB80F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2B5AC1D12670EBAF00CB80F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2B5AC1EF2670EDA300CB80F6;
+			remoteInfo = BlackCarWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2B5AC2052670EDAC00CB80F6 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2B5AC2012670EDAB00CB80F6 /* BlackCarWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -20,6 +51,13 @@
 		2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B5AC1E32670EBB300CB80F6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2B5AC1E52670EBB300CB80F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BlackCarWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B5AC1F22670EDA300CB80F6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		2B5AC1F42670EDA400CB80F6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		2B5AC1F72670EDA400CB80F6 /* BlackCarWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCarWidget.swift; sourceTree = "<group>"; };
+		2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = BlackCarWidget.intentdefinition; sourceTree = "<group>"; };
+		2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2B5AC1FC2670EDAB00CB80F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +68,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2B5AC1ED2670EDA300CB80F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B5AC1F52670EDA400CB80F6 /* SwiftUI.framework in Frameworks */,
+				2B5AC1F32670EDA300CB80F6 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -37,6 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				2B5AC1DB2670EBAF00CB80F6 /* BlackCat */,
+				2B5AC1F62670EDA400CB80F6 /* BlackCarWidget */,
+				2B5AC1F12670EDA300CB80F6 /* Frameworks */,
 				2B5AC1DA2670EBAF00CB80F6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */,
+				2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,6 +119,26 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		2B5AC1F12670EDA300CB80F6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2B5AC1F22670EDA300CB80F6 /* WidgetKit.framework */,
+				2B5AC1F42670EDA400CB80F6 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2B5AC1F62670EDA400CB80F6 /* BlackCarWidget */ = {
+			isa = PBXGroup;
+			children = (
+				2B5AC1F72670EDA400CB80F6 /* BlackCarWidget.swift */,
+				2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */,
+				2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */,
+				2B5AC1FC2670EDAB00CB80F6 /* Info.plist */,
+			);
+			path = BlackCarWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -79,15 +149,34 @@
 				2B5AC1D52670EBAF00CB80F6 /* Sources */,
 				2B5AC1D62670EBAF00CB80F6 /* Frameworks */,
 				2B5AC1D72670EBAF00CB80F6 /* Resources */,
+				2B5AC2052670EDAC00CB80F6 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2B5AC2002670EDAB00CB80F6 /* PBXTargetDependency */,
 			);
 			name = BlackCat;
 			productName = BlackCat;
 			productReference = 2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */;
 			productType = "com.apple.product-type.application";
+		};
+		2B5AC1EF2670EDA300CB80F6 /* BlackCarWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B5AC2022670EDAC00CB80F6 /* Build configuration list for PBXNativeTarget "BlackCarWidgetExtension" */;
+			buildPhases = (
+				2B5AC1EC2670EDA300CB80F6 /* Sources */,
+				2B5AC1ED2670EDA300CB80F6 /* Frameworks */,
+				2B5AC1EE2670EDA300CB80F6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BlackCarWidgetExtension;
+			productName = BlackCarWidgetExtension;
+			productReference = 2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -99,6 +188,9 @@
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					2B5AC1D82670EBAF00CB80F6 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					2B5AC1EF2670EDA300CB80F6 = {
 						CreatedOnToolsVersion = 12.0;
 					};
 				};
@@ -117,6 +209,7 @@
 			projectRoot = "";
 			targets = (
 				2B5AC1D82670EBAF00CB80F6 /* BlackCat */,
+				2B5AC1EF2670EDA300CB80F6 /* BlackCarWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -131,6 +224,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2B5AC1EE2670EDA300CB80F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B5AC1FB2670EDAB00CB80F6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -139,11 +240,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B5AC1DF2670EBAF00CB80F6 /* ContentView.swift in Sources */,
+				2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
 				2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2B5AC1EC2670EDA300CB80F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B5AC1F82670EDA400CB80F6 /* BlackCarWidget.swift in Sources */,
+				2B5AC1FD2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2B5AC2002670EDAB00CB80F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2B5AC1EF2670EDA300CB80F6 /* BlackCarWidgetExtension */;
+			targetProxy = 2B5AC1FF2670EDAB00CB80F6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2B5AC1E62670EBB300CB80F6 /* Debug */ = {
@@ -265,6 +384,7 @@
 		2B5AC1E92670EBB300CB80F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -287,6 +407,7 @@
 		2B5AC1EA2670EBB300CB80F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -303,6 +424,48 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		2B5AC2032670EDAC00CB80F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 56787CM63P;
+				INFOPLIST_FILE = BlackCarWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = tosh7.BlackCat.BlackCarWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2B5AC2042670EDAC00CB80F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 56787CM63P;
+				INFOPLIST_FILE = BlackCarWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = tosh7.BlackCat.BlackCarWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -323,6 +486,15 @@
 			buildConfigurations = (
 				2B5AC1E92670EBB300CB80F6 /* Debug */,
 				2B5AC1EA2670EBB300CB80F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B5AC2022670EDAC00CB80F6 /* Build configuration list for PBXNativeTarget "BlackCarWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B5AC2032670EDAC00CB80F6 /* Debug */,
+				2B5AC2042670EDAC00CB80F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
