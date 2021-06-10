@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19E5A7FF267219B4000CFC3F /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E5A7FE267219B4000CFC3F /* ApiClient.swift */; };
 		2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */; };
 		2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DE2670EBAF00CB80F6 /* DeliveryListView.swift */; };
 		2B5AC1E12670EBB300CB80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		19E5A7FE267219B4000CFC3F /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCatApp.swift; sourceTree = "<group>"; };
 		2B5AC1DE2670EBAF00CB80F6 /* DeliveryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryListView.swift; sourceTree = "<group>"; };
@@ -80,6 +82,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19E5A7FC267218A2000CFC3F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19E5A7FD26721992000CFC3F /* APIProtcols */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		19E5A7FD26721992000CFC3F /* APIProtcols */ = {
+			isa = PBXGroup;
+			children = (
+				19E5A7FE267219B4000CFC3F /* ApiClient.swift */,
+			);
+			path = APIProtcols;
+			sourceTree = "<group>";
+		};
 		2B5AC1D02670EBAF00CB80F6 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +122,7 @@
 			children = (
 				2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */,
 				2B5AC2082670EDF800CB80F6 /* Views */,
+				19E5A7FC267218A2000CFC3F /* Models */,
 				2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */,
 				2B5AC1E52670EBB300CB80F6 /* Info.plist */,
 				2B5AC1E22670EBB300CB80F6 /* Preview Content */,
@@ -250,6 +269,7 @@
 				2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */,
 				2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
 				2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */,
+				19E5A7FF267219B4000CFC3F /* ApiClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tosh7.BlackCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -428,6 +449,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = tosh7.BlackCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
