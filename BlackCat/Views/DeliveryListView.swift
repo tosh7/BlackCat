@@ -6,17 +6,20 @@ struct DeliveryListView: View {
 
     var body: some View {
         ScrollView(.vertical) {
-                LazyVGrid(columns: columns,
-                          alignment: .center,
-                          spacing: 8) {
-                    ForEach((1...1000), id: \.self) { num in
-                        ZStack {
-                            Rectangle().foregroundColor(.accentColor)
-                            Text("\(num)").foregroundColor(.white)
-                        }
+            LazyVGrid(columns: columns,
+                      alignment: .center,
+                      spacing: 8) {
+                ForEach((1...1000), id: \.self) { num in
+                    ZStack {
+                        Rectangle().foregroundColor(.accentColor)
+                        Text("\(num)").foregroundColor(.white)
                     }
                 }
             }
+        }
+        .onAppear(perform: {
+            ApiClident.postRequest()
+        })
     }
 }
 

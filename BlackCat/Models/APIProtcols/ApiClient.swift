@@ -19,7 +19,8 @@ struct ApiClident {
         ]
         request.httpBody = try! NSKeyedArchiver.archivedData(withRootObject: json, requiringSecureCoding: false)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            print(response!)
+            print(error)
+            print(response)
         }
         task.resume()
     }
