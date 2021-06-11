@@ -19,6 +19,8 @@
 		2B5AC1FD2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
 		2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
 		2B5AC2012670EDAB00CB80F6 /* BlackCarWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		51AF8F9D7464D6119AA61857 /* Pods_BlackCat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9173D6DA7936D3BB5987CEB /* Pods_BlackCat.framework */; };
+		666880EBDFDF28B7D66F6F1F /* Pods_BlackCarWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A17B564BE02A7B1DB0E8DC6 /* Pods_BlackCarWidgetExtension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D87FF1A048B9E8C6932416A /* Pods-BlackCarWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackCarWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-BlackCarWidgetExtension/Pods-BlackCarWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		19E5A7FE267219B4000CFC3F /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCatApp.swift; sourceTree = "<group>"; };
@@ -60,6 +63,11 @@
 		2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = BlackCarWidget.intentdefinition; sourceTree = "<group>"; };
 		2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B5AC1FC2670EDAB00CB80F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		515C84E3460AE41CECC34271 /* Pods-BlackCarWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackCarWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-BlackCarWidgetExtension/Pods-BlackCarWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		8A17B564BE02A7B1DB0E8DC6 /* Pods_BlackCarWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlackCarWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1944A811E17139E222D308E /* Pods-BlackCat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackCat.debug.xcconfig"; path = "Target Support Files/Pods-BlackCat/Pods-BlackCat.debug.xcconfig"; sourceTree = "<group>"; };
+		CCD051DB11CB760B62161BF8 /* Pods-BlackCat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackCat.release.xcconfig"; path = "Target Support Files/Pods-BlackCat/Pods-BlackCat.release.xcconfig"; sourceTree = "<group>"; };
+		F9173D6DA7936D3BB5987CEB /* Pods_BlackCat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlackCat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51AF8F9D7464D6119AA61857 /* Pods_BlackCat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +85,7 @@
 			files = (
 				2B5AC1F52670EDA400CB80F6 /* SwiftUI.framework in Frameworks */,
 				2B5AC1F32670EDA300CB80F6 /* WidgetKit.framework in Frameworks */,
+				666880EBDFDF28B7D66F6F1F /* Pods_BlackCarWidgetExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +115,7 @@
 				2B5AC1F62670EDA400CB80F6 /* BlackCarWidget */,
 				2B5AC1F12670EDA300CB80F6 /* Frameworks */,
 				2B5AC1DA2670EBAF00CB80F6 /* Products */,
+				D7F73F5A7351B924F8E25580 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +154,8 @@
 			children = (
 				2B5AC1F22670EDA300CB80F6 /* WidgetKit.framework */,
 				2B5AC1F42670EDA400CB80F6 /* SwiftUI.framework */,
+				8A17B564BE02A7B1DB0E8DC6 /* Pods_BlackCarWidgetExtension.framework */,
+				F9173D6DA7936D3BB5987CEB /* Pods_BlackCat.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -166,6 +179,18 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		D7F73F5A7351B924F8E25580 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				515C84E3460AE41CECC34271 /* Pods-BlackCarWidgetExtension.debug.xcconfig */,
+				0D87FF1A048B9E8C6932416A /* Pods-BlackCarWidgetExtension.release.xcconfig */,
+				B1944A811E17139E222D308E /* Pods-BlackCat.debug.xcconfig */,
+				CCD051DB11CB760B62161BF8 /* Pods-BlackCat.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -173,10 +198,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B5AC1E82670EBB300CB80F6 /* Build configuration list for PBXNativeTarget "BlackCat" */;
 			buildPhases = (
+				D8449044C8ADB363D2960394 /* [CP] Check Pods Manifest.lock */,
 				2B5AC1D52670EBAF00CB80F6 /* Sources */,
 				2B5AC1D62670EBAF00CB80F6 /* Frameworks */,
 				2B5AC1D72670EBAF00CB80F6 /* Resources */,
 				2B5AC2052670EDAC00CB80F6 /* Embed App Extensions */,
+				8BCA03691FBBD9BE6F9C2E9B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -192,6 +219,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B5AC2022670EDAC00CB80F6 /* Build configuration list for PBXNativeTarget "BlackCarWidgetExtension" */;
 			buildPhases = (
+				3C45C809248688D12CC84E87 /* [CP] Check Pods Manifest.lock */,
 				2B5AC1EC2670EDA300CB80F6 /* Sources */,
 				2B5AC1ED2670EDA300CB80F6 /* Frameworks */,
 				2B5AC1EE2670EDA300CB80F6 /* Resources */,
@@ -260,6 +288,70 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3C45C809248688D12CC84E87 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BlackCarWidgetExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8BCA03691FBBD9BE6F9C2E9B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlackCat/Pods-BlackCat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlackCat/Pods-BlackCat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlackCat/Pods-BlackCat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8449044C8ADB363D2960394 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BlackCat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2B5AC1D52670EBAF00CB80F6 /* Sources */ = {
@@ -411,6 +503,7 @@
 		};
 		2B5AC1E92670EBB300CB80F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B1944A811E17139E222D308E /* Pods-BlackCat.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -435,6 +528,7 @@
 		};
 		2B5AC1EA2670EBB300CB80F6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCD051DB11CB760B62161BF8 /* Pods-BlackCat.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -459,6 +553,7 @@
 		};
 		2B5AC2032670EDAC00CB80F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 515C84E3460AE41CECC34271 /* Pods-BlackCarWidgetExtension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -480,6 +575,7 @@
 		};
 		2B5AC2042670EDAC00CB80F6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D87FF1A048B9E8C6932416A /* Pods-BlackCarWidgetExtension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
