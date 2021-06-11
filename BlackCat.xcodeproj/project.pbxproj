@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -187,7 +187,6 @@
 				B1944A811E17139E222D308E /* Pods-BlackCat.debug.xcconfig */,
 				CCD051DB11CB760B62161BF8 /* Pods-BlackCat.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
