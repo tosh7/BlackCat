@@ -2,10 +2,10 @@ import Foundation
 
 struct Tracing: Codable {
     var itemType: String?
-    var result: Int
+    var result: String
     var slipNo: String
     var status: String
-    var statusResult: [StatusResult]?
+    var statusList: [StatusResult]
 
     struct StatusResult: Codable {
         var date: String

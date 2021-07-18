@@ -25,7 +25,7 @@ struct ApiClident {
         task.resume()
     }
 
-    static func tracking(itemNumber: String) {
+    static func tracking(itemNumber: String, completion: @escaping (Result<Tracing, Error>) -> Void) {
         let endpoint = "tracking"
         let method: RequestType = .GET
 
@@ -36,10 +36,10 @@ struct ApiClident {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else { return }
             do {
-                let object = try JSONSerialization.jsonObject(with: data, options: [])
-                print(object)
+                let json = try JSONDecoder().decode(Tracing.self, from: data)
+                completion(.success(json))
             } catch let error {
-                print(error)
+                completion(.failure(error))
             }
         }
         task.resume()

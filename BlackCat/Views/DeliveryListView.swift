@@ -18,7 +18,8 @@ struct DeliveryListView: View {
             }
         }
         .onAppear(perform: {
-            ApiClident.tracking(itemNumber: "429636181995")
+            ApiClident.tracking(itemNumber: "429636181995") { _ in
+            }
         })
     }
 }
