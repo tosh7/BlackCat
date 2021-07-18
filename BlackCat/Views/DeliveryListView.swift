@@ -18,7 +18,7 @@ struct DeliveryListView: View {
             }
         }
         .onAppear(perform: {
-            ApiClident.postRequest()
+            ApiClident.tracking(itemNumber: "429636181995")
         })
     }
 }

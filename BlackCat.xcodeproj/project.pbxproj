@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19B37DFA26A4A62C00F36334 /* Tracing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B37DF926A4A62C00F36334 /* Tracing.swift */; };
 		19E5A7FF267219B4000CFC3F /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E5A7FE267219B4000CFC3F /* ApiClient.swift */; };
 		2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */; };
 		2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DE2670EBAF00CB80F6 /* DeliveryListView.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		19B37DF926A4A62C00F36334 /* Tracing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracing.swift; sourceTree = "<group>"; };
 		19E5A7FE267219B4000CFC3F /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCatApp.swift; sourceTree = "<group>"; };
@@ -82,10 +84,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19B37DF826A4A61E00F36334 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				19B37DF926A4A62C00F36334 /* Tracing.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
 		19E5A7FC267218A2000CFC3F /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				19E5A7FD26721992000CFC3F /* APIProtcols */,
+				19B37DF826A4A61E00F36334 /* Endpoints */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -266,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19B37DFA26A4A62C00F36334 /* Tracing.swift in Sources */,
 				2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */,
 				2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
 				2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */,
