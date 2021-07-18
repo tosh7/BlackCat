@@ -1,5 +1,4 @@
 import Foundation
-import Kanna
 
 enum RequestType: String {
     case POST
