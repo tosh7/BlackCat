@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */; };
+		19468C5926AFD80700895CBE /* DeliveryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19468C5826AFD80700895CBE /* DeliveryStatus.swift */; };
 		19B37DFA26A4A62C00F36334 /* Tracing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B37DF926A4A62C00F36334 /* Tracing.swift */; };
 		19E5A7FF267219B4000CFC3F /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E5A7FE267219B4000CFC3F /* ApiClient.swift */; };
 		2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */; };
@@ -47,6 +49,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuggageItemGrid.swift; sourceTree = "<group>"; };
+		19468C5826AFD80700895CBE /* DeliveryStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DeliveryStatus.swift; path = BlackCat/CommonVIews/DeliveryStatus.swift; sourceTree = SOURCE_ROOT; };
 		19B37DF926A4A62C00F36334 /* Tracing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracing.swift; sourceTree = "<group>"; };
 		19E5A7FE267219B4000CFC3F /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +88,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19468C5326AFD57D00895CBE /* CommonVIews */ = {
+			isa = PBXGroup;
+			children = (
+				19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */,
+			);
+			path = CommonVIews;
+			sourceTree = "<group>";
+		};
+		19468C5626AFD7DE00895CBE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19468C5726AFD7EA00895CBE /* Enums */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		19468C5726AFD7EA00895CBE /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				19468C5826AFD80700895CBE /* DeliveryStatus.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		19B37DF826A4A61E00F36334 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
@@ -92,13 +120,13 @@
 			path = Endpoints;
 			sourceTree = "<group>";
 		};
-		19E5A7FC267218A2000CFC3F /* Models */ = {
+		19E5A7FC267218A2000CFC3F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
 				19E5A7FD26721992000CFC3F /* APIProtcols */,
 				19B37DF826A4A61E00F36334 /* Endpoints */,
 			);
-			path = Models;
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		19E5A7FD26721992000CFC3F /* APIProtcols */ = {
@@ -133,7 +161,9 @@
 			children = (
 				2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */,
 				2B5AC2082670EDF800CB80F6 /* Views */,
-				19E5A7FC267218A2000CFC3F /* Models */,
+				19468C5326AFD57D00895CBE /* CommonVIews */,
+				19468C5626AFD7DE00895CBE /* Models */,
+				19E5A7FC267218A2000CFC3F /* Domain */,
 				2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */,
 				2B5AC1E52670EBB300CB80F6 /* Info.plist */,
 				2B5AC1E22670EBB300CB80F6 /* Preview Content */,
@@ -277,8 +307,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19468C5926AFD80700895CBE /* DeliveryStatus.swift in Sources */,
 				19B37DFA26A4A62C00F36334 /* Tracing.swift in Sources */,
 				2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */,
+				19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */,
 				2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
 				2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */,
 				19E5A7FF267219B4000CFC3F /* ApiClient.swift in Sources */,
