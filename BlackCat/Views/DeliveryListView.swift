@@ -18,7 +18,7 @@ struct DeliveryListView: View {
             }
         }
         .onAppear(perform: {
-            ApiClident.postRequest() { result in
+            ApiClient.postRequest() { result in
                 switch result {
                 case let .success(tneko):
                     print(tneko)

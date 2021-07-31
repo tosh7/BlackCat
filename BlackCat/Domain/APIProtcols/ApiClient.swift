@@ -5,7 +5,7 @@ enum RequestType: String {
     case GET
 }
 
-struct ApiClident {
+struct ApiClient {
     static let basePath: String = "https://toi.kuronekoyamato.co.jp/cgi-bin/tneko"
 
     static func postRequest(completion: @escaping (Result<Tneko, APIError>) -> Void) {
