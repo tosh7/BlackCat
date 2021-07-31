@@ -21,7 +21,6 @@ struct ApiClident {
         request.httpBody = try? JSONSerialization.data(withJSONObject: json)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
 //            print(error)
-            Data
             if let attributedString = try? NSAttributedString(data: data!, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
                 print(attributedString.string)
             }
