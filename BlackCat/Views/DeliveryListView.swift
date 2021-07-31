@@ -18,17 +18,14 @@ struct DeliveryListView: View {
             }
         }
         .onAppear(perform: {
-//            ApiClident.tracking(itemNumber: "429636181995") { result in
-//                switch result {
-//                case let .success(tracing):
-//                    tracing.statusList.forEach { item in
-//                        print(item)
-//                    }
-//                case .failure(_):
-//                    break
-//                }
-//            }
-            ApiClident.postRequest()
+            ApiClident.postRequest() { result in
+                switch result {
+                case let .success(tneko):
+                    print(tneko)
+                case let .failure(error):
+                    print(error)
+                }
+            }
         })
     }
 }

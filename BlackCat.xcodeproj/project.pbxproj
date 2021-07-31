@@ -10,6 +10,7 @@
 		19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */; };
 		1977F03C26B011170007D735 /* DeliveryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977F03B26B011170007D735 /* DeliveryStatus.swift */; };
 		19D6DA3626B528C90030343D /* Tneko.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6DA3526B528C90030343D /* Tneko.swift */; };
+		19D6DA3826B559650030343D /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6DA3726B559650030343D /* APIError.swift */; };
 		19E5A7FF267219B4000CFC3F /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E5A7FE267219B4000CFC3F /* ApiClient.swift */; };
 		19F10FEA26B5234A0068C44D /* Dictionary+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F10FE926B5234A0068C44D /* Dictionary+extension.swift */; };
 		2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */; };
@@ -53,6 +54,7 @@
 		19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuggageItemGrid.swift; sourceTree = "<group>"; };
 		1977F03B26B011170007D735 /* DeliveryStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryStatus.swift; sourceTree = "<group>"; };
 		19D6DA3526B528C90030343D /* Tneko.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tneko.swift; sourceTree = "<group>"; };
+		19D6DA3726B559650030343D /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		19E5A7FE267219B4000CFC3F /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		19F10FE926B5234A0068C44D /* Dictionary+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+extension.swift"; sourceTree = "<group>"; };
 		2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				19E5A7FE267219B4000CFC3F /* ApiClient.swift */,
+				19D6DA3726B559650030343D /* APIError.swift */,
 			);
 			path = APIProtcols;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */,
 				19E5A7FF267219B4000CFC3F /* ApiClient.swift in Sources */,
 				19D6DA3626B528C90030343D /* Tneko.swift in Sources */,
+				19D6DA3826B559650030343D /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
