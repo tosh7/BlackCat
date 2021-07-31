@@ -13,12 +13,11 @@ struct ApiClident {
         guard let url = URL(string: self.basePath) else { return }
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
-        request.setValue("text/html", forHTTPHeaderField: "Content-Type")
-        let json: [String: Any] = [
-            "number00": 1,
-            "number01": "429636181995"
-        ]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: json)
+//        let json: [String] = [
+//            "number00=1",
+//            "number01=429636181995"
+//        ]
+        request.httpBody = "number00=1&number01=429636181995&number02=429636181995&number03=429636181995".data(using: .utf8)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
 //            print(error)
             if let attributedString = try? NSAttributedString(data: data!, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
