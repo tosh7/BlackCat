@@ -11,6 +11,7 @@
 		1977F03C26B011170007D735 /* DeliveryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977F03B26B011170007D735 /* DeliveryStatus.swift */; };
 		19B37DFA26A4A62C00F36334 /* Tracing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B37DF926A4A62C00F36334 /* Tracing.swift */; };
 		19E5A7FF267219B4000CFC3F /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E5A7FE267219B4000CFC3F /* ApiClient.swift */; };
+		19F10FEA26B5234A0068C44D /* Dictionary+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F10FE926B5234A0068C44D /* Dictionary+extension.swift */; };
 		2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */; };
 		2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DE2670EBAF00CB80F6 /* DeliveryListView.swift */; };
 		2B5AC1E12670EBB300CB80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 		1977F03B26B011170007D735 /* DeliveryStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryStatus.swift; sourceTree = "<group>"; };
 		19B37DF926A4A62C00F36334 /* Tracing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracing.swift; sourceTree = "<group>"; };
 		19E5A7FE267219B4000CFC3F /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		19F10FE926B5234A0068C44D /* Dictionary+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+extension.swift"; sourceTree = "<group>"; };
 		2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCatApp.swift; sourceTree = "<group>"; };
 		2B5AC1DE2670EBAF00CB80F6 /* DeliveryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryListView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,22 @@
 			path = APIProtcols;
 			sourceTree = "<group>";
 		};
+		19F10FE726B523240068C44D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				19F10FE826B523310068C44D /* Extensions */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		19F10FE826B523310068C44D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				19F10FE926B5234A0068C44D /* Dictionary+extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		2B5AC1D02670EBAF00CB80F6 = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +182,7 @@
 				19468C5326AFD57D00895CBE /* CommonVIews */,
 				19468C5626AFD7DE00895CBE /* Models */,
 				19E5A7FC267218A2000CFC3F /* Domain */,
+				19F10FE726B523240068C44D /* Utils */,
 				2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */,
 				2B5AC1E52670EBB300CB80F6 /* Info.plist */,
 				2B5AC1E22670EBB300CB80F6 /* Preview Content */,
@@ -310,6 +329,7 @@
 				1977F03C26B011170007D735 /* DeliveryStatus.swift in Sources */,
 				19B37DFA26A4A62C00F36334 /* Tracing.swift in Sources */,
 				2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */,
+				19F10FEA26B5234A0068C44D /* Dictionary+extension.swift in Sources */,
 				19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */,
 				2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
 				2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */,
