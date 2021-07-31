@@ -25,7 +25,10 @@ struct ApiClient {
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let attributedString = try? NSAttributedString(data: data!, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
                 print(attributedString.string)
-                let tneko = Tneko(idList: [429636181995, 398629940844], response: attributedString.string)
+                let tneko = Tneko(
+                    idList: [429636181995, 398629940844],
+                    response: attributedString.string
+                )
                 completion(.success(tneko))
             } else {
                 completion(.failure(.decodeErrror("This is not HTML")))

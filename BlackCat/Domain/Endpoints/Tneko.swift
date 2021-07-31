@@ -1,6 +1,5 @@
 import Foundation
 
-// FIXME: initialization isn't right code, gotta fix it!
 struct Tneko {
     var deriveryList: [DeliveryList]
 
@@ -8,11 +7,9 @@ struct Tneko {
         var deliveryID: Int
         var statusList: [StatusList]
 
-        init(deliveryID: Int, statusList: String) {
+        init(deliveryID: Int, statusList: [Tneko.DeliveryList.StatusList]) {
             self.deliveryID = deliveryID
-            self.statusList = statusList.components(separatedBy: "\n").map {
-                StatusList(statusList: $0)
-            }
+            self.statusList = statusList
         }
 
         struct StatusList {
@@ -22,13 +19,12 @@ struct Tneko {
             var shopName: String
             var shopID: String
 
-            init(statusList: String) {
-                let separatedStatusList = statusList.components(separatedBy: "\n")
-                self.status = separatedStatusList[0]
-                self.date = separatedStatusList[1]
-                self.time = separatedStatusList[2]
-                self.shopName = separatedStatusList[3]
-                self.shopID = separatedStatusList[4]
+            init(status: String, date: String, time: String, shopName: String, shopID: String) {
+                self.status = status
+                self.date = date
+                self.time = time
+                self.shopName = shopName
+                self.shopID = shopID
             }
         }
     }
@@ -36,8 +32,34 @@ struct Tneko {
 
 extension Tneko {
     init(idList: [Int], response: String) {
-        self.deriveryList = idList.map {
-            DeliveryList(deliveryID: $0, statusList: response)
+        self.deriveryList = idList.enumerated().map { initialIndex, id in
+            let stringList = response.components(separatedBy: "\n")
+            var newStatusList: [Tneko.DeliveryList.StatusList] = []
+            var indexCounter = 0
+            stringList.enumerated().forEach { index, str in
+                if str == "担当店コード" {
+                    if initialIndex == indexCounter {
+                        var counter = 0
+                        var statusCode = stringList[index + counter * 6 + 2]
+                        while statusCode.isValidStatusCode {
+                            let newIndex = index + counter * 6
+                            let status = Tneko.DeliveryList.StatusList(
+                                status: stringList[newIndex + 2],
+                                date: stringList[newIndex + 3],
+                                time: stringList[newIndex + 4],
+                                shopName: stringList[newIndex + 5],
+                                shopID: stringList[newIndex + 6]
+                            )
+                            newStatusList.append(status)
+                            counter += 1
+                            statusCode = stringList[index + counter * 6 + 2]
+                        }
+                    }
+                    indexCounter += 1
+                }
+            }
+            
+            return DeliveryList(deliveryID: id, statusList: newStatusList)
         }
     }
 }
