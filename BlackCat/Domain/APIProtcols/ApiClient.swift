@@ -1,5 +1,7 @@
 import Foundation
 
+let apiClient = ApiClient.shared
+
 final class ApiClient {
     static let shared: ApiClient = ApiClient()
     let basePath: String = "https://toi.kuronekoyamato.co.jp/cgi-bin"
