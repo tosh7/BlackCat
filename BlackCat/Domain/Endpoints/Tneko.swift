@@ -1,9 +1,39 @@
 import Foundation
 
-struct Tneko {
+struct TnekoRequest: RequestType, URLQueryEncodable {
+    static let path: String = "tneko"
+    static let method: HTTPMethod = .post
+
+    private let number00: Int = 1
+    private let number01: Int
+    private let number02: Int?
+    private let number03: Int?
+    private let number04: Int?
+    private let number05: Int?
+    private let number06: Int?
+    private let number07: Int?
+    private let number08: Int?
+    private let number09: Int?
+    private let number10: Int?
+
+    init(number01: Int, number02: Int? = nil, number03: Int? = nil, number04: Int? = nil, number05: Int? = nil, number06: Int? = nil, number07: Int? = nil, number08: Int? = nil, number09: Int? = nil, number10: Int? = nil) {
+        self.number01 = number01
+        self.number02 = number02
+        self.number03 = number03
+        self.number04 = number04
+        self.number05 = number05
+        self.number06 = number06
+        self.number07 = number07
+        self.number08 = number08
+        self.number09 = number09
+        self.number10 = number10
+    }
+}
+
+struct Tneko: ResponseType {
     var deriveryList: [DeliveryList]
 
-    struct DeliveryList {
+    struct DeliveryList: ResponseType {
         var deliveryID: Int
         var statusList: [StatusList]
 
@@ -12,7 +42,7 @@ struct Tneko {
             self.statusList = statusList
         }
 
-        struct StatusList {
+        struct StatusList: ResponseType {
             var status: String
             var date: String
             var time: String
@@ -58,7 +88,6 @@ extension Tneko {
                     indexCounter += 1
                 }
             }
-            
             return DeliveryList(deliveryID: id, statusList: newStatusList)
         }
     }
