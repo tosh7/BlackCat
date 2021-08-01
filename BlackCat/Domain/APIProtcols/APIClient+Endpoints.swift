@@ -8,7 +8,7 @@ extension ApiClient {
             if let attributedString = try? NSAttributedString(data: data!, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
                 print(attributedString.string)
                 let tneko = Tneko(
-                    idList: [429636181995, 398629940844],
+                    idList: request.idList(),
                     response: attributedString.string
                 )
                 completion(.success(tneko))

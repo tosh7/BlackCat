@@ -28,6 +28,22 @@ struct TnekoRequest: RequestType, URLQueryEncodable {
         self.number09 = number09
         self.number10 = number10
     }
+
+    func idList() -> [Int] {
+        let numbers: [Int?] = [
+            number01,
+            number02,
+            number03,
+            number04,
+            number05,
+            number06,
+            number07,
+            number08,
+            number09,
+            number10
+        ]
+        return numbers.compactMap { $0 }
+    }
 }
 
 struct Tneko: ResponseType {
