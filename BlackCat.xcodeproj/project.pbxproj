@@ -10,6 +10,7 @@
 		19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */; };
 		1977F03C26B011170007D735 /* DeliveryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977F03B26B011170007D735 /* DeliveryStatus.swift */; };
 		19C26A7B26B9B17200845289 /* TnekoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7A26B9B17200845289 /* TnekoClient.swift */; };
+		19C26A7D26B9B81A00845289 /* DonutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7C26B9B81A00845289 /* DonutsView.swift */; };
 		19D6DA3626B528C90030343D /* Tneko.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6DA3526B528C90030343D /* Tneko.swift */; };
 		19D6DA3826B559650030343D /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6DA3726B559650030343D /* APIError.swift */; };
 		19D6DA3A26B570700030343D /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6DA3926B570700030343D /* String+extension.swift */; };
@@ -60,6 +61,7 @@
 		19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuggageItemGrid.swift; sourceTree = "<group>"; };
 		1977F03B26B011170007D735 /* DeliveryStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryStatus.swift; sourceTree = "<group>"; };
 		19C26A7A26B9B17200845289 /* TnekoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TnekoClient.swift; sourceTree = "<group>"; };
+		19C26A7C26B9B81A00845289 /* DonutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonutsView.swift; sourceTree = "<group>"; };
 		19D6DA3526B528C90030343D /* Tneko.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tneko.swift; sourceTree = "<group>"; };
 		19D6DA3726B559650030343D /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		19D6DA3926B570700030343D /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */,
+				19C26A7C26B9B81A00845289 /* DonutsView.swift */,
 			);
 			path = CommonVIews;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				1977F03C26B011170007D735 /* DeliveryStatus.swift in Sources */,
 				2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */,
 				19F10FEA26B5234A0068C44D /* Dictionary+extension.swift in Sources */,
+				19C26A7D26B9B81A00845289 /* DonutsView.swift in Sources */,
 				19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */,
 				2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
 				19C26A7B26B9B17200845289 /* TnekoClient.swift in Sources */,
