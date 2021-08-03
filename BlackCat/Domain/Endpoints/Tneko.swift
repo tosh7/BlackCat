@@ -51,14 +51,14 @@ struct Tneko: ResponseType {
 
     struct DeliveryList: ResponseType {
         var deliveryID: Int
-        var statusList: [StatusList]
+        var statusList: [DeliveryStatus]
 
-        init(deliveryID: Int, statusList: [Tneko.DeliveryList.StatusList]) {
+        init(deliveryID: Int, statusList: [Tneko.DeliveryList.DeliveryStatus]) {
             self.deliveryID = deliveryID
             self.statusList = statusList
         }
 
-        struct StatusList: ResponseType {
+        struct DeliveryStatus: ResponseType {
             var status: String
             var date: String
             var time: String
@@ -80,7 +80,7 @@ extension Tneko {
     init(idList: [Int], response: String) {
         self.deriveryList = idList.enumerated().map { initialIndex, id in
             let stringList = response.components(separatedBy: "\n")
-            var newStatusList: [Tneko.DeliveryList.StatusList] = []
+            var newStatusList: [Tneko.DeliveryList.DeliveryStatus] = []
             var indexCounter = 0
             stringList.enumerated().forEach { index, str in
                 if str == "担当店コード" {
@@ -89,7 +89,7 @@ extension Tneko {
                         var statusCode = stringList[index + counter * 6 + 2]
                         while statusCode.isValidStatusCode {
                             let newIndex = index + counter * 6
-                            let status = Tneko.DeliveryList.StatusList(
+                            let status = Tneko.DeliveryList.DeliveryStatus(
                                 status: stringList[newIndex + 2],
                                 date: stringList[newIndex + 3],
                                 time: stringList[newIndex + 4],

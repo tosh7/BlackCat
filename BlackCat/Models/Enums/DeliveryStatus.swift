@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum DeliveryStatus {
+enum DeliveryStatusType {
     case received
     case sended
     case delivering
