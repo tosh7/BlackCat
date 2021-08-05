@@ -9,13 +9,13 @@ enum DeliveryStatusType {
     var color: Color {
         switch self {
         case .received:
-            return .green
+            return Color.BlackCat.pureBlue
         case .sended:
-            return .blue
+            return Color.BlackCat.purePink
         case .delivering:
-            return .red
+            return Color.BlackCat.pureOrange
         case .delivered:
-            return .gray
+            return Color.BlackCat.shadowLevel6
         }
     }
 }

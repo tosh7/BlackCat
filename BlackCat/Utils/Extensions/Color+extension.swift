@@ -17,9 +17,12 @@ extension Color {
     struct BlackCat {
         // pure is pastel color
         static let pureGreen = Color(hex: "0x7fff7f")
-        static let pureRed = Color(hex: "0x#ff7f7f")
+        static let pureRed = Color(hex: "0xff7f7f")
         static let pureBlue = Color(hex: "0x7f7fff")
         static let purePurple = Color(hex: "0xbf7fff")
+        static let pureYello = Color(hex: "0xffff7f")
+        static let pureOrange = Color(hex: "0xffbf7f")
+        static let purePink = Color(hex: "0xff7fbf")
 
         // natural is vivid color
         static let naturalGreen = Color(hex: "0x00ff00")
