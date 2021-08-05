@@ -15,16 +15,19 @@ struct DeliveryListView: View {
     ])
 
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVGrid(columns: columns,
-                      alignment: .center,
-                      spacing: 8) {
-                ForEach((1...tneko.deriveryList.count), id: \.self) { num in
-                    ZStack {
-                        LuggageItemGrid(deliveryStatus: tneko.deriveryList[0].statusList.last!)
+        NavigationView {
+            ScrollView(.vertical) {
+                LazyVGrid(columns: columns,
+                          alignment: .center,
+                          spacing: 8) {
+                    ForEach((1...tneko.deriveryList.count), id: \.self) { num in
+                        ZStack {
+                            LuggageItemGrid(deliveryStatus: tneko.deriveryList[0].statusList.last!)
+                        }
                     }
                 }
             }
+            .navigationTitle("配達状況一覧")
         }
         .onAppear(perform: {
             apiClient.tneko(.init(number01: 429636181995, number02: 398629940844)) { result in
