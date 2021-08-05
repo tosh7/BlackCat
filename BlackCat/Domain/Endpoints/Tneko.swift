@@ -29,6 +29,20 @@ struct TnekoRequest: RequestType, URLQueryEncodable {
         self.number10 = number10
     }
 
+    // should have at least one content
+    init(numbers: [Int]) {
+        self.init(number01: numbers[safe: 0] ?? 0,
+                  number02: numbers[safe: 1],
+                  number03: numbers[safe: 2],
+                  number04: numbers[safe: 3],
+                  number05: numbers[safe: 4],
+                  number06: numbers[safe: 5],
+                  number07: numbers[safe: 6],
+                  number08: numbers[safe: 7],
+                  number09: numbers[safe: 8],
+                  number10: numbers[safe: 9])
+    }
+
     func idList() -> [Int] {
         let numbers: [Int?] = [
             number01,
