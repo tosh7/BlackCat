@@ -18,3 +18,9 @@ extension DeliveryStatus {
         }
     }
 }
+
+extension Tneko.DeliveryList: Identifiable {
+    var id: String {
+        return String(self.deliveryID)
+    }
+}

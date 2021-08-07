@@ -11,12 +11,8 @@ struct DeliveryListView: View {
                 LazyVGrid(columns: columns,
                           alignment: .center,
                           spacing: 8) {
-                    if let tneko = viewModel.tneko {
-                        ForEach((0..<tneko.deriveryList.count), id: \.self) { num in
-                            ZStack {
-                                LuggageItemGrid(deliveryStatus: tneko.deriveryList[num].statusList.last!)
-                            }
-                        }
+                    ForEach(viewModel.deliveryList) { deliveryStatus in
+                        LuggageItemGrid(deliveryStatus: deliveryStatus.statusList.last!)
                     }
                 }
             }

@@ -2,7 +2,7 @@ import Foundation
 
 final class DeliveryListViewModel: ObservableObject {
     private let goodsIdList: [Int] = [429636181995, 398629940844]
-    @Published var tneko: Tneko?
+    @Published var deliveryList: [Tneko.DeliveryList] = []
 
     init() {
         apiClient.tneko(.init(numbers: goodsIdList), completion: { [weak self] result in
@@ -10,7 +10,7 @@ final class DeliveryListViewModel: ObservableObject {
             switch result {
             case let .success(tneko):
                 DispatchQueue.main.async {
-                    self.tneko = tneko
+                    self.deliveryList = tneko.deriveryList
                 }
             case .failure: break
             }
