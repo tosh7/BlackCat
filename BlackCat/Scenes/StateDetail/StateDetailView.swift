@@ -10,6 +10,14 @@ struct StateDetailView: View {
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
+
+            VStack {
+                List() {
+                    ForEach(deliveyDetail.statusList) {
+                        Text($0.status)
+                    }
+                }
+            }
         }
         .navigationTitle(String(deliveyDetail.deliveryID))
     }
