@@ -21,7 +21,7 @@ struct DeliveryListView: View {
                 ScrollView(.vertical) {
                     LazyVGrid(columns: columns,
                               spacing: Self.spacing) {
-                        ForEach(viewModel.deliveryList) { deliveryStatus in
+                        ForEach(viewModel.output.deliveryList) { deliveryStatus in
                             LuggageItemGrid(deliveryStatus: deliveryStatus.statusList.last!)
                                 .frame(width: 150, height: 150, alignment: .center)
                                 .cornerRadius(20)
