@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct StateDetailView: View {
-    private let deliveyDetail: Tneko.DeliveryList
+    private let deliveyDetail: DeliveryItem
 
-    init(deliveryDetail: Tneko.DeliveryList) {
+    init(deliveryDetail: DeliveryItem) {
         self.deliveyDetail = deliveryDetail
     }
 
@@ -11,7 +11,7 @@ struct StateDetailView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
         }
-        .navigationTitle("\(deliveyDetail.id)")
+        .navigationTitle(String(deliveyDetail.deliveryID))
     }
 }
 
