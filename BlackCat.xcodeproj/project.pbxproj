@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */; };
 		1977F03C26B011170007D735 /* DeliveryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977F03B26B011170007D735 /* DeliveryStatus.swift */; };
+		19A9A2AB26C1060F00BD5AF8 /* StateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */; };
 		19C26A7B26B9B17200845289 /* TnekoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7A26B9B17200845289 /* TnekoClient.swift */; };
 		19C26A7D26B9B81A00845289 /* DonutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7C26B9B81A00845289 /* DonutsView.swift */; };
 		19C26A7F26BC329C00845289 /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7E26BC329C00845289 /* Color+extension.swift */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuggageItemGrid.swift; sourceTree = "<group>"; };
 		1977F03B26B011170007D735 /* DeliveryStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryStatus.swift; sourceTree = "<group>"; };
+		19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailView.swift; sourceTree = "<group>"; };
 		19C26A7A26B9B17200845289 /* TnekoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TnekoClient.swift; sourceTree = "<group>"; };
 		19C26A7C26B9B81A00845289 /* DonutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonutsView.swift; sourceTree = "<group>"; };
 		19C26A7E26BC329C00845289 /* Color+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+extension.swift"; sourceTree = "<group>"; };
@@ -136,6 +138,14 @@
 				1977F03B26B011170007D735 /* DeliveryStatus.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		19A9A2A926C105F500BD5AF8 /* StateDetail */ = {
+			isa = PBXGroup;
+			children = (
+				19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */,
+			);
+			path = StateDetail;
 			sourceTree = "<group>";
 		};
 		19B37DF826A4A61E00F36334 /* Endpoints */ = {
@@ -263,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				19C26A8026BC3FBB00845289 /* DeliveryList */,
+				19A9A2A926C105F500BD5AF8 /* StateDetail */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -370,6 +381,7 @@
 				1977F03C26B011170007D735 /* DeliveryStatus.swift in Sources */,
 				2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */,
 				19C26A7F26BC329C00845289 /* Color+extension.swift in Sources */,
+				19A9A2AB26C1060F00BD5AF8 /* StateDetailView.swift in Sources */,
 				19F10FEA26B5234A0068C44D /* Dictionary+extension.swift in Sources */,
 				19C26A7D26B9B81A00845289 /* DonutsView.swift in Sources */,
 				19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */,

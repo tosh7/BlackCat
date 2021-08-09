@@ -22,9 +22,11 @@ struct DeliveryListView: View {
                     LazyVGrid(columns: columns,
                               spacing: Self.spacing) {
                         ForEach(viewModel.output.deliveryList) { deliveryStatus in
-                            LuggageItemGrid(deliveryStatus: deliveryStatus.statusList.last!)
-                                .frame(width: 150, height: 150, alignment: .center)
-                                .cornerRadius(20)
+                            NavigationLink(destination: StateDetailView()) {
+                                LuggageItemGrid(deliveryStatus: deliveryStatus.statusList.last!)
+                                    .frame(width: 150, height: 150, alignment: .center)
+                                    .cornerRadius(20)
+                            }
                         }
                     }
                 }
@@ -32,6 +34,7 @@ struct DeliveryListView: View {
             }
         }
         .preferredColorScheme(.dark)
+        .accentColor( .white)
     }
 }
 
