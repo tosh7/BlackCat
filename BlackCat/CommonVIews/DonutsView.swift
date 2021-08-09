@@ -27,7 +27,14 @@ struct DonutsView: View {
             Circle()
                 .trim(from: 0.0, to: trimValue)
                 .rotation(Angle(degrees: 270.0))
-                .stroke(Color.BlackCat.naturalGreen, lineWidth: 10)
+                .stroke(
+                    Color.BlackCat.naturalGreen,
+                    style: .init(
+                        lineWidth: 10,
+                        lineCap: .round,
+                        lineJoin: .round
+                    )
+                )
         }
     }
 }
