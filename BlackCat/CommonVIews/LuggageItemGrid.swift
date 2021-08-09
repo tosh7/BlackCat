@@ -13,19 +13,21 @@ struct LuggageItemGrid: View {
                 .edgesIgnoringSafeArea(.all)
 
             DonutsView(deliveryStatusType: deliveryStatus.deliveryStatus ?? .sended)
+                .frame(width: 130, height: 130)
 
             VStack {
                 Text(deliveryStatus.status)
                     .foregroundColor(.white)
                 Text(deliveryStatus.shopName)
                     .foregroundColor(.white)
+                    .lineLimit(1)
                 HStack {
                     Text(deliveryStatus.date)
                         .foregroundColor(.white)
                     Text(deliveryStatus.time)
                         .foregroundColor(.white)
                 }
-            }
+            }.frame(width: 120, height: 120)
         }
     }
 }

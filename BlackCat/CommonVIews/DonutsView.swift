@@ -23,14 +23,11 @@ struct DonutsView: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color.BlackCat.shadowLevel3, lineWidth: 20)
-                .frame(width: 200, height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-
+                .stroke(Color.BlackCat.shadowLevel3, lineWidth: 10)
             Circle()
                 .trim(from: 0.0, to: trimValue)
                 .rotation(Angle(degrees: 270.0))
-                .stroke(Color.BlackCat.naturalGreen, lineWidth: 20)
-                .frame(width: 200, height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .stroke(Color.BlackCat.naturalGreen, lineWidth: 10)
         }
     }
 }

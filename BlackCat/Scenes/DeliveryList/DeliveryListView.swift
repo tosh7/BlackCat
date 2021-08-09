@@ -3,7 +3,8 @@ import SwiftUI
 struct DeliveryListView: View {
 
     @ObservedObject var viewModel = DeliveryListViewModel()
-    private let columns: [GridItem] = Array(repeating: .init(.fixed(50)), count: 2)
+    private static let spacing: CGFloat = 16
+    private let columns: [GridItem] = [.init(spacing: Self.spacing), .init(spacing: Self.spacing)]
 
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -19,10 +20,11 @@ struct DeliveryListView: View {
 
                 ScrollView(.vertical) {
                     LazyVGrid(columns: columns,
-                              alignment: .center,
-                              spacing: 8) {
+                              spacing: Self.spacing) {
                         ForEach(viewModel.deliveryList) { deliveryStatus in
                             LuggageItemGrid(deliveryStatus: deliveryStatus.statusList.last!)
+                                .frame(width: 150, height: 150, alignment: .center)
+                                .cornerRadius(20)
                         }
                     }
                 }
