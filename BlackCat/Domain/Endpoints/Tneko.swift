@@ -78,6 +78,7 @@ struct Tneko: ResponseType {
             var time: String
             var shopName: String
             var shopID: String
+            var id: String
 
             init(status: String, date: String, time: String, shopName: String, shopID: String) {
                 self.status = status
@@ -85,6 +86,7 @@ struct Tneko: ResponseType {
                 self.time = time
                 self.shopName = shopName
                 self.shopID = shopID
+                self.id = "Yers"
             }
         }
     }
