@@ -1,17 +1,25 @@
 import SwiftUI
 
 struct StateDetailView: View {
-    private let deliveyDetail: Tneko.DeliveryList
+    private let deliveyDetail: DeliveryItem
 
-    init(deliveryDetail: Tneko.DeliveryList) {
+    init(deliveryDetail: DeliveryItem) {
         self.deliveyDetail = deliveryDetail
     }
 
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
+
+            VStack {
+                List() {
+                    ForEach(deliveyDetail.statusList) {
+                        Text($0.status)
+                    }
+                }
+            }
         }
-        .navigationTitle("\(deliveyDetail.id)")
+        .navigationTitle(String(deliveyDetail.deliveryID))
     }
 }
 

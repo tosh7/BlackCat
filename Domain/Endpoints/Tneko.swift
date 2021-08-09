@@ -1,8 +1,8 @@
 import Foundation
 
-struct TnekoRequest: RequestType, URLQueryEncodable {
-    static let path: String = "tneko"
-    static let method: HTTPMethod = .post
+public struct TnekoRequest: RequestType, URLQueryEncodable {
+    public static let path: String = "tneko"
+    public static let method: HTTPMethod = .post
 
     private let number00: Int = 1
     private let number01: Int
@@ -16,7 +16,7 @@ struct TnekoRequest: RequestType, URLQueryEncodable {
     private let number09: Int?
     private let number10: Int?
 
-    init(number01: Int, number02: Int? = nil, number03: Int? = nil, number04: Int? = nil, number05: Int? = nil, number06: Int? = nil, number07: Int? = nil, number08: Int? = nil, number09: Int? = nil, number10: Int? = nil) {
+    public init(number01: Int, number02: Int? = nil, number03: Int? = nil, number04: Int? = nil, number05: Int? = nil, number06: Int? = nil, number07: Int? = nil, number08: Int? = nil, number09: Int? = nil, number10: Int? = nil) {
         self.number01 = number01
         self.number02 = number02
         self.number03 = number03
@@ -30,7 +30,7 @@ struct TnekoRequest: RequestType, URLQueryEncodable {
     }
 
     // should have at least one content
-    init(numbers: [Int]) {
+    public init(numbers: [Int]) {
         self.init(number01: numbers[safe: 0] ?? 0,
                   number02: numbers[safe: 1],
                   number03: numbers[safe: 2],
@@ -60,40 +60,38 @@ struct TnekoRequest: RequestType, URLQueryEncodable {
     }
 }
 
-struct Tneko: ResponseType {
-    var deriveryList: [DeliveryList]
+public struct Tneko: ResponseType {
+    public var deriveryList: [DeliveryList]
 
-    struct DeliveryList: ResponseType {
-        var deliveryID: Int
-        var statusList: [DeliveryStatus]
+    public struct DeliveryList: ResponseType {
+        public var deliveryID: Int
+        public var statusList: [DeliveryStatus]
 
-        init(deliveryID: Int, statusList: [Tneko.DeliveryList.DeliveryStatus]) {
+        public init(deliveryID: Int, statusList: [Tneko.DeliveryList.DeliveryStatus]) {
             self.deliveryID = deliveryID
             self.statusList = statusList
         }
 
-        struct DeliveryStatus: ResponseType {
-            var status: String
-            var date: String
-            var time: String
-            var shopName: String
-            var shopID: String
-            var id: String
+        public struct DeliveryStatus: ResponseType {
+            public var status: String
+            public var date: String
+            public var time: String
+            public var shopName: String
+            public var shopID: String
 
-            init(status: String, date: String, time: String, shopName: String, shopID: String) {
+            public init(status: String, date: String, time: String, shopName: String, shopID: String) {
                 self.status = status
                 self.date = date
                 self.time = time
                 self.shopName = shopName
                 self.shopID = shopID
-                self.id = "Yers"
             }
         }
     }
 }
 
 extension Tneko {
-    init(idList: [Int], response: String) {
+    public init(idList: [Int], response: String) {
         self.deriveryList = idList.enumerated().map { initialIndex, id in
             let stringList = response.components(separatedBy: "\n")
             var newStatusList: [Tneko.DeliveryList.DeliveryStatus] = []
@@ -122,5 +120,17 @@ extension Tneko {
             }
             return DeliveryList(deliveryID: id, statusList: newStatusList)
         }
+    }
+}
+
+extension Array {
+    subscript (safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
+
+extension String {
+    var isValidStatusCode: Bool {
+        return self == "荷物受付" || self == "発送済み" || self == "輸送中" || self == "配達完了"
     }
 }

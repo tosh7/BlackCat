@@ -1,6 +1,6 @@
 import Foundation
 
-enum APIError: Error {
+public enum APIError: Error {
     case invalideURL
     case decodeErrror(String)
     case requestError(Error?)

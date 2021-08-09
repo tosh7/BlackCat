@@ -1,11 +1,12 @@
 import Foundation
+import Domain
 
 protocol DeliveryListViewModelInputs {
 
 }
 
 protocol DeliveryListViewModelOutputs {
-    var deliveryList: [Tneko.DeliveryList] { get }
+    var deliveryList: [DeliveryItem] { get }
 }
 
 protocol DeliveruListViewModelType {
@@ -15,15 +16,16 @@ protocol DeliveruListViewModelType {
 
 final class DeliveryListViewModel: ObservableObject, DeliveruListViewModelType, DeliveryListViewModelInputs, DeliveryListViewModelOutputs {
     private let goodsIdList: [Int] = [429636181995, 398629940844]
-    @Published var deliveryList: [Tneko.DeliveryList] = []
+    @Published var deliveryList: [DeliveryItem] = []
 
     init() {
         apiClient.tneko(.init(numbers: goodsIdList), completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(tneko):
+                let tnekoClient = TnekoClient(tneko: tneko)
                 DispatchQueue.main.async {
-                    self.deliveryList = tneko.deriveryList
+                    self.deliveryList = tnekoClient.deliveryList
                 }
             case .failure: break
             }
