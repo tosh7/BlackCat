@@ -1,11 +1,11 @@
 import Foundation
 
-protocol RequestType {
+public protocol RequestType {
     static var path: String { get }
     static var method: HTTPMethod { get }
 }
 
-extension URLRequest {
+public extension URLRequest {
     init<Request>(_ request: Request, baseURL: URL) where Request: RequestType {
         self.init(url: URL(string: "\(baseURL)/\(type(of: request).path)")!)
     }

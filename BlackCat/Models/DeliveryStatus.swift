@@ -1,4 +1,5 @@
 import SwiftUI
+import Domain
 
 enum DeliveryStatusType {
     case received

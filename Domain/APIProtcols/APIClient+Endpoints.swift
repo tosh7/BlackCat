@@ -1,6 +1,6 @@
-import Foundation
+import UIKit
 
-extension ApiClient {
+public extension ApiClient {
     // It can't use send method, because this is not codable model.
     func tneko(_ request: TnekoRequest, completion: @escaping (Result<Tneko, APIError>) -> Void) {
         guard let urlRequest: URLRequest = URLRequest(request, baseURL: baseURL) else { return }

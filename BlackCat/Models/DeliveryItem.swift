@@ -1,4 +1,5 @@
 import Foundation
+import Domain
 
 struct DeliveryItem: Identifiable {
     let id = UUID()

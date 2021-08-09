@@ -1,4 +1,7 @@
 import SwiftUI
+import Domain
+
+let apiClient = ApiClient.shared
 
 @main
 struct BlackCatApp: App {
