@@ -41,7 +41,7 @@ struct DeliveryStatus: Identifiable {
         case "輸送中":
             return .shipping
         case "配達中":
-            return .delivered
+            return .delivering
         case "配達完了":
             return .delivered
         default:
