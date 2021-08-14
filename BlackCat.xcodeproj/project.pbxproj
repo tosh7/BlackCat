@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19334B9F26C826E800840389 /* TnekoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19334B9E26C826E800840389 /* TnekoMock.swift */; };
+		19334BA426C8283D00840389 /* TnekoMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 19334BA326C8283D00840389 /* TnekoMock.json */; };
 		19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */; };
 		19A9A2AB26C1060F00BD5AF8 /* StateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */; };
 		19A9A2AD26C1285800BD5AF8 /* DeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */; };
@@ -97,6 +99,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		19334B9E26C826E800840389 /* TnekoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TnekoMock.swift; sourceTree = "<group>"; };
+		19334BA326C8283D00840389 /* TnekoMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TnekoMock.json; sourceTree = "<group>"; };
 		19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuggageItemGrid.swift; sourceTree = "<group>"; };
 		19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailView.swift; sourceTree = "<group>"; };
 		19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryItem.swift; sourceTree = "<group>"; };
@@ -169,6 +173,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19334B9826C8185800840389 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				19334B9E26C826E800840389 /* TnekoMock.swift */,
+				19334BA326C8283D00840389 /* TnekoMock.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		19468C5326AFD57D00895CBE /* CommonVIews */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +306,7 @@
 				19468C5326AFD57D00895CBE /* CommonVIews */,
 				19468C5626AFD7DE00895CBE /* Models */,
 				19F10FE726B523240068C44D /* Utils */,
+				19334B9826C8185800840389 /* Resources */,
 				2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */,
 				2B5AC1E52670EBB300CB80F6 /* Info.plist */,
 				2B5AC1E22670EBB300CB80F6 /* Preview Content */,
@@ -491,6 +505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B5AC1E42670EBB300CB80F6 /* Preview Assets.xcassets in Resources */,
+				19334BA426C8283D00840389 /* TnekoMock.json in Resources */,
 				2B5AC1E12670EBB300CB80F6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -537,6 +552,7 @@
 				19A9A2AB26C1060F00BD5AF8 /* StateDetailView.swift in Sources */,
 				19C26A7D26B9B81A00845289 /* DonutsView.swift in Sources */,
 				19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */,
+				19334B9F26C826E800840389 /* TnekoMock.swift in Sources */,
 				2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
 				19C26A7B26B9B17200845289 /* TnekoClient.swift in Sources */,
 				2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */,

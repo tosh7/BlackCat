@@ -1,0 +1,174 @@
+{
+    "deriveryList": [
+        {
+            "deliveryID": 429636181995,
+            "statusList": [
+                {
+                    "status": "荷物受付",
+                    "date": "06/09",
+                    "time": "08:22",
+                    "shopName": "ＺＯＺＯ支店",
+                    "shopID": "035602"
+                },
+                {
+                    "status": "発送済み",
+                    "date": "06/09",
+                    "time": "08:22",
+                    "shopName": "ＺＯＺＯ支店",
+                    "shopID": "035602"
+                },
+                {
+                    "status": "輸送中",
+                    "date": "06/09",
+                    "time": "23:07",
+                    "shopName": "羽田クロノゲートベース",
+                    "shopID": "032990"
+                },
+                {
+                    "status": "輸送中",
+                    "date": "06/10",
+                    "time": "00:00",
+                    "shopName": "羽田クロノゲートベース",
+                    "shopID": "032990"
+                },
+                {
+                    "status": "配達完了",
+                    "date": "06/10",
+                    "time": "12:41",
+                    "shopName": "ＥＣ笹塚センター",
+                    "shopID": "132747"
+                }
+            ]
+        },
+        {
+            "deliveryID": 123456789123,
+            "statusList": [
+                {
+                    "status": "荷物受付",
+                    "date": "06/09",
+                    "time": "08:22",
+                    "shopName": "ＺＯＺＯ支店",
+                    "shopID": "035602"
+                }
+            ]
+        },
+        {
+            "deliveryID": 41111111111,
+            "statusList": [
+                {
+                    "status": "荷物受付",
+                    "date": "06/09",
+                    "time": "08:22",
+                    "shopName": "ＺＯＺＯ支店",
+                    "shopID": "035602"
+                },
+                {
+                    "status": "発送済み",
+                    "date": "06/09",
+                    "time": "08:22",
+                    "shopName": "ＺＯＺＯ支店",
+                    "shopID": "035602"
+                }
+            ]
+        },
+        {
+            "deliveryID": 679636222222,
+            "statusList": [
+                {
+                    "status": "荷物受付",
+                    "date": "06/09",
+                    "time": "08:22",
+                    "shopName": "ＺＯＺＯ支店",
+                    "shopID": "035602"
+                },
+                {
+                    "status": "発送済み",
+                    "date": "06/09",
+                    "time": "08:22",
+                    "shopName": "ＺＯＺＯ支店",
+                    "shopID": "035602"
+                },
+                {
+                    "status": "輸送中",
+                    "date": "06/09",
+                    "time": "23:07",
+                    "shopName": "羽田クロノゲートベース",
+                    "shopID": "032990"
+                }
+            ]
+        },
+        {
+            "deliveryID": 234566181995,
+            "statusList": [
+                {
+                    "status": "荷物受付",
+                    "date": "06/09",
+                    "time": "08:22",
+                    "shopName": "ＺＯＺＯ支店",
+                    "shopID": "035602"
+                },
+                {
+                    "status": "発送済み",
+                    "date": "06/09",
+                    "time": "08:22",
+                    "shopName": "ＺＯＺＯ支店",
+                    "shopID": "035602"
+                },
+                {
+                    "status": "輸送中",
+                    "date": "06/09",
+                    "time": "23:07",
+                    "shopName": "羽田クロノゲートベース",
+                    "shopID": "032990"
+                },
+                {
+                    "status": "輸送中",
+                    "date": "06/10",
+                    "time": "00:00",
+                    "shopName": "羽田クロノゲートベース",
+                    "shopID": "032990"
+                }
+            ]
+        },
+        {
+            "deliveryID": 6666666181995,
+            "statusList": [
+                {
+                    "status": "荷物受付",
+                    "date": "06/09",
+                    "time": "08:22",
+                    "shopName": "ＺＯＺＯ支店",
+                    "shopID": "035602"
+                },
+                {
+                    "status": "発送済み",
+                    "date": "06/09",
+                    "time": "08:22",
+                    "shopName": "ＺＯＺＯ支店",
+                    "shopID": "035602"
+                },
+                {
+                    "status": "輸送中",
+                    "date": "06/09",
+                    "time": "23:07",
+                    "shopName": "羽田クロノゲートベース",
+                    "shopID": "032990"
+                },
+                {
+                    "status": "輸送中",
+                    "date": "06/10",
+                    "time": "00:00",
+                    "shopName": "羽田クロノゲートベース",
+                    "shopID": "032990"
+                },
+                {
+                    "status": "配達中",
+                    "date": "06/10",
+                    "time": "12:41",
+                    "shopName": "ＥＣ笹塚センター",
+                    "shopID": "132747"
+                }
+            ]
+        }
+    ]
+}
