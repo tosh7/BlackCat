@@ -233,13 +233,6 @@
 			path = DeliveryList;
 			sourceTree = "<group>";
 		};
-		19E5A7FC267218A2000CFC3F /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
 		19E5A7FD26721992000CFC3F /* APIProtcols */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,7 +292,6 @@
 				2B5AC2082670EDF800CB80F6 /* Scenes */,
 				19468C5326AFD57D00895CBE /* CommonVIews */,
 				19468C5626AFD7DE00895CBE /* Models */,
-				19E5A7FC267218A2000CFC3F /* Domain */,
 				19F10FE726B523240068C44D /* Utils */,
 				2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */,
 				2B5AC1E52670EBB300CB80F6 /* Info.plist */,
