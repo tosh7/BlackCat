@@ -23,8 +23,8 @@ struct DeliveryListView: View {
                               spacing: Self.spacing) {
                         ForEach(viewModel.output.deliveryList) { deliveryStatus in
                             NavigationLink(destination: StateDetailView(deliveryDetail: deliveryStatus)) {
-                                LuggageItemGrid(deliveryStatus: deliveryStatus.statusList.last!)
-                                    .frame(width: 150, height: 150, alignment: .center)
+                                LuggageItemGrid(deliveryItem: deliveryStatus)
+                                    .frame(width: 150, height: 180, alignment: .center)
                                     .cornerRadius(20)
                             }
                         }

@@ -8,4 +8,8 @@ final class TnekoMock {
         let jsonDecorder = try! JSONDecoder().decode(Domain.Tneko.self, from: data)
         return jsonDecorder
     }()
+
+    static var tnekoClient: TnekoClient {
+        return TnekoClient(tneko: TnekoMock.tneko)
+    }
 }

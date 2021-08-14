@@ -1,10 +1,13 @@
 import SwiftUI
 
 struct LuggageItemGrid: View {
-    let deliveryStatus: DeliveryStatus
+    private let deliveryItem: DeliveryItem
+    private var deliveryStatus: DeliveryStatus {
+        return deliveryItem.statusList.last!
+    }
 
-    init(deliveryStatus: DeliveryStatus) {
-        self.deliveryStatus = deliveryStatus
+    init(deliveryItem: DeliveryItem) {
+        self.deliveryItem = deliveryItem
     }
 
     var body: some View {
@@ -12,32 +15,35 @@ struct LuggageItemGrid: View {
             deliveryStatus.deliveryStatus?.color
                 .edgesIgnoringSafeArea(.all)
 
-            DonutsView(deliveryStatusType: deliveryStatus.deliveryStatus ?? .sended)
-                .frame(width: 130, height: 130)
-
             VStack {
-                Text(deliveryStatus.status)
-                    .foregroundColor(.white)
-                Text(deliveryStatus.shopName)
-                    .foregroundColor(.white)
-                    .lineLimit(1)
-                HStack {
-                    Text(deliveryStatus.date)
-                        .foregroundColor(.white)
-                    Text(deliveryStatus.time)
-                        .foregroundColor(.white)
+                ZStack {
+                    DonutsView(deliveryStatusType: deliveryStatus.deliveryStatus ?? .sended)
+                        .frame(width: 130, height: 130)
+
+                    VStack {
+                        Text(deliveryStatus.status)
+                            .foregroundColor(.white)
+                        Text(deliveryStatus.shopName)
+                            .foregroundColor(.white)
+                            .lineLimit(1)
+                        HStack {
+                            Text(deliveryStatus.date)
+                                .foregroundColor(.white)
+                            Text(deliveryStatus.time)
+                                .foregroundColor(.white)
+                        }
+                    }.frame(width: 120, height: 120)
                 }
-            }.frame(width: 120, height: 120)
+                Text(String(deliveryItem.deliveryID))
+                    .foregroundColor(.white)
+            }
         }
     }
 }
 
 struct LuggageItemGrid_Previews: PreviewProvider {
     static var previews: some View {
-        LuggageItemGrid(deliveryStatus: DeliveryStatus(status: "輸送中",
-                                              date: "6/13",
-                                              time: "12:41",
-                                              shopName: "羽田クロノゲートベース",
-                                              shopID: "032990"))
+        let mock = TnekoMock.tnekoClient.deliveryList[2]
+        LuggageItemGrid(deliveryItem: mock)
     }
 }
