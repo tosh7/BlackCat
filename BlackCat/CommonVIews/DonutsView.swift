@@ -6,13 +6,16 @@ struct DonutsView: View {
     private var trimValue: CGFloat {
         switch deliveryStatusType {
         case .received:
-            return 0.25
+            return 0.2
         case .sended:
-            return 0.5
+            return 0.4
+        case .shipping:
+            return 0.6
         case .delivering:
-            return 0.75
+            return 0.8
         case .delivered:
             return 1
+
         }
     }
 

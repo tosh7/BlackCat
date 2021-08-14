@@ -4,6 +4,7 @@ import Domain
 enum DeliveryStatusType {
     case received
     case sended
+    case shipping
     case delivering
     case delivered
 
@@ -13,8 +14,10 @@ enum DeliveryStatusType {
             return Color.BlackCat.pureBlue
         case .sended:
             return Color.BlackCat.purePink
-        case .delivering:
+        case .shipping:
             return Color.BlackCat.pureOrange
+        case .delivering:
+            return Color.BlackCat.pureRed
         case .delivered:
             return Color.BlackCat.shadowLevel6
         }
@@ -36,7 +39,9 @@ struct DeliveryStatus: Identifiable {
         case "発送済み":
             return .sended
         case "輸送中":
-            return .delivering
+            return .shipping
+        case "配達中":
+            return .delivered
         case "配達完了":
             return .delivered
         default:
