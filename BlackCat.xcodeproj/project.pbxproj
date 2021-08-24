@@ -30,6 +30,7 @@
 		19C26A7D26B9B81A00845289 /* DonutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7C26B9B81A00845289 /* DonutsView.swift */; };
 		19C26A7F26BC329C00845289 /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7E26BC329C00845289 /* Color+extension.swift */; };
 		19C26A8226BC403900845289 /* DeliveryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A8126BC403900845289 /* DeliveryListViewModel.swift */; };
+		19DEC71826D5384000D9985B /* LocalDeliveryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DEC71726D5384000D9985B /* LocalDeliveryItems.swift */; };
 		2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */; };
 		2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DE2670EBAF00CB80F6 /* DeliveryListView.swift */; };
 		2B5AC1E12670EBB300CB80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */; };
@@ -123,6 +124,7 @@
 		19D6DA3D26B592040030343D /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		19D6DA3F26B639A50030343D /* ResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseType.swift; sourceTree = "<group>"; };
 		19D6DA4126B63A750030343D /* APIClient+Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient+Endpoints.swift"; sourceTree = "<group>"; };
+		19DEC71726D5384000D9985B /* LocalDeliveryItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDeliveryItems.swift; sourceTree = "<group>"; };
 		19E5A7FE267219B4000CFC3F /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCatApp.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				19C26A7A26B9B17200845289 /* TnekoClient.swift */,
 				19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */,
 				19A9A2AE26C128A800BD5AF8 /* DeliveryStatus.swift */,
+				19DEC71726D5384000D9985B /* LocalDeliveryItems.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 			files = (
 				2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */,
 				19C26A7F26BC329C00845289 /* Color+extension.swift in Sources */,
+				19DEC71826D5384000D9985B /* LocalDeliveryItems.swift in Sources */,
 				19A9A2AB26C1060F00BD5AF8 /* StateDetailView.swift in Sources */,
 				19C26A7D26B9B81A00845289 /* DonutsView.swift in Sources */,
 				19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */,
