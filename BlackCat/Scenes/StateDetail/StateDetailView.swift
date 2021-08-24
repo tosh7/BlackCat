@@ -11,22 +11,22 @@ struct StateDetailView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
 
-            VStack {
-                List() {
-                    ForEach(deliveyDetail.statusList) {
-                        StateDetailListView(deliveryStatus: $0)
-                    }
-
+            List() {
+                ForEach(deliveyDetail.statusList) {
+                    StateDetailListView(deliveryStatus: $0)
                 }
-
-                Button(action: {
-                    // Remove Item from userdefaults
-                }) {
-                    Text("削除する")
-                        .foregroundColor(.white)
-                }
-                .foregroundColor(Color.BlackCat.naturalRed)
             }
+
+            Button(action: {
+                // Remove Item from userdefaults
+            }) {
+                Text("削除する")
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.BlackCat.naturalRed)
+                    .cornerRadius(10)
+            }
+            
         }
         .navigationTitle(String(deliveyDetail.deliveryID))
     }
