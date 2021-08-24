@@ -9,16 +9,17 @@ protocol DeliveryListViewModelOutputs {
     var deliveryList: [DeliveryItem] { get }
 }
 
-protocol DeliveruListViewModelType {
+protocol DeliveryListViewModelType {
     var input: DeliveryListViewModelInputs { get }
     var output: DeliveryListViewModelOutputs { get }
 }
 
-final class DeliveryListViewModel: ObservableObject, DeliveruListViewModelType, DeliveryListViewModelInputs, DeliveryListViewModelOutputs {
-    private let goodsIdList: [Int] = [429636181995, 398629940844]
+final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, DeliveryListViewModelInputs, DeliveryListViewModelOutputs {
+    private let goodsIdList: [Int]
     @Published var deliveryList: [DeliveryItem] = []
 
     init() {
+        goodsIdList = LocalDeliveryItems.shared.items
         apiClient.tneko(.init(numbers: goodsIdList), completion: { [weak self] result in
             guard let self = self else { return }
             switch result {

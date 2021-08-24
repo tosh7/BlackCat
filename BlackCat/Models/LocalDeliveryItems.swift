@@ -9,7 +9,11 @@ final class LocalDeliveryItems {
     private let userdefaults = UserDefaults.standard
 
     init() {
-        items = userdefaults.array(forKey: key) as! [Int]
+        if let array = userdefaults.array(forKey: key) {
+            items = array as! [Int]
+        } else {
+            items = []
+        }
     }
 
     func add(_ content: Int) {

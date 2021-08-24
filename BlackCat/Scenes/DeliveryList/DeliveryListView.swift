@@ -5,6 +5,7 @@ struct DeliveryListView: View {
     @ObservedObject var viewModel = DeliveryListViewModel()
     private static let spacing: CGFloat = 16
     private let columns: [GridItem] = [.init(spacing: Self.spacing), .init(spacing: Self.spacing)]
+    @State private var showingModal = false
 
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
@@ -31,6 +32,17 @@ struct DeliveryListView: View {
                     }
                 }
                 .navigationTitle("配達状況一覧")
+            }
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: {
+                        self.showingModal.toggle()
+                    }) {
+                        Image(systemName: "plus")
+                    }.sheet(isPresented: $showingModal, content: {
+                        AddListView()
+                    })
+                }
             }
         }
         .preferredColorScheme(.dark)
