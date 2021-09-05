@@ -17,16 +17,25 @@ struct StateDetailView: View {
                 }
             }
 
-            Button(action: {
-                // Remove Item from userdefaults
-            }) {
-                Text("削除する")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.BlackCat.naturalRed)
+            VStack {
+                Spacer()
+
+                Button(action: {
+                    // Remove an Item from userdefaults
+                    print("hoge")
+                }) {
+                    ZStack {
+                        Color.BlackCat.naturalRed.edgesIgnoringSafeArea(.all)
+                            .frame(height: 50, alignment: .center)
+
+                        Text("削除する")
+                            .foregroundColor(.white)
+                    }
                     .cornerRadius(10)
+                    .padding(.bottom, 30)
+                    .padding(.horizontal, 20)
+                }
             }
-            
         }
         .navigationTitle(String(deliveyDetail.deliveryID))
     }
