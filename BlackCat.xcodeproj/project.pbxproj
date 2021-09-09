@@ -45,7 +45,6 @@
 		2B5AC1FB2670EDAB00CB80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */; };
 		2B5AC1FD2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
 		2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
-		2B5AC2012670EDAB00CB80F6 /* BlackCarWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,13 +69,6 @@
 			remoteGlobalIDString = 19A9A2B426C1342E00BD5AF8;
 			remoteInfo = Domain;
 		};
-		2B5AC1FF2670EDAB00CB80F6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2B5AC1D12670EBAF00CB80F6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2B5AC1EF2670EDA300CB80F6;
-			remoteInfo = BlackCarWidgetExtension;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -89,17 +81,6 @@
 				19A9A2CB26C1342E00BD5AF8 /* Domain.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2B5AC2052670EDAC00CB80F6 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				2B5AC2012670EDAB00CB80F6 /* BlackCarWidgetExtension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -435,13 +416,11 @@
 				2B5AC1D52670EBAF00CB80F6 /* Sources */,
 				2B5AC1D62670EBAF00CB80F6 /* Frameworks */,
 				2B5AC1D72670EBAF00CB80F6 /* Resources */,
-				2B5AC2052670EDAC00CB80F6 /* Embed App Extensions */,
 				19A9A2CF26C1342E00BD5AF8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2B5AC2002670EDAB00CB80F6 /* PBXTargetDependency */,
 				19A9A2C926C1342E00BD5AF8 /* PBXTargetDependency */,
 			);
 			name = BlackCat;
@@ -620,11 +599,6 @@
 			isa = PBXTargetDependency;
 			target = 19A9A2B426C1342E00BD5AF8 /* Domain */;
 			targetProxy = 19A9A2C826C1342E00BD5AF8 /* PBXContainerItemProxy */;
-		};
-		2B5AC2002670EDAB00CB80F6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2B5AC1EF2670EDA300CB80F6 /* BlackCarWidgetExtension */;
-			targetProxy = 2B5AC1FF2670EDAB00CB80F6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
