@@ -1,10 +1,9 @@
 import SwiftUI
 
 struct AddListView: View {
-    private let viewModel = AddListViewModel()
+    @ObservedObject var viewModel = AddListViewModel()
     @State private var itemNumber: String = ""
     @Environment(\.presentationMode) var presentationMode
-    @State private var showingAlert = false
 
     var body: some View {
         ZStack {
@@ -22,7 +21,6 @@ struct AddListView: View {
 
                 Button(action: {
                     viewModel.input.buttonDidTap(text: itemNumber)
-                    self.showingAlert = true
                 }, label: {
                     ZStack {
                         Color.BlackCat.naturalGreen.edgesIgnoringSafeArea(.all)
@@ -33,7 +31,7 @@ struct AddListView: View {
                     .cornerRadius(10)
                     .padding(.horizontal, 20)
                 })
-                .alert(isPresented: $showingAlert) {
+                .alert(isPresented: $viewModel.showingAlert) {
                     Alert(title: Text("登録に失敗しました"),
                           dismissButton: .default(
                             Text("OK"),
