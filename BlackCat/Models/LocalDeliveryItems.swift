@@ -21,8 +21,8 @@ final class LocalDeliveryItems {
         userdefaults.set(items, forKey: key)
     }
 
-    func remove(_ index: Int) {
-        items.remove(at: index)
+    func remove(id: Int) {
+        items.removeAll(where: { $0 == id })
         userdefaults.set(items, forKey: key)
     }
 
