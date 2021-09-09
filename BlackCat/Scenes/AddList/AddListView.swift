@@ -12,7 +12,7 @@ struct AddListView: View {
             VStack(alignment: .center, spacing: 100) {
                 Text("新しい伝票番号を登録する")
                     .foregroundColor(.white)
-                
+
                 TextField("    伝票番号を入力(12桁の数字)", text: $itemNumber)
                     .frame(height: 40)
                     .foregroundColor(.black)
@@ -32,7 +32,7 @@ struct AddListView: View {
                     .padding(.horizontal, 20)
                 })
                 .alert(isPresented: $viewModel.showingAlert) {
-                    Alert(title: Text("登録に失敗しました"),
+                    Alert(title: Text(viewModel.errorMessage),
                           dismissButton: .default(
                             Text("OK"),
                             action: {

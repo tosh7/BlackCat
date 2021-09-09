@@ -1,5 +1,5 @@
 import Foundation
-import SwiftUI
+import Domain
 
 protocol AddListViewModelInputs {
     func buttonDidTap(text: String)
@@ -18,21 +18,38 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
         self.showingAlert = false
     }
 
-    func buttonDidTap(text: String) {
-
-        guard let itemNumber = Int(text),
-              !text.isEmpty else {
-            self.showingAlert = true
-            return
-        }
-        LocalDeliveryItems.shared.add(itemNumber)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-            self.showingAlert = true
-        })
-    }
-
     @Published var showingAlert: Bool
+    var errorMessage: String = ""
 
     var input: AddListViewModelInputs { return self }
     var output: AddListViewModelOutputs { return self }
+
+    func buttonDidTap(text: String) {
+        guard let itemNumber = Int(text),
+              !text.isEmpty && text.count == 12 else {
+            errorMessage = "入力形式が違います"
+            showingAlert = true
+            return
+        }
+
+        errorMessage = "登録に成功しました"
+
+        apiClient.tneko(.init(numbers: [itemNumber]), completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(tneko):
+                if tneko.deriveryList[0].statusList.count == 0 {
+                    self.errorMessage = "登録に失敗しました"
+                } else {
+                    LocalDeliveryItems.shared.add(itemNumber)
+                    self.errorMessage = "登録に成功しました"
+                }
+            case .failure:
+                self.errorMessage = "登録に失敗しました"
+            }
+            DispatchQueue.main.async {
+                self.showingAlert = true
+            }
+        })
+    }
 }
