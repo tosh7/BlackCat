@@ -32,9 +32,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
             guard let self = self else { return }
             switch result {
             case let .success(tneko):
-                print(tneko)
-                // FIXME: Using MockData for easy debugging
-                let tnekoClient = TnekoClient(tneko: TnekoMock.tneko)
+                let tnekoClient = TnekoClient(tneko: tneko)
                 DispatchQueue.main.async {
                     self.deliveryList = tnekoClient.deliveryList
                 }
