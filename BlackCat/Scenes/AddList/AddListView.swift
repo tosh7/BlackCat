@@ -14,6 +14,7 @@ struct AddListView: View {
                     .foregroundColor(.white)
 
                 TextField("    伝票番号を入力(12桁の数字)", text: $itemNumber)
+                    .keyboardType(.numberPad)
                     .frame(height: 40)
                     .foregroundColor(.black)
                     .background(Color.white)
