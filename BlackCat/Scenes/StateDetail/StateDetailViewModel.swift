@@ -6,5 +6,6 @@ final class StateDetailViewModel: ObservableObject {
     func deleteDeliveryItem(id: Int) {
         LocalDeliveryItems.shared.remove(id: id)
         showingAlert = true
+        NotificationCenter.default.post(name: .removeItem, object: nil)
     }
 }

@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 import Domain
 
 protocol DeliveryListViewModelInputs {
@@ -15,11 +15,19 @@ protocol DeliveryListViewModelType {
 }
 
 final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, DeliveryListViewModelInputs, DeliveryListViewModelOutputs {
-    private let goodsIdList: [Int]
+    private var goodsIdList: [Int] {
+        return LocalDeliveryItems.shared.items
+    }
     @Published var deliveryList: [DeliveryItem] = []
 
     init() {
-        goodsIdList = LocalDeliveryItems.shared.items
+        // Notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(loadItem), name: .addItem, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadItem), name: .removeItem, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadItem), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+
+    @objc func loadItem() {
         apiClient.tneko(.init(numbers: goodsIdList), completion: { [weak self] result in
             guard let self = self else { return }
             switch result {

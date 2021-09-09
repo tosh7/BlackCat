@@ -43,6 +43,7 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
                 } else {
                     LocalDeliveryItems.shared.add(itemNumber)
                     self.errorMessage = "登録に成功しました"
+                    NotificationCenter.default.post(name: .addItem, object: nil)
                 }
             case .failure:
                 self.errorMessage = "登録に失敗しました"
