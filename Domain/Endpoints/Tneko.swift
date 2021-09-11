@@ -5,7 +5,7 @@ public struct TnekoRequest: RequestType, URLQueryEncodable {
     public static let method: HTTPMethod = .post
 
     private let number00: Int = 1
-    private let number01: Int
+    private let number01: Int?
     private let number02: Int?
     private let number03: Int?
     private let number04: Int?
@@ -16,7 +16,7 @@ public struct TnekoRequest: RequestType, URLQueryEncodable {
     private let number09: Int?
     private let number10: Int?
 
-    public init(number01: Int, number02: Int? = nil, number03: Int? = nil, number04: Int? = nil, number05: Int? = nil, number06: Int? = nil, number07: Int? = nil, number08: Int? = nil, number09: Int? = nil, number10: Int? = nil) {
+    public init(number01: Int?, number02: Int? = nil, number03: Int? = nil, number04: Int? = nil, number05: Int? = nil, number06: Int? = nil, number07: Int? = nil, number08: Int? = nil, number09: Int? = nil, number10: Int? = nil) {
         self.number01 = number01
         self.number02 = number02
         self.number03 = number03
@@ -31,7 +31,7 @@ public struct TnekoRequest: RequestType, URLQueryEncodable {
 
     // should have at least one content
     public init(numbers: [Int]) {
-        self.init(number01: numbers[safe: 0] ?? 0,
+        self.init(number01: numbers[safe: 0],
                   number02: numbers[safe: 1],
                   number03: numbers[safe: 2],
                   number04: numbers[safe: 3],

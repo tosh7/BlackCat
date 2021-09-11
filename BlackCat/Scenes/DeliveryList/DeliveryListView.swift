@@ -20,16 +20,22 @@ struct DeliveryListView: View {
                     .edgesIgnoringSafeArea(.all)
 
                 ScrollView(.vertical) {
-                    LazyVGrid(columns: columns,
-                              spacing: Self.spacing) {
-                        ForEach(viewModel.output.deliveryList) { deliveryStatus in
-                            if deliveryStatus.statusList.count != 0 {
-                            NavigationLink(destination: StateDetailView(deliveryDetail: deliveryStatus)) {
-                                LuggageItemGrid(deliveryItem: deliveryStatus)
-                                    .frame(width: 150, height: 180, alignment: .center)
-                                    .cornerRadius(20)
+                    ZStack {
+                        LazyVGrid(columns: columns,
+                                  spacing: Self.spacing) {
+                            ForEach(viewModel.output.deliveryList) { deliveryStatus in
+                                if deliveryStatus.statusList.count != 0 {
+                                    NavigationLink(destination: StateDetailView(deliveryDetail: deliveryStatus)) {
+                                        LuggageItemGrid(deliveryItem: deliveryStatus)
+                                            .frame(width: 150, height: 180, alignment: .center)
+                                            .cornerRadius(20)
+                                    }
+                                }
                             }
-                            }
+                        }
+
+                        if viewModel.output.deliveryList.count == 0 {
+                            Text("アイテムが追加されていません。\n左上のボタンから追加してください。")
                         }
                     }
                 }
