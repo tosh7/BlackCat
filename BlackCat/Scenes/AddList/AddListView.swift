@@ -13,7 +13,10 @@ struct AddListView: View {
                 Text("新しい伝票番号を登録する")
                     .foregroundColor(.white)
 
-                TextField("    伝票番号を入力(12桁の数字)", text: $itemNumber)
+                TextField("", text: $itemNumber)
+                    .placeholder(when: itemNumber.isEmpty) {
+                            Text("    伝票番号を入力(12桁の数字)").foregroundColor(.gray)
+                    }
                     .keyboardType(.numberPad)
                     .frame(height: 40)
                     .foregroundColor(.black)
