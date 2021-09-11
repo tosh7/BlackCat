@@ -28,7 +28,6 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
         guard let itemNumber = Int(text),
               !text.isEmpty && text.count == 12 else {
             errorMessage = "入力形式が違います"
-            showingAlert = true
             return
         }
 
@@ -43,13 +42,17 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
                 } else {
                     LocalDeliveryItems.shared.add(itemNumber)
                     self.errorMessage = "登録に成功しました"
-                    NotificationCenter.default.post(name: .addItem, object: nil)
+                    DispatchQueue.main.async {
+                        self.showingAlert = true
+                    }
+                    // SwiftUIのバグで、showingAlertの文字がpublishされなくなってしまうので、
+                    // ここでは、3秒後に実行するようにしている
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                        NotificationCenter.default.post(name: .addItem, object: nil)
+                    })
                 }
             case .failure:
                 self.errorMessage = "登録に失敗しました"
-            }
-            DispatchQueue.main.async {
-                self.showingAlert = true
             }
         })
     }
