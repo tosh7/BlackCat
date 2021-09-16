@@ -23,6 +23,7 @@ struct LuggageItemGrid: View {
                     VStack {
                         Text(deliveryStatus.status)
                             .foregroundColor(.white)
+                            .lineLimit(1)
                         Text(deliveryStatus.shopName)
                             .foregroundColor(.white)
                             .lineLimit(1)
