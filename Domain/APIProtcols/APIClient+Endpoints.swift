@@ -6,7 +6,7 @@ public extension ApiClient {
         guard let urlRequest: URLRequest = URLRequest(request, baseURL: baseURL) else { return }
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let attributedString = try? NSAttributedString(data: data!, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
-                print(attributedString.string)
+//                print(attributedString.string)
                 let tneko = Tneko(
                     idList: request.idList(),
                     response: attributedString.string
