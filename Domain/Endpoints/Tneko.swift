@@ -77,14 +77,12 @@ public struct Tneko: ResponseType {
             public var date: String
             public var time: String
             public var shopName: String
-            public var shopID: String
 
-            public init(status: String, date: String, time: String, shopName: String, shopID: String) {
+            public init(status: String, date: String, time: String, shopName: String) {
                 self.status = status
                 self.date = date
                 self.time = time
                 self.shopName = shopName
-                self.shopID = shopID
             }
         }
     }
@@ -111,8 +109,7 @@ extension Tneko {
                                     status: statusCode,
                                     date: date,
                                     time: time,
-                                    shopName: shopName,
-                                    shopID: ""
+                                    shopName: shopName
                                 )
                                 newStatusList.append(status)
                                 counter += 1

@@ -30,7 +30,6 @@ struct DeliveryStatus: Identifiable {
     let date: String
     let time: String
     let shopName: String
-    let shopID: String
 
     var deliveryStatus: DeliveryStatusType? {
         switch self.status {
@@ -60,6 +59,5 @@ extension DeliveryStatus {
         self.date = deliveryStatus.date
         self.time = deliveryStatus.time
         self.shopName = deliveryStatus.shopName
-        self.shopID = deliveryStatus.shopID
     }
 }
