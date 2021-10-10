@@ -97,22 +97,27 @@ extension Tneko {
             var newStatusList: [Tneko.DeliveryList.DeliveryStatus] = []
             var indexCounter = 0
             stringList.enumerated().forEach { index, str in
-                if str == "担当店コード" {
+                if str.contains("お届け予定日時：") {
                     if initialIndex == indexCounter {
                         var counter = 0
-                        var statusCode = stringList[index + counter * 6 + 2]
-                        while statusCode.isValidStatusCode {
-                            let newIndex = index + counter * 6
-                            let status = Tneko.DeliveryList.DeliveryStatus(
-                                status: stringList[newIndex + 2],
-                                date: stringList[newIndex + 3],
-                                time: stringList[newIndex + 4],
-                                shopName: stringList[newIndex + 5],
-                                shopID: stringList[newIndex + 6]
-                            )
-                            newStatusList.append(status)
-                            counter += 1
-                            statusCode = stringList[index + counter * 6 + 2]
+                        let initialStatusGroup = stringList[index + 1].split(separator: " ")
+                        if var statusCode = initialStatusGroup[0].split(separator: "\t")[safe: 1]?.description {
+                            while statusCode.isValidStatusCode {
+                                let newStatusGroup = stringList[index + counter + 1].split(separator: " ")
+                                let date = newStatusGroup[1].split(separator: " ")[0].description.replacingOccurrences(of: "月", with: "/").replacingOccurrences(of: "日", with: "")
+                                let time = newStatusGroup[1].split(separator: " ")[1].description
+                                let shopName = newStatusGroup[2].description
+                                let status = Tneko.DeliveryList.DeliveryStatus(
+                                    status: statusCode,
+                                    date: date,
+                                    time: time,
+                                    shopName: shopName,
+                                    shopID: ""
+                                )
+                                newStatusList.append(status)
+                                counter += 1
+                                statusCode = stringList[index + counter + 1].split(separator: " ")[0].split(separator: "\t")[safe: 1]?.description ?? ""
+                            }
                         }
                     }
                     indexCounter += 1
