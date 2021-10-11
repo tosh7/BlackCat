@@ -30,7 +30,6 @@ struct DeliveryStatus: Identifiable {
     let date: String
     let time: String
     let shopName: String
-    let shopID: String
 
     var deliveryStatus: DeliveryStatusType? {
         switch self.status {
@@ -44,6 +43,10 @@ struct DeliveryStatus: Identifiable {
             return .delivering
         case "配達完了":
             return .delivered
+        case "持戻（ご不在）":
+            return .delivering
+        case "配達完了（宅配ボックス）":
+            return .delivered
         default:
             return nil
         }
@@ -56,6 +59,5 @@ extension DeliveryStatus {
         self.date = deliveryStatus.date
         self.time = deliveryStatus.time
         self.shopName = deliveryStatus.shopName
-        self.shopID = deliveryStatus.shopID
     }
 }

@@ -77,14 +77,12 @@ public struct Tneko: ResponseType {
             public var date: String
             public var time: String
             public var shopName: String
-            public var shopID: String
 
-            public init(status: String, date: String, time: String, shopName: String, shopID: String) {
+            public init(status: String, date: String, time: String, shopName: String) {
                 self.status = status
                 self.date = date
                 self.time = time
                 self.shopName = shopName
-                self.shopID = shopID
             }
         }
     }
@@ -97,22 +95,26 @@ extension Tneko {
             var newStatusList: [Tneko.DeliveryList.DeliveryStatus] = []
             var indexCounter = 0
             stringList.enumerated().forEach { index, str in
-                if str == "担当店コード" {
+                if str.contains("お届け予定日時：") {
                     if initialIndex == indexCounter {
                         var counter = 0
-                        var statusCode = stringList[index + counter * 6 + 2]
-                        while statusCode.isValidStatusCode {
-                            let newIndex = index + counter * 6
-                            let status = Tneko.DeliveryList.DeliveryStatus(
-                                status: stringList[newIndex + 2],
-                                date: stringList[newIndex + 3],
-                                time: stringList[newIndex + 4],
-                                shopName: stringList[newIndex + 5],
-                                shopID: stringList[newIndex + 6]
-                            )
-                            newStatusList.append(status)
-                            counter += 1
-                            statusCode = stringList[index + counter * 6 + 2]
+                        let initialStatusGroup = stringList[index + 1].split(separator: " ")
+                        if var statusCode = initialStatusGroup[0].split(separator: "\t")[safe: 1]?.description {
+                            while statusCode.isValidStatusCode {
+                                let newStatusGroup = stringList[index + counter + 1].split(separator: " ")
+                                let date = newStatusGroup[1].split(separator: " ")[0].description.replacingOccurrences(of: "月", with: "/").replacingOccurrences(of: "日", with: "")
+                                let time = newStatusGroup[1].split(separator: " ")[1].description
+                                let shopName = newStatusGroup[2].description
+                                let status = Tneko.DeliveryList.DeliveryStatus(
+                                    status: statusCode,
+                                    date: date,
+                                    time: time,
+                                    shopName: shopName
+                                )
+                                newStatusList.append(status)
+                                counter += 1
+                                statusCode = stringList[index + counter + 1].split(separator: " ")[0].split(separator: "\t")[safe: 1]?.description ?? ""
+                            }
                         }
                     }
                     indexCounter += 1
@@ -131,6 +133,6 @@ extension Array {
 
 extension String {
     var isValidStatusCode: Bool {
-        return self == "荷物受付" || self == "発送済み" || self == "輸送中" || self == "配達中" || self == "配達完了"
+        return self == "荷物受付" || self == "発送済み" || self == "輸送中" || self == "配達中" || self == "配達完了" || self == "持戻（ご不在）" || self == "配達完了（宅配ボックス）"
     }
 }
