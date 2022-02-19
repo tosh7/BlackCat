@@ -1,7 +1,9 @@
 import Foundation
+import Combine
 import Domain
 
 protocol AddListViewModelInputs {
+    func textFieldDidChange(text: String)
     func buttonDidTap(text: String)
 }
 
@@ -18,11 +20,22 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
         self.showingAlert = false
     }
 
+    // MARK: Inputs
+    @Published var deliveryID: String = ""
+
+    // MARK: Outputs
     @Published var showingAlert: Bool
+    @Published var isButtonEnabled: Bool = false
     var errorMessage: String = ""
 
-    var input: AddListViewModelInputs { return self }
-    var output: AddListViewModelOutputs { return self }
+    var inputText: AnyPublisher<String, Never>!
+    func textFieldDidChange(text: String) {
+        deliveryID = text
+
+        _ = $deliveryID
+            .map { $0.count == 12 }
+            .assign(to: \.isButtonEnabled, on: self)
+    }
 
     func buttonDidTap(text: String) {
         guard let itemNumber = Int(text),
@@ -56,4 +69,7 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
             }
         })
     }
+
+    var input: AddListViewModelInputs { return self }
+    var output: AddListViewModelOutputs { return self }
 }

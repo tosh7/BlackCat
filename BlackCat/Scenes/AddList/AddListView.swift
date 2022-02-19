@@ -14,6 +14,9 @@ struct AddListView: View {
                     .foregroundColor(.white)
 
                 TextField("", text: $itemNumber)
+                    .onChange(of: itemNumber) {
+                        viewModel.textFieldDidChange(text: $0)
+                    }
                     .placeholder(when: itemNumber.isEmpty) {
                             Text("    伝票番号を入力(12桁の数字)").foregroundColor(.gray)
                     }
@@ -29,16 +32,18 @@ struct AddListView: View {
                     ZStack {
                         Color.BlackCat.naturalGreen.edgesIgnoringSafeArea(.all)
                             .frame(height: 50, alignment: .center)
+                            .opacity(viewModel.isButtonEnabled ? 1.0 : 0.5)
                         Text("登録する")
                             .foregroundColor(.black)
                     }
                     .cornerRadius(10)
                     .padding(.horizontal, 20)
                 })
-                .alert(isPresented: $viewModel.showingAlert) {
-                    Alert(title: Text(viewModel.errorMessage),
-                          dismissButton: .default(
-                            Text("OK"),
+                    .disabled(!viewModel.isButtonEnabled)
+                    .alert(isPresented: $viewModel.showingAlert) {
+                        Alert(title: Text(viewModel.errorMessage),
+                              dismissButton: .default(
+                                Text("OK"),
                             action: {
                                 self.presentationMode.wrappedValue.dismiss()
                             }
