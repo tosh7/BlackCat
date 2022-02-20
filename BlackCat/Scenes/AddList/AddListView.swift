@@ -27,7 +27,7 @@ struct AddListView: View {
                         .background(Color.white)
                         .padding(.horizontal, 20.0)
 
-                    Text(viewModel.errorMessage)
+                    Text(viewModel.cautionMessage)
                         .foregroundColor(.white)
                         .padding(.horizontal, 20.0)
                 }

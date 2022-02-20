@@ -28,13 +28,14 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
                 guard Int(text) != nil else { return "数字以外の文字が含まれています" }
                 return text.count == 12 ? "" : "伝票番号は12文字です"
             }
-            .assign(to: \.errorMessage, on: self)
+            .assign(to: \.cautionMessage, on: self)
     }
 
     // MARK: Outputs
     @Published var showingAlert: Bool = false
     @Published private(set) var isButtonEnabled: Bool = false
     @Published private(set)var errorMessage: String = ""
+    @Published private(set)var cautionMessage: String = ""
 
     private var inputTextStream: AnyCancellable?
     private var errorMessageStream: AnyCancellable?
