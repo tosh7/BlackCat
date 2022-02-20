@@ -13,18 +13,24 @@ struct AddListView: View {
                 Text("新しい伝票番号を登録する")
                     .foregroundColor(.white)
 
-                TextField("", text: $itemNumber)
-                    .onChange(of: itemNumber) {
-                        viewModel.textFieldDidChange(text: $0)
-                    }
-                    .placeholder(when: itemNumber.isEmpty) {
+                VStack(alignment: .leading, spacing: 20) {
+                    TextField("", text: $itemNumber)
+                        .onChange(of: itemNumber) {
+                            viewModel.textFieldDidChange(text: $0)
+                        }
+                        .placeholder(when: itemNumber.isEmpty) {
                             Text("    伝票番号を入力(12桁の数字)").foregroundColor(.gray)
-                    }
-                    .keyboardType(.numberPad)
-                    .frame(height: 40)
-                    .foregroundColor(.black)
-                    .background(Color.white)
-                    .padding(.horizontal, 20.0)
+                        }
+                        .keyboardType(.numberPad)
+                        .frame(height: 40)
+                        .foregroundColor(.black)
+                        .background(Color.white)
+                        .padding(.horizontal, 20.0)
+
+                    Text(viewModel.errorMessage)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 20.0)
+                }
 
                 Button(action: {
                     viewModel.input.buttonDidTap(text: itemNumber)

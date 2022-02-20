@@ -17,24 +17,30 @@ protocol AddListViewModelType {
 final class AddListViewModel: ObservableObject, AddListViewModelType, AddListViewModelInputs, AddListViewModelOutputs {
 
     init() {
-        self.showingAlert = false
-    }
-
-    // MARK: Inputs
-    @Published var deliveryID: String = ""
-
-    // MARK: Outputs
-    @Published var showingAlert: Bool
-    @Published var isButtonEnabled: Bool = false
-    var errorMessage: String = ""
-
-    var inputText: AnyPublisher<String, Never>!
-    func textFieldDidChange(text: String) {
-        deliveryID = text
-
-        _ = $deliveryID
+        inputTextStream = inputText
+            .filter { Int($0) != nil }
             .map { $0.count == 12 }
             .assign(to: \.isButtonEnabled, on: self)
+
+        errorMessageStream = inputText
+            .compactMap { text in
+                guard !text.isEmpty else { return "" }
+                guard Int(text) != nil else { return "数字以外の文字が含まれています" }
+                return text.count == 12 ? "" : "伝票番号は12文字です"
+            }
+            .assign(to: \.errorMessage, on: self)
+    }
+
+    // MARK: Outputs
+    @Published var showingAlert: Bool = false
+    @Published private(set) var isButtonEnabled: Bool = false
+    @Published private(set)var errorMessage: String = ""
+
+    private var inputTextStream: AnyCancellable?
+    private var errorMessageStream: AnyCancellable?
+    private var inputText: CurrentValueSubject<String, Never> = CurrentValueSubject<String, Never>("")
+    func textFieldDidChange(text: String) {
+        inputText.send(text)
     }
 
     func buttonDidTap(text: String) {
