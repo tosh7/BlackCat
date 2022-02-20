@@ -6,7 +6,7 @@ public extension ApiClient {
         guard let urlRequest: URLRequest = URLRequest(request, baseURL: baseURL) else { return }
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             guard let data = data else {
-                completion(.failure(.decodeErrror("An unknown error has occured.")))
+                completion(.failure(.unknownError("An unknown error has occured.")))
                 return
             }
 
