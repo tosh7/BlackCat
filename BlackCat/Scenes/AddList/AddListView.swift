@@ -27,7 +27,7 @@ struct AddListView: View {
                         .background(Color.white)
                         .padding(.horizontal, 20.0)
 
-                    Text(viewModel.cautionMessage)
+                    Text(viewModel.output.cautionMessage)
                         .foregroundColor(.white)
                         .padding(.horizontal, 20.0)
                 }
@@ -38,16 +38,16 @@ struct AddListView: View {
                     ZStack {
                         Color.BlackCat.naturalGreen.edgesIgnoringSafeArea(.all)
                             .frame(height: 50, alignment: .center)
-                            .opacity(viewModel.isButtonEnabled ? 1.0 : 0.5)
+                            .opacity(viewModel.output.isButtonEnabled ? 1.0 : 0.5)
                         Text("登録する")
                             .foregroundColor(.black)
                     }
                     .cornerRadius(10)
                     .padding(.horizontal, 20)
                 })
-                    .disabled(!viewModel.isButtonEnabled)
+                    .disabled(!viewModel.output.isButtonEnabled)
                     .alert(isPresented: $viewModel.showingAlert) {
-                        Alert(title: Text(viewModel.errorMessage),
+                        Alert(title: Text(viewModel.output.errorMessage),
                               dismissButton: .default(
                                 Text("OK"),
                             action: {

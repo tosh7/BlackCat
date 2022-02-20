@@ -7,7 +7,11 @@ protocol AddListViewModelInputs {
     func buttonDidTap(text: String)
 }
 
-protocol AddListViewModelOutputs {}
+protocol AddListViewModelOutputs {
+    var isButtonEnabled: Bool { get }
+    var errorMessage: String { get }
+    var cautionMessage: String { get }
+}
 
 protocol AddListViewModelType {
     var input: AddListViewModelInputs { get }
@@ -17,12 +21,12 @@ protocol AddListViewModelType {
 final class AddListViewModel: ObservableObject, AddListViewModelType, AddListViewModelInputs, AddListViewModelOutputs {
 
     init() {
-        inputTextStream = inputText
+        inputTextSubscriber = $inputText
             .filter { Int($0) != nil }
             .map { $0.count == 12 }
             .assign(to: \.isButtonEnabled, on: self)
 
-        errorMessageStream = inputText
+        errorMessageSubscriber = $inputText
             .compactMap { text in
                 guard !text.isEmpty else { return "" }
                 guard Int(text) != nil else { return "数字以外の文字が含まれています" }
@@ -31,17 +35,10 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
             .assign(to: \.cautionMessage, on: self)
     }
 
-    // MARK: Outputs
-    @Published var showingAlert: Bool = false
-    @Published private(set) var isButtonEnabled: Bool = false
-    @Published private(set)var errorMessage: String = ""
-    @Published private(set)var cautionMessage: String = ""
-
-    private var inputTextStream: AnyCancellable?
-    private var errorMessageStream: AnyCancellable?
-    private var inputText: CurrentValueSubject<String, Never> = CurrentValueSubject<String, Never>("")
+    // MARK: Inputs
+    @Published private var inputText: String = ""
     func textFieldDidChange(text: String) {
-        inputText.send(text)
+        inputText = text
     }
 
     func buttonDidTap(text: String) {
@@ -76,6 +73,17 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
             }
         })
     }
+
+    // MARK: Outputs
+    @Published var showingAlert: Bool = false
+    @Published private(set) var isButtonEnabled: Bool = false
+    @Published private(set) var errorMessage: String = ""
+    @Published private(set) var cautionMessage: String = ""
+
+    // MARk: Subscribers
+    // Using these subscribers just for store properties, never used out of init phase
+    private var inputTextSubscriber: AnyCancellable?
+    private var errorMessageSubscriber: AnyCancellable?
 
     var input: AddListViewModelInputs { return self }
     var output: AddListViewModelOutputs { return self }
