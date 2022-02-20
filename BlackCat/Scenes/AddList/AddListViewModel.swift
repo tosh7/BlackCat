@@ -81,7 +81,7 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
     @Published private(set) var cautionMessage: String = ""
 
     // MARk: Subscribers
-    // Using these subscribers just for store properties, never used out of init phase
+    // Using these subscribers just for storing properties, never used out of init phase
     private var inputTextSubscriber: AnyCancellable?
     private var errorMessageSubscriber: AnyCancellable?
 
