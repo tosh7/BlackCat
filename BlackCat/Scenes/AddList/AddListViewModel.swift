@@ -1,7 +1,9 @@
 import Foundation
+import Combine
 import Domain
 
 protocol AddListViewModelInputs {
+    func textFieldDidChange(text: String)
     func buttonDidTap(text: String)
 }
 
@@ -15,14 +17,32 @@ protocol AddListViewModelType {
 final class AddListViewModel: ObservableObject, AddListViewModelType, AddListViewModelInputs, AddListViewModelOutputs {
 
     init() {
-        self.showingAlert = false
+        inputTextStream = inputText
+            .filter { Int($0) != nil }
+            .map { $0.count == 12 }
+            .assign(to: \.isButtonEnabled, on: self)
+
+        errorMessageStream = inputText
+            .compactMap { text in
+                guard !text.isEmpty else { return "" }
+                guard Int(text) != nil else { return "数字以外の文字が含まれています" }
+                return text.count == 12 ? "" : "伝票番号は12文字です"
+            }
+            .assign(to: \.cautionMessage, on: self)
     }
 
-    @Published var showingAlert: Bool
-    var errorMessage: String = ""
+    // MARK: Outputs
+    @Published var showingAlert: Bool = false
+    @Published private(set) var isButtonEnabled: Bool = false
+    @Published private(set)var errorMessage: String = ""
+    @Published private(set)var cautionMessage: String = ""
 
-    var input: AddListViewModelInputs { return self }
-    var output: AddListViewModelOutputs { return self }
+    private var inputTextStream: AnyCancellable?
+    private var errorMessageStream: AnyCancellable?
+    private var inputText: CurrentValueSubject<String, Never> = CurrentValueSubject<String, Never>("")
+    func textFieldDidChange(text: String) {
+        inputText.send(text)
+    }
 
     func buttonDidTap(text: String) {
         guard let itemNumber = Int(text),
@@ -56,4 +76,7 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
             }
         })
     }
+
+    var input: AddListViewModelInputs { return self }
+    var output: AddListViewModelOutputs { return self }
 }
