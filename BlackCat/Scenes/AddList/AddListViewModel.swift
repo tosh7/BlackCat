@@ -21,19 +21,23 @@ protocol AddListViewModelType {
 final class AddListViewModel: ObservableObject, AddListViewModelType, AddListViewModelInputs, AddListViewModelOutputs {
 
     init() {
-        inputTextSubscriber = $inputText
+        $inputText
             .filter { Int($0) != nil }
             .map { $0.count == 12 }
             .assign(to: \.isButtonEnabled, on: self)
+            .store(in: &cancellables)
 
-        errorMessageSubscriber = $inputText
+        $inputText
             .compactMap { text in
                 guard !text.isEmpty else { return "" }
                 guard Int(text) != nil else { return "数字以外の文字が含まれています" }
                 return text.count == 12 ? "" : "伝票番号は12文字です"
             }
             .assign(to: \.cautionMessage, on: self)
+            .store(in: &cancellables)
     }
+
+    private var cancellables: Set<AnyCancellable> = []
 
     // MARK: Inputs
     @Published private var inputText: String = ""
@@ -79,11 +83,6 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
     @Published private(set) var isButtonEnabled: Bool = false
     @Published private(set) var errorMessage: String = ""
     @Published private(set) var cautionMessage: String = ""
-
-    // MARk: Subscribers
-    // Using these subscribers just for storing properties, never used out of init phase
-    private var inputTextSubscriber: AnyCancellable?
-    private var errorMessageSubscriber: AnyCancellable?
 
     var input: AddListViewModelInputs { return self }
     var output: AddListViewModelOutputs { return self }
