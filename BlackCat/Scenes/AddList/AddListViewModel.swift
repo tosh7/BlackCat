@@ -38,34 +38,34 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
             .store(in: &cancellables)
 
         $buttonTappedPublisher
-            .combineLatest($inputTextPublisher) { $1 }
+            .withLatestFrom($inputTextPublisher) { $1 }
             .compactMap { Int($0) }
-            .map { itemNumber in
-                return true
-                apiClient.tneko(.init(numbers: [itemNumber]), completion: { [weak self] result in
-                    guard let self = self else { return }
-                    switch result {
-                    case let .success(tneko):
-                        if tneko.deriveryList[0].statusList.count == 0 {
-                            self.errorMessage = "登録に失敗しました"
-                        } else {
-                            LocalDeliveryItems.shared.add(itemNumber)
-                            self.errorMessage = "登録に成功しました"
-                            DispatchQueue.main.async {
-                                self.showingAlert = true
-                            }
-                            // SwiftUIのバグで、showingAlertの文字がpublishされなくなってしまうので、
-                            // ここでは、3秒後に実行するようにしている
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                                NotificationCenter.default.post(name: .addItem, object: nil)
-                            })
-                        }
-                    case .failure:
-                        self.errorMessage = "登録に失敗しました"
-                    }
-                })
+            .flatMap { itemNumber in
+                return apiClient.tneko(.init(numbers: [itemNumber]))
+                    .subscribe(on: DispatchQueue.global())
+                    .receive(on: DispatchQueue.main)
+                    .eraseToAnyPublisher()
             }
-            .assign(to: \.isSuccessfullyAdded, on: self)
+            .sink(receiveCompletion: { _ in
+                self.errorMessage = "登録に失敗しました"
+            }, receiveValue: { value in
+                self.errorMessage = value.deriveryList[0].statusList.count != 0 ? "登録に成功しました" : "登録に失敗しました"
+                self.showingAlert = true
+                value.deriveryList.filter { $0.statusList.count != 0 }.forEach {
+                    self.addedItemPublisher = $0.deliveryID
+                }
+            })
+            .store(in: &cancellables)
+
+        $addedItemPublisher
+            .compactMap { $0 }
+            .map {
+                LocalDeliveryItems.shared.add($0)
+            }
+            .delay(for: .seconds(0.1), scheduler: RunLoop.main)
+            .sink(receiveValue: {
+                NotificationCenter.default.post(name: .addItem, object: nil)
+            })
             .store(in: &cancellables)
     }
 
@@ -78,6 +78,7 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
     }
 
     @Published private var buttonTappedPublisher: Void = ()
+    @Published private var addedItemPublisher: Int?
     func buttonDidTap() {
         buttonTappedPublisher = ()
     }
