@@ -33,7 +33,7 @@ struct AddListView: View {
                 }
 
                 Button(action: {
-                    viewModel.input.buttonDidTap(text: itemNumber)
+                    viewModel.input.buttonDidTap()
                 }, label: {
                     ZStack {
                         Color.BlackCat.naturalGreen.edgesIgnoringSafeArea(.all)
