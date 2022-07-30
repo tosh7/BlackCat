@@ -27,7 +27,6 @@ public extension ApiClient {
 
 // MARK - Async & Await
 public extension ApiClient {
-    @available(iOS 15.0, *)
     func tneko(_ request: TnekoRequest) async -> Result<Tneko, APIError> {
         guard let urlRequest: URLRequest = URLRequest(request, baseURL: baseURL) else { return .failure(.invalideURL) }
         do {
