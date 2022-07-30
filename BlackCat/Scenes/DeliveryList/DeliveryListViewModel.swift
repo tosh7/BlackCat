@@ -1,5 +1,6 @@
 import UIKit
 import Domain
+import Combine
 
 protocol DeliveryListViewModelInputs {
 
@@ -20,14 +21,21 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     }
     @Published var deliveryList: [DeliveryItem] = []
 
+    private var cancellables: Set<AnyCancellable> = []
+
     init() {
         // Notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(loadItem), name: .addItem, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadItem), name: .removeItem, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(loadItem), name: UIApplication.willEnterForegroundNotification, object: nil)
+        Publishers.Merge3(
+            NotificationCenter.default.publisher(for: .addItem),
+            NotificationCenter.default.publisher(for: .removeItem),
+            NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification))
+        .sink { [weak self] _ in
+            self?.loadItem()
+        }
+        .store(in: &cancellables)
     }
 
-    @objc func loadItem() {
+    private func loadItem() {
         Task { @MainActor in
             let result = await apiClient.tneko(.init(numbers: goodsIdList))
             guard let tneko = result.value else { return }
