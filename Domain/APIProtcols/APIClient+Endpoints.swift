@@ -25,6 +25,7 @@ public extension ApiClient {
     }
 }
 
+// MARK - Async & Await
 public extension ApiClient {
     @available(iOS 15.0, *)
     func tneko(_ request: TnekoRequest) async -> Result<Tneko, APIError> {
