@@ -28,17 +28,14 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     }
 
     @objc func loadItem() {
-        apiClient.tneko(.init(numbers: goodsIdList), completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(tneko):
-                let tnekoClient = TnekoClient(tneko: tneko)
-                DispatchQueue.main.async {
-                    self.deliveryList = tnekoClient.deliveryList
-                }
-            case .failure: break
+        Task { @MainActor in
+            let result = await apiClient.tneko(.init(numbers: goodsIdList))
+            guard let tneko = result.value else { return }
+            let tnekoClient = TnekoClient(tneko: tneko)
+            DispatchQueue.main.async {
+                self.deliveryList = tnekoClient.deliveryList
             }
-        })
+        }
     }
 
     var input: DeliveryListViewModelInputs { return self }
