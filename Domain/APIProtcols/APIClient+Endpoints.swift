@@ -24,3 +24,26 @@ public extension ApiClient {
         task.resume()
     }
 }
+
+public extension ApiClient {
+    @available(iOS 15.0, *)
+    func tneko(_ request: TnekoRequest) async -> Result<Tneko, APIError> {
+        guard let urlRequest: URLRequest = URLRequest(request, baseURL: baseURL) else { return .failure(.invalideURL) }
+        do {
+            let result = try await URLSession.shared.data(for: urlRequest)
+
+            let data = result.0
+            if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+                let tneko = Tneko(
+                    idList: request.idList(),
+                    response: attributedString.string
+                )
+                return .success(tneko)
+            } else {
+                return .failure(.decodeErrror("This is not HTML"))
+            }
+        } catch let error {
+            return .failure(.unknownError(error.localizedDescription))
+        }
+    }
+}
