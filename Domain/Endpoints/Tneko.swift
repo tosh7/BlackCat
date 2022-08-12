@@ -99,8 +99,9 @@ extension Tneko {
                     if initialIndex == indexCounter {
                         var counter = 0
                         let initialStatusGroup = stringList[index + 1].split(separator: " ")
-                        if var statusCode = initialStatusGroup[0].split(separator: "\t")[safe: 1]?.description {
-                            while statusCode.isValidStatusCode {
+                        if var countId = initialStatusGroup[0].split(separator: "\t")[safe: 0]?.description {
+                            while countId.isValidStatusCode {
+                                let statusCode = stringList[index + counter + 1].split(separator: " ")[0].split(separator: "\t")[safe: 1]?.description ?? ""
                                 let newStatusGroup = stringList[index + counter + 1].split(separator: " ")
                                 let date = newStatusGroup[1].split(separator: " ")[0].description.replacingOccurrences(of: "月", with: "/").replacingOccurrences(of: "日", with: "")
                                 let time = newStatusGroup[1].split(separator: " ")[1].description
@@ -113,7 +114,7 @@ extension Tneko {
                                 )
                                 newStatusList.append(status)
                                 counter += 1
-                                statusCode = stringList[index + counter + 1].split(separator: " ")[0].split(separator: "\t")[safe: 1]?.description ?? ""
+                                countId = stringList[index + counter + 1].split(separator: " ")[0].split(separator: "\t")[safe: 0]?.description ?? ""
                             }
                         }
                     }
@@ -131,8 +132,11 @@ extension Array {
     }
 }
 
-extension String {
+private extension String {
     var isValidStatusCode: Bool {
-        return self == "荷物受付" || self == "発送済み" || self == "輸送中" || self == "配達中" || self == "配達完了" || self == "持戻（ご不在）" || self == "配達完了（宅配ボックス）" || self == "配達日・時間帯指定（保管中）"
+        let pattern = "^[\\d]+.$"
+        guard let regex = try? NSRegularExpression(pattern: pattern) else { return false }
+        let matches = regex.matches(in: self, range: NSRange(location: 0, length: self.count))
+        return matches.count > 0
     }
 }
