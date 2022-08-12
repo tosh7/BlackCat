@@ -33,6 +33,7 @@ public extension ApiClient {
             let result = try await URLSession.shared.data(for: urlRequest)
             let data = result.0
             if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+//                print(attributedString.string)
                 let tneko = Tneko(
                     idList: request.idList(),
                     response: attributedString.string

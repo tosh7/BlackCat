@@ -47,6 +47,8 @@ struct DeliveryStatus: Identifiable {
             return .delivering
         case "配達完了（宅配ボックス）":
             return .delivered
+        case "配達日・時間帯指定（保管中）":
+            return .delivering
         default:
             return nil
         }

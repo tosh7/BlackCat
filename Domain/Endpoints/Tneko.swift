@@ -133,6 +133,6 @@ extension Array {
 
 extension String {
     var isValidStatusCode: Bool {
-        return self == "荷物受付" || self == "発送済み" || self == "輸送中" || self == "配達中" || self == "配達完了" || self == "持戻（ご不在）" || self == "配達完了（宅配ボックス）"
+        return self == "荷物受付" || self == "発送済み" || self == "輸送中" || self == "配達中" || self == "配達完了" || self == "持戻（ご不在）" || self == "配達完了（宅配ボックス）" || self == "配達日・時間帯指定（保管中）"
     }
 }
