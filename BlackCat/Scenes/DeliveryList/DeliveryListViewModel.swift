@@ -3,7 +3,7 @@ import Domain
 import Combine
 
 protocol DeliveryListViewModelInputs {
-
+    func onAppear()
 }
 
 protocol DeliveryListViewModelOutputs {
@@ -20,19 +20,31 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
         return LocalDeliveryItems.shared.items
     }
     @Published var deliveryList: [DeliveryItem] = []
-
+    private var shouldReload: Bool = false
     private var cancellables: Set<AnyCancellable> = []
 
     init() {
+        $onAppearPublisher.sink { _ in
+            guard self.shouldReload else { return }
+            self.loadItem()
+            self.shouldReload = false
+        }
+        .store(in: &cancellables)
+
         // Notifications
         Publishers.Merge3(
             NotificationCenter.default.publisher(for: .addItem),
             NotificationCenter.default.publisher(for: .removeItem),
             NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification))
         .sink { [weak self] _ in
-            self?.loadItem()
+            self?.shouldReload = true
         }
         .store(in: &cancellables)
+    }
+
+    @Published private var onAppearPublisher: Void?
+    func onAppear() {
+        onAppearPublisher = ()
     }
 
     private func loadItem() {
