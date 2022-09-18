@@ -40,6 +40,9 @@ struct DeliveryListView: View {
                     }
                 }
                 .navigationTitle("配達状況一覧")
+                .refreshable {
+                    viewModel.input.pullToRefresh()
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {

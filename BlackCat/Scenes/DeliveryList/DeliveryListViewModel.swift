@@ -4,6 +4,7 @@ import Combine
 
 protocol DeliveryListViewModelInputs {
     func onAppear()
+    func pullToRefresh()
 }
 
 protocol DeliveryListViewModelOutputs {
@@ -24,8 +25,9 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     private var cancellables: Set<AnyCancellable> = []
 
     init() {
-        $onAppearPublisher.sink { _ in
-            guard self.shouldReload else { return }
+        $onAppearPublisher.sink { [weak self] _ in
+            guard let self,
+                  self.shouldReload else { return }
             self.loadItem()
             self.shouldReload = false
         }
@@ -40,11 +42,22 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
             self?.shouldReload = true
         }
         .store(in: &cancellables)
+
+        $pullToRefreshPublisher.sink { [weak self] _ in
+            guard let self else { return }
+            self.loadItem()
+        }
+        .store(in: &cancellables)
     }
 
     @Published private var onAppearPublisher: Void?
     func onAppear() {
         onAppearPublisher = ()
+    }
+
+    @Published private var pullToRefreshPublisher: Void?
+    func pullToRefresh() {
+        pullToRefreshPublisher = ()
     }
 
     private func loadItem() {
