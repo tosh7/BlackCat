@@ -65,9 +65,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
             let result = await apiClient.tneko(.init(numbers: goodsIdList))
             guard let tneko = result.value else { return }
             let tnekoClient = TnekoClient(tneko: tneko)
-            DispatchQueue.main.async {
-                self.deliveryList = tnekoClient.deliveryList
-            }
+            self.deliveryList = tnekoClient.deliveryList
         }
     }
 
