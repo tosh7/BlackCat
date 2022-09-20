@@ -40,6 +40,9 @@ struct DeliveryListView: View {
                     }
                 }
                 .navigationTitle("配達状況一覧")
+                .refreshable {
+                    viewModel.input.pullToRefresh()
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -47,10 +50,15 @@ struct DeliveryListView: View {
                         self.showingModal.toggle()
                     }) {
                         Image(systemName: "plus")
-                    }.sheet(isPresented: $showingModal, content: {
+                    }.sheet(isPresented: $showingModal, onDismiss: {
+                        self.viewModel.input.onAppear()
+                    }, content: {
                         AddListView()
                     })
                 }
+            }
+            .onAppear {
+                self.viewModel.input.onAppear()
             }
         }
         .preferredColorScheme(.dark)

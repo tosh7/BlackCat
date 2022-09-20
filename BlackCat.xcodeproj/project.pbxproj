@@ -11,7 +11,10 @@
 		19334BA426C8283D00840389 /* TnekoMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 19334BA326C8283D00840389 /* TnekoMock.json */; };
 		19334BA626C8399700840389 /* StateDetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19334BA526C8399700840389 /* StateDetailListView.swift */; };
 		19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */; };
+		194D26DD27C61E430077DD80 /* APIClient+Futures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194D26DC27C61E430077DD80 /* APIClient+Futures.swift */; };
+		194D26DF27C645640077DD80 /* Publisher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194D26DE27C645640077DD80 /* Publisher+Extension.swift */; };
 		1978FCF826E9E587008C0CAB /* StateDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1978FCF726E9E587008C0CAB /* StateDetailViewModel.swift */; };
+		19913CA4289554590074B6D6 /* Result+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19913CA3289554590074B6D6 /* Result+extension.swift */; };
 		19A9A2AB26C1060F00BD5AF8 /* StateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */; };
 		19A9A2AD26C1285800BD5AF8 /* DeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */; };
 		19A9A2AF26C128A800BD5AF8 /* DeliveryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AE26C128A800BD5AF8 /* DeliveryStatus.swift */; };
@@ -91,7 +94,10 @@
 		19334BA326C8283D00840389 /* TnekoMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TnekoMock.json; sourceTree = "<group>"; };
 		19334BA526C8399700840389 /* StateDetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailListView.swift; sourceTree = "<group>"; };
 		19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuggageItemGrid.swift; sourceTree = "<group>"; };
+		194D26DC27C61E430077DD80 /* APIClient+Futures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient+Futures.swift"; sourceTree = "<group>"; };
+		194D26DE27C645640077DD80 /* Publisher+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Extension.swift"; sourceTree = "<group>"; };
 		1978FCF726E9E587008C0CAB /* StateDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailViewModel.swift; sourceTree = "<group>"; };
+		19913CA3289554590074B6D6 /* Result+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+extension.swift"; sourceTree = "<group>"; };
 		19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailView.swift; sourceTree = "<group>"; };
 		19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryItem.swift; sourceTree = "<group>"; };
 		19A9A2AE26C128A800BD5AF8 /* DeliveryStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryStatus.swift; sourceTree = "<group>"; };
@@ -262,6 +268,7 @@
 				19D6DA3F26B639A50030343D /* ResponseType.swift */,
 				19D6DA3D26B592040030343D /* HTTPMethod.swift */,
 				19D6DA4126B63A750030343D /* APIClient+Endpoints.swift */,
+				194D26DC27C61E430077DD80 /* APIClient+Futures.swift */,
 			);
 			path = APIProtcols;
 			sourceTree = "<group>";
@@ -280,6 +287,8 @@
 				19C26A7E26BC329C00845289 /* Color+extension.swift */,
 				19C584EE26EA0947002F4341 /* Notification+extension.swift */,
 				2B5D54B726ED084100189351 /* View+extension.swift */,
+				194D26DE27C645640077DD80 /* Publisher+Extension.swift */,
+				19913CA3289554590074B6D6 /* Result+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -537,6 +546,7 @@
 				19A9A2D326C134AA00BD5AF8 /* ApiClient.swift in Sources */,
 				19A9A2D426C134AC00BD5AF8 /* APIError.swift in Sources */,
 				19A9A2D626C134B400BD5AF8 /* ResponseType.swift in Sources */,
+				194D26DD27C61E430077DD80 /* APIClient+Futures.swift in Sources */,
 				19A9A2DA26C134F200BD5AF8 /* Tneko.swift in Sources */,
 				19A9A2D826C134B800BD5AF8 /* HTTPMethod.swift in Sources */,
 				19A9A2D526C134B000BD5AF8 /* RequestType.swift in Sources */,
@@ -569,6 +579,8 @@
 				19C26A7B26B9B17200845289 /* TnekoClient.swift in Sources */,
 				2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */,
 				19A9A2AF26C128A800BD5AF8 /* DeliveryStatus.swift in Sources */,
+				194D26DF27C645640077DD80 /* Publisher+Extension.swift in Sources */,
+				19913CA4289554590074B6D6 /* Result+extension.swift in Sources */,
 				19C26A8226BC403900845289 /* DeliveryListViewModel.swift in Sources */,
 				19334BA626C8399700840389 /* StateDetailListView.swift in Sources */,
 				19A9A2AD26C1285800BD5AF8 /* DeliveryItem.swift in Sources */,
@@ -611,15 +623,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 2;
+				DYLIB_CURRENT_VERSION = 6;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Domain/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -640,15 +652,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 2;
+				DYLIB_CURRENT_VERSION = 6;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Domain/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -758,7 +770,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -813,7 +825,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -834,7 +846,7 @@
 				DEVELOPMENT_TEAM = 56787CM63P;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BlackCat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -858,7 +870,7 @@
 				DEVELOPMENT_TEAM = 56787CM63P;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BlackCat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -879,6 +891,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				INFOPLIST_FILE = BlackCarWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -901,6 +914,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				INFOPLIST_FILE = BlackCarWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -15,8 +15,12 @@ struct StateDetailListView: View {
                     Text(deliveryStatus.date)
                     Text(deliveryStatus.time)
                 }
+                Spacer()
             }
-            Text(deliveryStatus.shopName)
+            HStack {
+                Text(deliveryStatus.shopName)
+                Spacer()
+            }
         }
     }
 }
