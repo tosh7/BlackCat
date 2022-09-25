@@ -1,15 +1,34 @@
-# fastlane
+fastlane documentation
+================
+# Installation
 
-## increment version number
+Make sure you have the latest version of the Xcode command line tools installed:
 
-incremet number with tipical version
 ```
-bundle exec fastlane run increment_version_number version_number:1.0.0
+xcode-select --install
 ```
 
-## increment build number
+Install _fastlane_ using
+```
+[sudo] gem install fastlane -NV
+```
+or alternatively using `brew install fastlane`
 
-incremet number with tipical version
+# Available Actions
+## iOS
+### ios release
 ```
-bundle exec fastlane run increment_build_number build_number:123
+fastlane ios release
 ```
+Push a new release build to the App Store
+### ios release_without_increment
+```
+fastlane ios release_without_increment
+```
+
+
+----
+
+This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
+More information about fastlane can be found on [fastlane.tools](https://fastlane.tools).
+The documentation of fastlane can be found on [docs.fastlane.tools](https://docs.fastlane.tools).

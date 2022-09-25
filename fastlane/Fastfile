@@ -22,4 +22,9 @@ platform :ios do
     build_app(scheme: "BlackCat")
     upload_to_app_store
   end
+
+  lane :release_without_increment do
+    build_app(scheme: "BlackCat")
+    upload_to_app_store
+  end
 end
