@@ -1,6 +1,6 @@
 # BlackCat - クロネコ配達状況
 ![](https://img.shields.io/badge/Xcode-14.0%2B-blue.svg)
-![](https://img.shields.io/badge/iOS-15.0%2B-blue.svg)
+![](https://img.shields.io/badge/iOS-16.0%2B-blue.svg)
 ![](https://img.shields.io/badge/Swift-5.7%2B-orange.svg)  
 
 Welcome to BlackCat's open source iOS app! Come on in, take your shoes off, stay a while - exploer how BlackCat's native squad has build and continues to build the app.  
