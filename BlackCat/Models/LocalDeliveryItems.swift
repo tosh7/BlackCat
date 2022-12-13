@@ -19,11 +19,13 @@ final class LocalDeliveryItems {
     func add(_ content: Int) {
         items.insert(content, at: 0)
         userdefaults.set(items, forKey: key)
+        NotificationCenter.default.post(name: .addItem, object: nil)
     }
 
     func remove(id: Int) {
         items.removeAll(where: { $0 == id })
         userdefaults.set(items, forKey: key)
+        NotificationCenter.default.post(name: .removeItem, object: nil)
     }
 
     func update() {

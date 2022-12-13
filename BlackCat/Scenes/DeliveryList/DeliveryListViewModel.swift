@@ -3,7 +3,8 @@ import Domain
 import Combine
 
 protocol DeliveryListViewModelInputs {
-
+    func onAppear()
+    func pullToRefresh()
 }
 
 protocol DeliveryListViewModelOutputs {
@@ -20,19 +21,43 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
         return LocalDeliveryItems.shared.items
     }
     @Published var deliveryList: [DeliveryItem] = []
-
+    private var shouldReload: Bool = false
     private var cancellables: Set<AnyCancellable> = []
 
     init() {
+        $onAppearPublisher.sink { [weak self] _ in
+            guard let self,
+                  self.shouldReload else { return }
+            self.loadItem()
+            self.shouldReload = false
+        }
+        .store(in: &cancellables)
+
         // Notifications
         Publishers.Merge3(
             NotificationCenter.default.publisher(for: .addItem),
             NotificationCenter.default.publisher(for: .removeItem),
             NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification))
         .sink { [weak self] _ in
-            self?.loadItem()
+            self?.shouldReload = true
         }
         .store(in: &cancellables)
+
+        $pullToRefreshPublisher.sink { [weak self] _ in
+            guard let self else { return }
+            self.loadItem()
+        }
+        .store(in: &cancellables)
+    }
+
+    @Published private var onAppearPublisher: Void?
+    func onAppear() {
+        onAppearPublisher = ()
+    }
+
+    @Published private var pullToRefreshPublisher: Void?
+    func pullToRefresh() {
+        pullToRefreshPublisher = ()
     }
 
     private func loadItem() {
@@ -40,9 +65,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
             let result = await apiClient.tneko(.init(numbers: goodsIdList))
             guard let tneko = result.value else { return }
             let tnekoClient = TnekoClient(tneko: tneko)
-            DispatchQueue.main.async {
-                self.deliveryList = tnekoClient.deliveryList
-            }
+            self.deliveryList = tnekoClient.deliveryList
         }
     }
 

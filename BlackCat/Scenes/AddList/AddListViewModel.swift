@@ -52,19 +52,8 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
                 self.errorMessage = value.deriveryList[0].statusList.count != 0 ? "登録に成功しました" : "登録に失敗しました"
                 self.showingAlert = true
                 value.deriveryList.filter { $0.statusList.count != 0 }.forEach {
-                    self.addedItemPublisher = $0.deliveryID
+                    LocalDeliveryItems.shared.add($0.deliveryID)
                 }
-            })
-            .store(in: &cancellables)
-
-        $addedItemPublisher
-            .compactMap { $0 }
-            .map {
-                LocalDeliveryItems.shared.add($0)
-            }
-            .delay(for: .seconds(0.1), scheduler: RunLoop.main)
-            .sink(receiveValue: {
-                NotificationCenter.default.post(name: .addItem, object: nil)
             })
             .store(in: &cancellables)
     }
@@ -78,7 +67,6 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
     }
 
     @Published private var buttonTappedPublisher: Void = ()
-    @Published private var addedItemPublisher: Int?
     func buttonDidTap() {
         buttonTappedPublisher = ()
     }
