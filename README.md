@@ -1,5 +1,5 @@
 # BlackCat - クロネコ配達状況
-![](https://img.shields.io/badge/Xcode-14.0%2B-blue.svg)
+![](https://img.shields.io/badge/Xcode-14.2%2B-blue.svg)
 ![](https://img.shields.io/badge/iOS-16.0%2B-blue.svg)
 ![](https://img.shields.io/badge/Swift-5.7%2B-orange.svg)  
 
@@ -10,7 +10,7 @@ This is a クロネコ配達状況's repository. It is availavle at the [App Sto
 Adding your Kuroneko Yamato's delivery tracking ID, you can check where your delivery item is.
 
 ## Getting Started
-1. Install Xcode. (Xcode14.0 is highly recommended)
+1. Install Xcode. (Xcode14.2 is highly recommended)
 2. Clone this repository.
 3. Build this app on Xcode
 
