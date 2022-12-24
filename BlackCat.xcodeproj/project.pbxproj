@@ -15,11 +15,12 @@
 		194D26DF27C645640077DD80 /* Publisher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194D26DE27C645640077DD80 /* Publisher+Extension.swift */; };
 		1978FCF826E9E587008C0CAB /* StateDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1978FCF726E9E587008C0CAB /* StateDetailViewModel.swift */; };
 		19913CA4289554590074B6D6 /* Result+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19913CA3289554590074B6D6 /* Result+extension.swift */; };
+		19A72FA92956CCA100981186 /* Result+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19913CA3289554590074B6D6 /* Result+extension.swift */; };
 		19A9A2AB26C1060F00BD5AF8 /* StateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */; };
 		19A9A2AD26C1285800BD5AF8 /* DeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */; };
 		19A9A2AF26C128A800BD5AF8 /* DeliveryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AE26C128A800BD5AF8 /* DeliveryStatus.swift */; };
 		19A9A2BE26C1342E00BD5AF8 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9A2B526C1342E00BD5AF8 /* Domain.framework */; };
-		19A9A2C526C1342E00BD5AF8 /* DomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2C426C1342E00BD5AF8 /* DomainTests.swift */; };
+		19A9A2C526C1342E00BD5AF8 /* TnekoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2C426C1342E00BD5AF8 /* TnekoTests.swift */; };
 		19A9A2C726C1342E00BD5AF8 /* Domain.h in Headers */ = {isa = PBXBuildFile; fileRef = 19A9A2B726C1342E00BD5AF8 /* Domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		19A9A2CA26C1342E00BD5AF8 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9A2B526C1342E00BD5AF8 /* Domain.framework */; };
 		19A9A2CB26C1342E00BD5AF8 /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9A2B526C1342E00BD5AF8 /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -105,7 +106,7 @@
 		19A9A2B726C1342E00BD5AF8 /* Domain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Domain.h; sourceTree = "<group>"; };
 		19A9A2B826C1342E00BD5AF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19A9A2BD26C1342E00BD5AF8 /* DomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		19A9A2C426C1342E00BD5AF8 /* DomainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainTests.swift; sourceTree = "<group>"; };
+		19A9A2C426C1342E00BD5AF8 /* TnekoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TnekoTests.swift; sourceTree = "<group>"; };
 		19A9A2C626C1342E00BD5AF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19C26A7A26B9B17200845289 /* TnekoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TnekoClient.swift; sourceTree = "<group>"; };
 		19C26A7C26B9B81A00845289 /* DonutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonutsView.swift; sourceTree = "<group>"; };
@@ -227,7 +228,7 @@
 		19A9A2C326C1342E00BD5AF8 /* DomainTests */ = {
 			isa = PBXGroup;
 			children = (
-				19A9A2C426C1342E00BD5AF8 /* DomainTests.swift */,
+				19A9A2C426C1342E00BD5AF8 /* TnekoTests.swift */,
 				19A9A2C626C1342E00BD5AF8 /* Info.plist */,
 			);
 			path = DomainTests;
@@ -557,7 +558,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19A9A2C526C1342E00BD5AF8 /* DomainTests.swift in Sources */,
+				19A72FA92956CCA100981186 /* Result+extension.swift in Sources */,
+				19A9A2C526C1342E00BD5AF8 /* TnekoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
