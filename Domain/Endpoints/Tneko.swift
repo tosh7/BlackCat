@@ -60,10 +60,10 @@ public struct TnekoRequest: RequestType, URLQueryEncodable {
     }
 }
 
-public struct Tneko: ResponseType {
+public struct Tneko: ResponseType, Equatable {
     public var deriveryList: [DeliveryList]
 
-    public struct DeliveryList: ResponseType {
+    public struct DeliveryList: Codable, Equatable {
         public var deliveryID: Int
         public var statusList: [DeliveryStatus]
 
@@ -72,7 +72,7 @@ public struct Tneko: ResponseType {
             self.statusList = statusList
         }
 
-        public struct DeliveryStatus: ResponseType {
+        public struct DeliveryStatus: Codable, Equatable {
             public var status: String
             public var date: String
             public var time: String
@@ -85,6 +85,10 @@ public struct Tneko: ResponseType {
                 self.shopName = shopName
             }
         }
+    }
+
+    public init(deriveryList: [DeliveryList]) {
+        self.deriveryList = deriveryList
     }
 }
 
