@@ -84,6 +84,13 @@
 			remoteGlobalIDString = 19A9A2B426C1342E00BD5AF8;
 			remoteInfo = Domain;
 		};
+		19ED4094296551C40016D67E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2B5AC1D12670EBAF00CB80F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19A9A2B426C1342E00BD5AF8;
+			remoteInfo = Domain;
+		};
 		2B5AC1FF2670EDAB00CB80F6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2B5AC1D12670EBAF00CB80F6 /* Project object */;
@@ -484,6 +491,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				19ED4095296551C40016D67E /* PBXTargetDependency */,
 			);
 			name = BlackCatWidgetExtension;
 			productName = BlackCatWidgetExtension;
@@ -658,6 +666,11 @@
 			isa = PBXTargetDependency;
 			target = 19A9A2B426C1342E00BD5AF8 /* Domain */;
 			targetProxy = 19A9A2C826C1342E00BD5AF8 /* PBXContainerItemProxy */;
+		};
+		19ED4095296551C40016D67E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 19A9A2B426C1342E00BD5AF8 /* Domain */;
+			targetProxy = 19ED4094296551C40016D67E /* PBXContainerItemProxy */;
 		};
 		2B5AC2002670EDAB00CB80F6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
