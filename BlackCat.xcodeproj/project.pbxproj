@@ -12,6 +12,10 @@
 		19320F1E29652F9B00D15032 /* DeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */; };
 		19320F1F29652FA500D15032 /* DeliveryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AE26C128A800BD5AF8 /* DeliveryStatus.swift */; };
 		19320F2029652FAD00D15032 /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7E26BC329C00845289 /* Color+extension.swift */; };
+		19320F212965301300D15032 /* LuggageItemGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */; };
+		19320F222965301600D15032 /* DonutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7C26B9B81A00845289 /* DonutsView.swift */; };
+		19320F232965301F00D15032 /* TnekoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19334B9E26C826E800840389 /* TnekoMock.swift */; };
+		19320F242965302600D15032 /* TnekoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7A26B9B17200845289 /* TnekoClient.swift */; };
 		19334B9F26C826E800840389 /* TnekoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19334B9E26C826E800840389 /* TnekoMock.swift */; };
 		19334BA426C8283D00840389 /* TnekoMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 19334BA326C8283D00840389 /* TnekoMock.json */; };
 		19334BA626C8399700840389 /* StateDetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19334BA526C8399700840389 /* StateDetailListView.swift */; };
@@ -624,9 +628,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19320F242965302600D15032 /* TnekoClient.swift in Sources */,
 				19320F1E29652F9B00D15032 /* DeliveryItem.swift in Sources */,
 				19320F2029652FAD00D15032 /* Color+extension.swift in Sources */,
+				19320F212965301300D15032 /* LuggageItemGrid.swift in Sources */,
+				19320F222965301600D15032 /* DonutsView.swift in Sources */,
 				2B5AC1F82670EDA400CB80F6 /* BlackCarWidget.swift in Sources */,
+				19320F232965301F00D15032 /* TnekoMock.swift in Sources */,
 				19320F1D29652F8D00D15032 /* WidgetDeliveryItem.swift in Sources */,
 				19320F1F29652FA500D15032 /* DeliveryStatus.swift in Sources */,
 				2B5AC1FD2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
