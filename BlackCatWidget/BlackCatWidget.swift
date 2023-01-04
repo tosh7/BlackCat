@@ -1,3 +1,4 @@
+
 import WidgetKit
 import SwiftUI
 import Intents
@@ -33,30 +34,33 @@ struct SimpleEntry: TimelineEntry {
     let configuration: ConfigurationIntent
 }
 
-struct BlackCarWidgetEntryView : View {
+struct BlackCatWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        Text(entry.date, style: .time)
+        VStack {
+            Text(entry.date, style: .time)
+            Text("New Update!")
+        }
     }
 }
 
 @main
-struct BlackCarWidget: Widget {
-    let kind: String = "BlackCarWidget"
+struct BlackCatWidget: Widget {
+    let kind: String = "BlackCatWidget"
 
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
-            BlackCarWidgetEntryView(entry: entry)
+            BlackCatWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
     }
 }
 
-struct BlackCarWidget_Previews: PreviewProvider {
+struct BlackCatWidget_Previews: PreviewProvider {
     static var previews: some View {
-        BlackCarWidgetEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent()))
+        BlackCatWidgetEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

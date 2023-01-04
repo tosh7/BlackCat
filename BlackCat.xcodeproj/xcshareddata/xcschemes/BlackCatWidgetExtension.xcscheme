@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2B5AC1EF2670EDA300CB80F6"
-               BuildableName = "BlackCarWidgetExtension.appex"
-               BlueprintName = "BlackCarWidgetExtension"
+               BuildableName = "BlackCatWidgetExtension.appex"
+               BlueprintName = "BlackCatWidgetExtension"
                ReferencedContainer = "container:BlackCat.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,8 +57,18 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "2B5AC1EF2670EDA300CB80F6"
+            BuildableName = "BlackCatWidgetExtension.appex"
+            BlueprintName = "BlackCatWidgetExtension"
+            ReferencedContainer = "container:BlackCat.xcodeproj">
+         </BuildableReference>
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2B5AC1D82670EBAF00CB80F6"
@@ -66,7 +76,7 @@
             BlueprintName = "BlackCat"
             ReferencedContainer = "container:BlackCat.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "_XCWidgetKind"

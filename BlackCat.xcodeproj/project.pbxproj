@@ -54,11 +54,11 @@
 		2B5AC1E42670EBB300CB80F6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1E32670EBB300CB80F6 /* Preview Assets.xcassets */; };
 		2B5AC1F32670EDA300CB80F6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5AC1F22670EDA300CB80F6 /* WidgetKit.framework */; };
 		2B5AC1F52670EDA400CB80F6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5AC1F42670EDA400CB80F6 /* SwiftUI.framework */; };
-		2B5AC1F82670EDA400CB80F6 /* BlackCarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F72670EDA400CB80F6 /* BlackCarWidget.swift */; };
+		2B5AC1F82670EDA400CB80F6 /* BlackCatWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F72670EDA400CB80F6 /* BlackCatWidget.swift */; };
 		2B5AC1FB2670EDAB00CB80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */; };
-		2B5AC1FD2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
-		2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
-		2B5AC2012670EDAB00CB80F6 /* BlackCarWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2B5AC1FD2670EDAB00CB80F6 /* BlackCatWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCatWidget.intentdefinition */; };
+		2B5AC1FE2670EDAB00CB80F6 /* BlackCatWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCatWidget.intentdefinition */; };
+		2B5AC2012670EDAB00CB80F6 /* BlackCatWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2B5AC1F02670EDA300CB80F6 /* BlackCatWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2B5D54B826ED084100189351 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5D54B726ED084100189351 /* View+extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,7 +89,7 @@
 			containerPortal = 2B5AC1D12670EBAF00CB80F6 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2B5AC1EF2670EDA300CB80F6;
-			remoteInfo = BlackCarWidgetExtension;
+			remoteInfo = BlackCatWidgetExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -111,7 +111,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				2B5AC2012670EDAB00CB80F6 /* BlackCarWidgetExtension.appex in Embed App Extensions */,
+				2B5AC2012670EDAB00CB80F6 /* BlackCatWidgetExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -158,11 +158,11 @@
 		2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B5AC1E32670EBB300CB80F6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2B5AC1E52670EBB300CB80F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BlackCarWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B5AC1F02670EDA300CB80F6 /* BlackCatWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BlackCatWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B5AC1F22670EDA300CB80F6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2B5AC1F42670EDA400CB80F6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		2B5AC1F72670EDA400CB80F6 /* BlackCarWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCarWidget.swift; sourceTree = "<group>"; };
-		2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = BlackCarWidget.intentdefinition; sourceTree = "<group>"; };
+		2B5AC1F72670EDA400CB80F6 /* BlackCatWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCatWidget.swift; sourceTree = "<group>"; };
+		2B5AC1F92670EDA400CB80F6 /* BlackCatWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = BlackCatWidget.intentdefinition; sourceTree = "<group>"; };
 		2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B5AC1FC2670EDAB00CB80F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B5D54B726ED084100189351 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
@@ -328,7 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				2B5AC1DB2670EBAF00CB80F6 /* BlackCat */,
-				2B5AC1F62670EDA400CB80F6 /* BlackCarWidget */,
+				2B5AC1F62670EDA400CB80F6 /* BlackCatWidget */,
 				19A9A2B626C1342E00BD5AF8 /* Domain */,
 				19A9A2C326C1342E00BD5AF8 /* DomainTests */,
 				2B5AC1F12670EDA300CB80F6 /* Frameworks */,
@@ -340,7 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */,
-				2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */,
+				2B5AC1F02670EDA300CB80F6 /* BlackCatWidgetExtension.appex */,
 				19A9A2B526C1342E00BD5AF8 /* Domain.framework */,
 				19A9A2BD26C1342E00BD5AF8 /* DomainTests.xctest */,
 			);
@@ -380,15 +380,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2B5AC1F62670EDA400CB80F6 /* BlackCarWidget */ = {
+		2B5AC1F62670EDA400CB80F6 /* BlackCatWidget */ = {
 			isa = PBXGroup;
 			children = (
-				2B5AC1F72670EDA400CB80F6 /* BlackCarWidget.swift */,
-				2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */,
+				2B5AC1F72670EDA400CB80F6 /* BlackCatWidget.swift */,
+				2B5AC1F92670EDA400CB80F6 /* BlackCatWidget.intentdefinition */,
 				2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */,
 				2B5AC1FC2670EDAB00CB80F6 /* Info.plist */,
 			);
-			path = BlackCarWidget;
+			path = BlackCatWidget;
 			sourceTree = "<group>";
 		};
 		2B5AC2082670EDF800CB80F6 /* Scenes */ = {
@@ -473,9 +473,9 @@
 			productReference = 2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2B5AC1EF2670EDA300CB80F6 /* BlackCarWidgetExtension */ = {
+		2B5AC1EF2670EDA300CB80F6 /* BlackCatWidgetExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2B5AC2022670EDAC00CB80F6 /* Build configuration list for PBXNativeTarget "BlackCarWidgetExtension" */;
+			buildConfigurationList = 2B5AC2022670EDAC00CB80F6 /* Build configuration list for PBXNativeTarget "BlackCatWidgetExtension" */;
 			buildPhases = (
 				2B5AC1EC2670EDA300CB80F6 /* Sources */,
 				2B5AC1ED2670EDA300CB80F6 /* Frameworks */,
@@ -485,9 +485,9 @@
 			);
 			dependencies = (
 			);
-			name = BlackCarWidgetExtension;
-			productName = BlackCarWidgetExtension;
-			productReference = 2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */;
+			name = BlackCatWidgetExtension;
+			productName = BlackCatWidgetExtension;
+			productReference = 2B5AC1F02670EDA300CB80F6 /* BlackCatWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -528,7 +528,7 @@
 			projectRoot = "";
 			targets = (
 				2B5AC1D82670EBAF00CB80F6 /* BlackCat */,
-				2B5AC1EF2670EDA300CB80F6 /* BlackCarWidgetExtension */,
+				2B5AC1EF2670EDA300CB80F6 /* BlackCatWidgetExtension */,
 				19A9A2B426C1342E00BD5AF8 /* Domain */,
 				19A9A2BC26C1342E00BD5AF8 /* DomainTests */,
 			);
@@ -610,7 +610,7 @@
 				19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */,
 				19320F1C29652E5000D15032 /* WidgetDeliveryItem.swift in Sources */,
 				19334B9F26C826E800840389 /* TnekoMock.swift in Sources */,
-				2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
+				2B5AC1FE2670EDAB00CB80F6 /* BlackCatWidget.intentdefinition in Sources */,
 				19C26A7B26B9B17200845289 /* TnekoClient.swift in Sources */,
 				2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */,
 				19A9A2AF26C128A800BD5AF8 /* DeliveryStatus.swift in Sources */,
@@ -633,11 +633,11 @@
 				19320F2029652FAD00D15032 /* Color+extension.swift in Sources */,
 				19320F212965301300D15032 /* LuggageItemGrid.swift in Sources */,
 				19320F222965301600D15032 /* DonutsView.swift in Sources */,
-				2B5AC1F82670EDA400CB80F6 /* BlackCarWidget.swift in Sources */,
+				2B5AC1F82670EDA400CB80F6 /* BlackCatWidget.swift in Sources */,
 				19320F232965301F00D15032 /* TnekoMock.swift in Sources */,
 				19320F1D29652F8D00D15032 /* WidgetDeliveryItem.swift in Sources */,
 				19320F1F29652FA500D15032 /* DeliveryStatus.swift in Sources */,
-				2B5AC1FD2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
+				2B5AC1FD2670EDAB00CB80F6 /* BlackCatWidget.intentdefinition in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,7 +661,7 @@
 		};
 		2B5AC2002670EDAB00CB80F6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2B5AC1EF2670EDA300CB80F6 /* BlackCarWidgetExtension */;
+			target = 2B5AC1EF2670EDA300CB80F6 /* BlackCatWidgetExtension */;
 			targetProxy = 2B5AC1FF2670EDAB00CB80F6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -938,7 +938,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56787CM63P;
-				INFOPLIST_FILE = BlackCarWidget/Info.plist;
+				INFOPLIST_FILE = BlackCatWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -946,7 +946,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tosh7.BlackCat.BlackCarWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = tosh7.BlackCat.BlackCatWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -961,7 +961,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56787CM63P;
-				INFOPLIST_FILE = BlackCarWidget/Info.plist;
+				INFOPLIST_FILE = BlackCatWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -969,7 +969,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tosh7.BlackCat.BlackCarWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = tosh7.BlackCat.BlackCatWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1016,7 +1016,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2B5AC2022670EDAC00CB80F6 /* Build configuration list for PBXNativeTarget "BlackCarWidgetExtension" */ = {
+		2B5AC2022670EDAC00CB80F6 /* Build configuration list for PBXNativeTarget "BlackCatWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2B5AC2032670EDAC00CB80F6 /* Debug */,
