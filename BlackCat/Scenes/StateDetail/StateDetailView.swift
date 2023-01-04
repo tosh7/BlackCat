@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct StateDetailView: View {
-    @ObservedObject private var viewModel = StateDetailViewModel()
-    private let deliveyDetail: DeliveryItem
+
+    @StateObject private var viewModel: StateDetailViewModel
     @Environment(\.presentationMode) var presentation
 
     init(deliveryDetail: DeliveryItem) {
-        self.deliveyDetail = deliveryDetail
+        _viewModel = StateObject(wrappedValue: StateDetailViewModel(deliveryItem: deliveryDetail))
     }
 
     var body: some View {
@@ -14,7 +14,7 @@ struct StateDetailView: View {
             Color.black.edgesIgnoringSafeArea(.all)
 
             List() {
-                ForEach(deliveyDetail.statusList) {
+                ForEach(viewModel.deliveryItem.statusList) {
                     StateDetailListView(deliveryStatus: $0)
                 }
             }
@@ -22,34 +22,60 @@ struct StateDetailView: View {
             VStack {
                 Spacer()
 
-                Button(action: {
-                    // Remove an Item from userdefaults
-                    viewModel.deleteDeliveryItem(id: deliveyDetail.deliveryID)
-                }) {
-                    ZStack {
-                        Color.BlackCat.naturalRed.edgesIgnoringSafeArea(.all)
-                            .frame(height: 50, alignment: .center)
+                VStack {
+                    Button(action: {
+                        viewModel.deleteDeliveryItem()
+                    }, label: {
+                        ZStack {
+                            Color.blue.edgesIgnoringSafeArea(.all)
+                                .frame(height: 50, alignment: .center)
 
-                        Text("削除する")
-                            .foregroundColor(.white)
+                            Text("Widgetに追加")
+                                .foregroundColor(.white)
+                        }
+                        .cornerRadius(10)
+                        .padding(.bottom, 10)
+                        .padding(.horizontal, 20)
+                    })
+                    .alert(isPresented: $viewModel.showsWidgetAlert) {
+                        Alert(title: Text("Widgetに登録しました"),
+                              dismissButton: .default(
+                                Text("OK"),
+                                action: {
+                                    self.presentation.wrappedValue.dismiss()
+                                }
+                              )
+                        )
                     }
-                    .cornerRadius(10)
-                    .padding(.bottom, 30)
-                    .padding(.horizontal, 20)
-                }
-                .alert(isPresented: $viewModel.showingAlert) {
-                    Alert(title: Text("削除しました"),
-                          dismissButton: .default(
-                            Text("OK"),
-                            action: {
-                                self.presentation.wrappedValue.dismiss()
-                            }
-                          )
-                    )
+
+                    Button(action: {
+                        viewModel.deleteDeliveryItem()
+                    }) {
+                        ZStack {
+                            Color.BlackCat.naturalRed.edgesIgnoringSafeArea(.all)
+                                .frame(height: 50, alignment: .center)
+
+                            Text("削除する")
+                                .foregroundColor(.white)
+                        }
+                        .cornerRadius(10)
+                        .padding(.bottom, 30)
+                        .padding(.horizontal, 20)
+                    }
+                    .alert(isPresented: $viewModel.showsDeletionAlert) {
+                        Alert(title: Text("削除しました"),
+                              dismissButton: .default(
+                                Text("OK"),
+                                action: {
+                                    self.presentation.wrappedValue.dismiss()
+                                }
+                              )
+                        )
+                    }
                 }
             }
         }
-        .navigationTitle(String(deliveyDetail.deliveryID))
+        .navigationTitle(String(viewModel.id))
     }
 }
 
