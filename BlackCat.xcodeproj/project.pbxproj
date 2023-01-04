@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19320F1C29652E5000D15032 /* WidgetDeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19320F1B29652E5000D15032 /* WidgetDeliveryItem.swift */; };
+		19320F1D29652F8D00D15032 /* WidgetDeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19320F1B29652E5000D15032 /* WidgetDeliveryItem.swift */; };
+		19320F1E29652F9B00D15032 /* DeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */; };
+		19320F1F29652FA500D15032 /* DeliveryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AE26C128A800BD5AF8 /* DeliveryStatus.swift */; };
+		19320F2029652FAD00D15032 /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7E26BC329C00845289 /* Color+extension.swift */; };
 		19334B9F26C826E800840389 /* TnekoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19334B9E26C826E800840389 /* TnekoMock.swift */; };
 		19334BA426C8283D00840389 /* TnekoMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 19334BA326C8283D00840389 /* TnekoMock.json */; };
 		19334BA626C8399700840389 /* StateDetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19334BA526C8399700840389 /* StateDetailListView.swift */; };
@@ -49,8 +54,8 @@
 		2B5AC1FB2670EDAB00CB80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */; };
 		2B5AC1FD2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
 		2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
-		2B5D54B826ED084100189351 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5D54B726ED084100189351 /* View+extension.swift */; };
 		2B5AC2012670EDAB00CB80F6 /* BlackCarWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2B5D54B826ED084100189351 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5D54B726ED084100189351 /* View+extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +115,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		19320F1B29652E5000D15032 /* WidgetDeliveryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDeliveryItem.swift; sourceTree = "<group>"; };
 		19334B9E26C826E800840389 /* TnekoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TnekoMock.swift; sourceTree = "<group>"; };
 		19334BA326C8283D00840389 /* TnekoMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TnekoMock.json; sourceTree = "<group>"; };
 		19334BA526C8399700840389 /* StateDetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailListView.swift; sourceTree = "<group>"; };
@@ -219,6 +225,7 @@
 				19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */,
 				19A9A2AE26C128A800BD5AF8 /* DeliveryStatus.swift */,
 				19DEC71726D5384000D9985B /* LocalDeliveryItems.swift */,
+				19320F1B29652E5000D15032 /* WidgetDeliveryItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -597,6 +604,7 @@
 				1978FCF826E9E587008C0CAB /* StateDetailViewModel.swift in Sources */,
 				19C26A7D26B9B81A00845289 /* DonutsView.swift in Sources */,
 				19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */,
+				19320F1C29652E5000D15032 /* WidgetDeliveryItem.swift in Sources */,
 				19334B9F26C826E800840389 /* TnekoMock.swift in Sources */,
 				2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
 				19C26A7B26B9B17200845289 /* TnekoClient.swift in Sources */,
@@ -616,7 +624,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19320F1E29652F9B00D15032 /* DeliveryItem.swift in Sources */,
+				19320F2029652FAD00D15032 /* Color+extension.swift in Sources */,
 				2B5AC1F82670EDA400CB80F6 /* BlackCarWidget.swift in Sources */,
+				19320F1D29652F8D00D15032 /* WidgetDeliveryItem.swift in Sources */,
+				19320F1F29652FA500D15032 /* DeliveryStatus.swift in Sources */,
 				2B5AC1FD2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
