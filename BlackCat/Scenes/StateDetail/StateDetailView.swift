@@ -75,7 +75,7 @@ struct StateDetailView: View {
                 }
             }
         }
-        .navigationTitle(String(viewModel.id))
+        .navigationTitle(String(viewModel.deliveryItem.deliveryID))
     }
 }
 

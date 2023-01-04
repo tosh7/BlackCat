@@ -5,9 +5,6 @@ final class StateDetailViewModel: ObservableObject {
 
     /// Delivery Item ID
     let deliveryItem: DeliveryItem
-    var id: Int {
-        deliveryItem.deliveryID
-    }
 
     init(deliveryItem: DeliveryItem) {
         self.deliveryItem = deliveryItem
@@ -22,7 +19,7 @@ final class StateDetailViewModel: ObservableObject {
 
     /// Remove an Item from userdefaults
     func deleteDeliveryItem() {
-        LocalDeliveryItems.shared.remove(id: id)
+        LocalDeliveryItems.shared.remove(id: deliveryItem.deliveryID)
         showsDeletionAlert = true
     }
 
