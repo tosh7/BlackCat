@@ -24,7 +24,7 @@ struct StateDetailView: View {
 
                 VStack {
                     Button(action: {
-                        viewModel.deleteDeliveryItem()
+                        viewModel.addWidgetDeliveryItem()
                     }, label: {
                         ZStack {
                             Color.blue.edgesIgnoringSafeArea(.all)
