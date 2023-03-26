@@ -4,7 +4,7 @@
 ![](https://img.shields.io/badge/Swift-5.7%2B-orange.svg)  
 
 Welcome to BlackCat's open source iOS app! Come on in, take your shoes off, stay a while - exploer how BlackCat's native squad has build and continues to build the app.  
-This is a クロネコ配達状況's repository. Availavle at the [App Store](https://apps.apple.com/jp/app/%E3%82%AF%E3%83%AD%E3%83%8D%E3%82%B3%E9%85%8D%E9%81%94%E7%8A%B6%E6%B3%81/id1585504785). 
+This is a クロネコ配達状況's repository. Available at the [App Store](https://apps.apple.com/jp/app/%E3%82%AF%E3%83%AD%E3%83%8D%E3%82%B3%E9%85%8D%E9%81%94%E7%8A%B6%E6%B3%81/id1585504785). 
 
 ## What you can do with BlackCat
 Adding your Kuroneko Yamato's delivery tracking ID, you can check where your delivery item is.
