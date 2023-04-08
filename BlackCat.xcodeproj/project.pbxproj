@@ -15,6 +15,7 @@
 		194D26DF27C645640077DD80 /* Publisher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194D26DE27C645640077DD80 /* Publisher+Extension.swift */; };
 		1978FCF826E9E587008C0CAB /* StateDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1978FCF726E9E587008C0CAB /* StateDetailViewModel.swift */; };
 		197A43F829E137F800D111B2 /* BlackCatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197A43F729E137F800D111B2 /* BlackCatTests.swift */; };
+		197A440029E139F900D111B2 /* DeliveryListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197A43FF29E139F900D111B2 /* DeliveryListViewModelTest.swift */; };
 		19913CA4289554590074B6D6 /* Result+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19913CA3289554590074B6D6 /* Result+extension.swift */; };
 		19A72FA92956CCA100981186 /* Result+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19913CA3289554590074B6D6 /* Result+extension.swift */; };
 		19A9A2AB26C1060F00BD5AF8 /* StateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */; };
@@ -108,6 +109,7 @@
 		1978FCF726E9E587008C0CAB /* StateDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailViewModel.swift; sourceTree = "<group>"; };
 		197A43F529E137F800D111B2 /* BlackCatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlackCatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		197A43F729E137F800D111B2 /* BlackCatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCatTests.swift; sourceTree = "<group>"; };
+		197A43FF29E139F900D111B2 /* DeliveryListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryListViewModelTest.swift; sourceTree = "<group>"; };
 		19913CA3289554590074B6D6 /* Result+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+extension.swift"; sourceTree = "<group>"; };
 		19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailView.swift; sourceTree = "<group>"; };
 		19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryItem.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 		197A43FE29E138DA00D111B2 /* ViewModelTests */ = {
 			isa = PBXGroup;
 			children = (
+				197A43FF29E139F900D111B2 /* DeliveryListViewModelTest.swift */,
 			);
 			path = ViewModelTests;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				197A440029E139F900D111B2 /* DeliveryListViewModelTest.swift in Sources */,
 				197A43F829E137F800D111B2 /* BlackCatTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
