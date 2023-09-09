@@ -23,6 +23,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     @Published var deliveryList: [DeliveryItem] = []
     private var shouldReload: Bool = false
     private var cancellables: Set<AnyCancellable> = []
+    private var isInitialLoad: Bool = true
 
     init() {
         $onAppearPublisher.sink { [weak self] _ in
@@ -65,6 +66,12 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
             let result = await apiClient.tneko(.init(numbers: goodsIdList))
             guard let tneko = result.value else { return }
             let tnekoClient = TnekoClient(tneko: tneko)
+            if isInitialLoad {
+                print(goodsIdList)
+                LocalDeliveryItems.shared.removeDeplicates(deliveryItems: tnekoClient.deliveryList)
+                isInitialLoad = false
+                print(goodsIdList)
+            }
             self.deliveryList = tnekoClient.deliveryList
         }
     }
