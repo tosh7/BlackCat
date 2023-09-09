@@ -30,8 +30,10 @@ struct LuggageItemGrid: View {
                         HStack {
                             Text(deliveryStatus.date)
                                 .foregroundColor(.white)
-                            Text(deliveryStatus.time)
-                                .foregroundColor(.white)
+                            if let time = deliveryStatus.time {
+                                Text(time)
+                                    .foregroundColor(.white)
+                            }
                         }
                     }.frame(width: 120, height: 120)
                 }
