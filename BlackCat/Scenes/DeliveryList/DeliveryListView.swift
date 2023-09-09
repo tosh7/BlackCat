@@ -51,26 +51,25 @@ struct DeliveryListView: View {
                     viewModel.input.pullToRefresh()
                 }
             }
-
-        }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    self.showingModal.toggle()
-                }) {
-                    Image(systemName: "plus")
-                }.sheet(isPresented: $showingModal, onDismiss: {
-                    self.viewModel.input.onAppear()
-                }, content: {
-                    AddListView()
-                })
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: {
+                        self.showingModal.toggle()
+                    }) {
+                        Image(systemName: "plus")
+                    }.sheet(isPresented: $showingModal, onDismiss: {
+                        self.viewModel.input.onAppear()
+                    }, content: {
+                        AddListView()
+                    })
+                }
             }
+            .onAppear {
+                self.viewModel.input.onAppear()
+            }
+            .preferredColorScheme(.dark)
+            .accentColor(.white)
         }
-        .onAppear {
-            self.viewModel.input.onAppear()
-        }
-        .preferredColorScheme(.dark)
-        .accentColor(.white)
     }
 }
 
