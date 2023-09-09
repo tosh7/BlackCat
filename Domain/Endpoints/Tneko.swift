@@ -75,10 +75,10 @@ public struct Tneko: ResponseType {
         public struct DeliveryStatus: ResponseType {
             public var status: String
             public var date: String
-            public var time: String
+            public var time: String?
             public var shopName: String
 
-            public init(status: String, date: String, time: String, shopName: String) {
+            public init(status: String, date: String, time: String?, shopName: String) {
                 self.status = status
                 self.date = date
                 self.time = time

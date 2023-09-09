@@ -28,7 +28,7 @@ struct DeliveryStatus: Identifiable {
     let id = UUID()
     let status: String
     let date: String
-    let time: String
+    let time: String?
     let shopName: String
 
     var deliveryStatus: DeliveryStatusType? {
