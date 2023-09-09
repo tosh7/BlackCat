@@ -20,22 +20,29 @@ struct DeliveryListView: View {
                     .edgesIgnoringSafeArea(.all)
 
                 ScrollView(.vertical) {
-                    ZStack {
-                        LazyVGrid(columns: columns,
-                                  spacing: Self.spacing) {
-                            ForEach(viewModel.output.deliveryList) { deliveryStatus in
-                                if deliveryStatus.statusList.count != 0 {
-                                    NavigationLink(destination: StateDetailView(deliveryDetail: deliveryStatus)) {
-                                        LuggageItemGrid(deliveryItem: deliveryStatus)
-                                            .frame(width: 150, height: 180, alignment: .center)
-                                            .cornerRadius(20)
+                    if viewModel.isLoading {
+                        VStack {
+                            Spacer(minLength: 200)
+                            ProgressView()
+                        }
+                    } else {
+                        ZStack {
+                            LazyVGrid(columns: columns,
+                                      spacing: Self.spacing) {
+                                ForEach(viewModel.output.deliveryList) { deliveryStatus in
+                                    if deliveryStatus.statusList.count != 0 {
+                                        NavigationLink(destination: StateDetailView(deliveryDetail: deliveryStatus)) {
+                                            LuggageItemGrid(deliveryItem: deliveryStatus)
+                                                .frame(width: 150, height: 180, alignment: .center)
+                                                .cornerRadius(20)
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        if viewModel.output.deliveryList.count == 0 {
-                            Text("アイテムが追加されていません。\n左上のボタンから追加してください。")
+                            if viewModel.output.deliveryList.count == 0 {
+                                Text("アイテムが追加されていません。\n左上のボタンから追加してください。")
+                            }
                         }
                     }
                 }
@@ -44,22 +51,23 @@ struct DeliveryListView: View {
                     viewModel.input.pullToRefresh()
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button(action: {
-                        self.showingModal.toggle()
-                    }) {
-                        Image(systemName: "plus")
-                    }.sheet(isPresented: $showingModal, onDismiss: {
-                        self.viewModel.input.onAppear()
-                    }, content: {
-                        AddListView()
-                    })
-                }
+
+        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    self.showingModal.toggle()
+                }) {
+                    Image(systemName: "plus")
+                }.sheet(isPresented: $showingModal, onDismiss: {
+                    self.viewModel.input.onAppear()
+                }, content: {
+                    AddListView()
+                })
             }
-            .onAppear {
-                self.viewModel.input.onAppear()
-            }
+        }
+        .onAppear {
+            self.viewModel.input.onAppear()
         }
         .preferredColorScheme(.dark)
         .accentColor(.white)

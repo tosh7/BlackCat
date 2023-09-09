@@ -21,6 +21,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
         return LocalDeliveryItems.shared.items
     }
     @Published var deliveryList: [DeliveryItem] = []
+    @Published var isLoading: Bool = false
     private var shouldReload: Bool = false
     private var cancellables: Set<AnyCancellable> = []
     private var isInitialLoad: Bool = true
@@ -63,7 +64,9 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
 
     private func loadItem() {
         Task { @MainActor in
+            isLoading = true
             let result = await apiClient.tneko(.init(numbers: goodsIdList))
+            isLoading = false
             guard let tneko = result.value else { return }
             let tnekoClient = TnekoClient(tneko: tneko)
             if isInitialLoad {
