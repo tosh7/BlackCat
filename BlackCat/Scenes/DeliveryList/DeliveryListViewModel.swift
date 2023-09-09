@@ -67,10 +67,8 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
             guard let tneko = result.value else { return }
             let tnekoClient = TnekoClient(tneko: tneko)
             if isInitialLoad {
-                print(goodsIdList)
                 LocalDeliveryItems.shared.removeDeplicates(deliveryItems: tnekoClient.deliveryList)
                 isInitialLoad = false
-                print(goodsIdList)
             }
             self.deliveryList = tnekoClient.deliveryList
         }

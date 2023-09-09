@@ -34,11 +34,7 @@ final class LocalDeliveryItems {
 
     func removeDeplicates(deliveryItems newItems: [DeliveryItem]) {
         items = newItems.compactMap {
-            if $0.statusList.isEmpty {
-                return nil
-            } else {
-                return $0.deliveryID
-            }
+            $0.statusList.isEmpty ? nil : $0.deliveryID
         }
         userdefaults.set(items, forKey: key)
     }
