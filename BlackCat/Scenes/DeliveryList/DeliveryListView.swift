@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DeliveryListView: View {
 
-    @ObservedObject var viewModel = DeliveryListViewModel()
+    @StateObject var viewModel = DeliveryListViewModel()
     private static let spacing: CGFloat = 16
     private let columns: [GridItem] = [.init(spacing: Self.spacing), .init(spacing: Self.spacing)]
     @State private var showingModal = false

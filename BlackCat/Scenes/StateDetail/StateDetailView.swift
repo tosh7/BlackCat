@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct StateDetailView: View {
-    @ObservedObject private var viewModel = StateDetailViewModel()
+    @StateObject private var viewModel = StateDetailViewModel()
     private let deliveyDetail: DeliveryItem
     @Environment(\.presentationMode) var presentation
 
