@@ -104,7 +104,7 @@ extension Tneko {
                                 let statusCode = stringList[index + counter + 1].split(separator: " ")[0].split(separator: "\t")[safe: 1]?.description ?? ""
                                 let newStatusGroup = stringList[index + counter + 1].split(separator: " ")
                                 let date = newStatusGroup[1].split(separator: " ")[0].description.replacingOccurrences(of: "月", with: "/").replacingOccurrences(of: "日", with: "")
-                                let time = newStatusGroup[1].split(separator: " ")[1].description
+                                let time = (newStatusGroup[1].split(separator: " ")[safe: 1])?.description
                                 let shopName = newStatusGroup[2].description
                                 let status = Tneko.DeliveryList.DeliveryStatus(
                                     status: statusCode,
