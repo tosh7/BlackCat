@@ -40,8 +40,12 @@ struct DeliveryListView: View {
                                 }
                             }
 
-                            if viewModel.output.deliveryList.count == 0 {
-                                Text("アイテムが追加されていません。\n左上のボタンから追加してください。")
+                            if viewModel.output.deliveryList.isEmpty {
+                                VStack {
+                                    Spacer(minLength: 100)
+                                    Text("アイテムが追加されていません。\n左上のボタンから追加してください。")
+                                        .multilineTextAlignment(.center)
+                                }
                             }
                         }
                     }

@@ -63,6 +63,11 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     }
 
     private func loadItem() {
+        guard !goodsIdList.isEmpty else {
+            deliveryList = []
+            return
+        }
+
         Task { @MainActor in
             isLoading = true
             let result = await apiClient.tneko(.init(numbers: goodsIdList))
