@@ -13,7 +13,9 @@ struct StateDetailListView: View {
                 Text(deliveryStatus.status)
                 HStack {
                     Text(deliveryStatus.date)
-                    Text(deliveryStatus.time)
+                    if let time = deliveryStatus.time {
+                        Text(time)
+                    }
                 }
                 Spacer()
             }
