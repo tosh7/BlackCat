@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DeliveryListView: View {
 
-    @ObservedObject var viewModel = DeliveryListViewModel()
+    @StateObject var viewModel = DeliveryListViewModel()
     private static let spacing: CGFloat = 16
     private let columns: [GridItem] = [.init(spacing: Self.spacing), .init(spacing: Self.spacing)]
     @State private var showingModal = false
@@ -20,22 +20,33 @@ struct DeliveryListView: View {
                     .edgesIgnoringSafeArea(.all)
 
                 ScrollView(.vertical) {
-                    ZStack {
-                        LazyVGrid(columns: columns,
-                                  spacing: Self.spacing) {
-                            ForEach(viewModel.output.deliveryList) { deliveryStatus in
-                                if deliveryStatus.statusList.count != 0 {
-                                    NavigationLink(destination: StateDetailView(deliveryDetail: deliveryStatus)) {
-                                        LuggageItemGrid(deliveryItem: deliveryStatus)
-                                            .frame(width: 150, height: 180, alignment: .center)
-                                            .cornerRadius(20)
+                    if viewModel.isLoading {
+                        VStack {
+                            Spacer(minLength: 200)
+                            ProgressView()
+                        }
+                    } else {
+                        ZStack {
+                            LazyVGrid(columns: columns,
+                                      spacing: Self.spacing) {
+                                ForEach(viewModel.output.deliveryList) { deliveryStatus in
+                                    if deliveryStatus.statusList.count != 0 {
+                                        NavigationLink(destination: StateDetailView(deliveryDetail: deliveryStatus)) {
+                                            LuggageItemGrid(deliveryItem: deliveryStatus)
+                                                .frame(width: 150, height: 180, alignment: .center)
+                                                .cornerRadius(20)
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        if viewModel.output.deliveryList.count == 0 {
-                            Text("アイテムが追加されていません。\n左上のボタンから追加してください。")
+                            if viewModel.output.deliveryList.isEmpty {
+                                VStack {
+                                    Spacer(minLength: 100)
+                                    Text("アイテムが追加されていません。\n左上のボタンから追加してください。")
+                                        .multilineTextAlignment(.center)
+                                }
+                            }
                         }
                     }
                 }
@@ -60,9 +71,9 @@ struct DeliveryListView: View {
             .onAppear {
                 self.viewModel.input.onAppear()
             }
+            .preferredColorScheme(.dark)
+            .accentColor(.white)
         }
-        .preferredColorScheme(.dark)
-        .accentColor(.white)
     }
 }
 

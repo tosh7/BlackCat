@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AddListView: View {
-    @ObservedObject var viewModel = AddListViewModel()
+    @StateObject var viewModel = AddListViewModel()
     @State private var itemNumber: String = ""
     @Environment(\.presentationMode) var presentationMode
 
