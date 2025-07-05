@@ -3,8 +3,14 @@ import Foundation
 public final class ApiClient {
     public static let shared: ApiClient = ApiClient()
     public let basePath: String = "https://toi.kuronekoyamato.co.jp/cgi-bin"
+    public let sagawaBasePath: String = "https://k2k.sagawa-exp.co.jp/p/sagawa"
+    
     public var baseURL: URL {
         return URL(string: basePath)!
+    }
+    
+    public var sagawaBaseURL: URL {
+        return URL(string: sagawaBasePath)!
     }
 }
 

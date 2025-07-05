@@ -23,6 +23,27 @@ public extension ApiClient {
         }
         task.resume()
     }
+    
+    func sagawa(_ request: SagawaRequest, completion: @escaping (Result<Sagawa, APIError>) -> Void) {
+        guard let urlRequest: URLRequest = URLRequest(request, baseURL: sagawaBaseURL) else { return }
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            guard let data = data else {
+                completion(.failure(.unknownError("An unknown error has occured.")))
+                return
+            }
+
+            if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+                let sagawa = Sagawa(
+                    trackingNumber: request.trackingNumber,
+                    response: attributedString.string
+                )
+                completion(.success(sagawa))
+            } else {
+                completion(.failure(.decodeErrror("This is not HTML")))
+            }
+        }
+        task.resume()
+    }
 }
 
 // MARK - Async & Await
@@ -39,6 +60,25 @@ public extension ApiClient {
                     response: attributedString.string
                 )
                 return .success(tneko)
+            } else {
+                return .failure(.decodeErrror("This is not HTML"))
+            }
+        } catch let error {
+            return .failure(.unknownError(error.localizedDescription))
+        }
+    }
+    
+    func sagawa(_ request: SagawaRequest) async -> Result<Sagawa, APIError> {
+        guard let urlRequest: URLRequest = URLRequest(request, baseURL: sagawaBaseURL) else { return .failure(.invalideURL) }
+        do {
+            let result = try await URLSession.shared.data(for: urlRequest)
+            let data = result.0
+            if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+                let sagawa = Sagawa(
+                    trackingNumber: request.trackingNumber,
+                    response: attributedString.string
+                )
+                return .success(sagawa)
             } else {
                 return .failure(.decodeErrror("This is not HTML"))
             }
