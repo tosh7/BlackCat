@@ -748,6 +748,7 @@
 				19A9A2C1026C1342F00BD5AF8 /* APIErrorTests.swift in Sources */,
 				19A9A2C1126C1343000BD5AF8 /* HTTPMethodTests.swift in Sources */,
 				19ABC01C26D5500000000010 /* JapanPostTests.swift in Sources */,
+				19ABC02826D550000000001A /* SagawaTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
