@@ -255,6 +255,7 @@
 				19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */,
 				19C26A7C26B9B81A00845289 /* DonutsView.swift */,
 				19ABC02526D5500000000017 /* ShareSheet.swift */,
+				19ABC02726D5500000000019 /* ConfettiView.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
@@ -318,6 +319,7 @@
 				19A9A2C2026C1342F00BD5AF8 /* APIErrorTests.swift */,
 				19A9A2C2126C1343000BD5AF8 /* HTTPMethodTests.swift */,
 				19ABC01D26D5500000000010 /* JapanPostTests.swift */,
+				19ABC02926D550000000001B /* SagawaTests.swift */,
 				19A9A2C626C1342E00BD5AF8 /* Info.plist */,
 			);
 			path = DomainTests;
@@ -785,6 +787,7 @@
 				19ABC02026D5500000000012 /* SplashView.swift in Sources */,
 				19ABC02226D5500000000014 /* DeliveryShareContent.swift in Sources */,
 				19ABC02426D5500000000016 /* ShareSheet.swift in Sources */,
+				19ABC02626D5500000000018 /* ConfettiView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
