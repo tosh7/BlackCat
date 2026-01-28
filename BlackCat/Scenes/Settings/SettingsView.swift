@@ -297,6 +297,27 @@ struct SettingsView: View {
             .toggleStyle(SwitchToggleStyle(tint: Color.BlackCat.accentPrimary))
             .listRowBackground(Color.BlackCat.backgroundCard)
 
+            // Confetti Animation Toggle
+            Toggle(isOn: Binding(
+                get: { viewModel.output.confettiEnabled },
+                set: { viewModel.input.setConfettiEnabled($0) }
+            )) {
+                Label {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("配達完了アニメーション")
+                            .foregroundColor(.white)
+                        Text("配達完了時に紙吹雪を表示")
+                            .font(.caption)
+                            .foregroundColor(Color.BlackCat.shadowLevel3)
+                    }
+                } icon: {
+                    Image(systemName: "party.popper.fill")
+                        .foregroundColor(Color.BlackCat.naturalGreen)
+                }
+            }
+            .toggleStyle(SwitchToggleStyle(tint: Color.BlackCat.accentPrimary))
+            .listRowBackground(Color.BlackCat.backgroundCard)
+
             // Default Carrier Picker
             HStack {
                 Label {

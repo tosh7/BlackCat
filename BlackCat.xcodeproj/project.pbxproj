@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		19ABC02226D5500000000014 /* DeliveryShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC02326D5500000000015 /* DeliveryShareContent.swift */; };
 		19ABC02426D5500000000016 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC02526D5500000000017 /* ShareSheet.swift */; };
+		19ABC02626D5500000000018 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC02726D5500000000019 /* ConfettiView.swift */; };
 		19ABC00126D5500000000001 /* DeliveryTrackingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC00026D5500000000001 /* DeliveryTrackingProtocol.swift */; };
 		19ABC00326D5500000000002 /* DeliveryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC00226D5500000000002 /* DeliveryCache.swift */; };
 		19ABC00526D5500000000003 /* APIClientConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC00426D5500000000003 /* APIClientConfiguration.swift */; };
@@ -23,6 +24,7 @@
 		19ABC01826D550000000000E /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC01926D550000000000E /* HelpView.swift */; };
 		19ABC01A26D550000000000F /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC01B26D550000000000F /* HapticManager.swift */; };
 		19ABC01C26D5500000000010 /* JapanPostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC01D26D5500000000010 /* JapanPostTests.swift */; };
+		19ABC02826D550000000001A /* SagawaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC02926D550000000001B /* SagawaTests.swift */; };
 		19334B9F26C826E800840389 /* TnekoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19334B9E26C826E800840389 /* TnekoMock.swift */; };
 		19334BA426C8283D00840389 /* TnekoMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 19334BA326C8283D00840389 /* TnekoMock.json */; };
 		19334BA626C8399700840389 /* StateDetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19334BA526C8399700840389 /* StateDetailListView.swift */; };
@@ -123,6 +125,7 @@
 /* Begin PBXFileReference section */
 		19ABC02326D5500000000015 /* DeliveryShareContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryShareContent.swift; sourceTree = "<group>"; };
 		19ABC02526D5500000000017 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		19ABC02726D5500000000019 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		19ABC01F26D5500000000012 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		19ABC00026D5500000000001 /* DeliveryTrackingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryTrackingProtocol.swift; sourceTree = "<group>"; };
 		19ABC00226D5500000000002 /* DeliveryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryCache.swift; sourceTree = "<group>"; };
@@ -138,6 +141,7 @@
 		19ABC01926D550000000000E /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		19ABC01B26D550000000000F /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		19ABC01D26D5500000000010 /* JapanPostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapanPostTests.swift; sourceTree = "<group>"; };
+		19ABC02926D550000000001B /* SagawaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SagawaTests.swift; sourceTree = "<group>"; };
 		19334B9E26C826E800840389 /* TnekoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TnekoMock.swift; sourceTree = "<group>"; };
 		19334BA326C8283D00840389 /* TnekoMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TnekoMock.json; sourceTree = "<group>"; };
 		19334BA526C8399700840389 /* StateDetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailListView.swift; sourceTree = "<group>"; };
