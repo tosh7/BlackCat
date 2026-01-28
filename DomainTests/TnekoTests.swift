@@ -26,23 +26,23 @@ class TnekoTests: XCTestCase {
 
     func test_Tneko_request_success_case() async {
         let result = await apiClient.tneko(.init(numbers: [327754459830, 292125879511]))
-        XCTAssertEqual(Tneko(deriveryList: [item327754459830, item292125879511]), result.value)
+        XCTAssertEqual(Tneko(deliveryList: [item327754459830, item292125879511]), result.value)
     }
 
     func test_Tneko_request_single_success_case() async {
         let result = await apiClient.tneko(.init(numbers: [327754459830]))
-        XCTAssertEqual(Tneko(deriveryList: [item327754459830]), result.value)
+        XCTAssertEqual(Tneko(deliveryList: [item327754459830]), result.value)
     }
 
     func test_Tneko_request_failure_case() async {
         let invalidId = 122
         let result = await apiClient.tneko(.init(numbers: [invalidId]))
-        XCTAssertEqual(result.value, Tneko(deriveryList: [.init(deliveryID: invalidId, statusList: [])]))
+        XCTAssertEqual(result.value, Tneko(deliveryList: [.init(deliveryID: invalidId, statusList: [])]))
     }
 
     func test_Tneko_request_empty_case() async {
         let result = await apiClient.tneko(.init(numbers: []))
-        XCTAssertEqual(result.value, Tneko(deriveryList: []))
+        XCTAssertEqual(result.value, Tneko(deliveryList: []))
     }
 
 }

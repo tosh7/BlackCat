@@ -64,7 +64,7 @@ private struct SagawaResponseParser {
         
         let lines = htmlContent.components(separatedBy: .newlines)
         
-        for (index, line) in lines.enumerated() {
+        for line in lines {
             if line.contains("配達状況") || line.contains("輸送状況") {
                 let statusInfo = parseStatusLine(line)
                 if let status = statusInfo.status, 

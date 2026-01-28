@@ -6,30 +6,68 @@
 //
 
 import XCTest
+import Combine
+@testable import BlackCat
 
 final class DeliveryListViewModelTest: XCTestCase {
 
+    private var viewModel: DeliveryListViewModel!
+    private var cancellables: Set<AnyCancellable>!
+
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        viewModel = DeliveryListViewModel()
+        cancellables = []
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        viewModel = nil
+        cancellables = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func test_initialState_deliveryListIsEmpty() throws {
+        XCTAssertTrue(viewModel.output.deliveryList.isEmpty)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func test_initialState_isLoadingIsFalse() throws {
+        XCTAssertFalse(viewModel.isLoading)
     }
 
+    func test_onAppear_setsLoadingState() throws {
+        let expectation = XCTestExpectation(description: "Loading state changes")
+
+        viewModel.$isLoading
+            .dropFirst()
+            .sink { isLoading in
+                if isLoading {
+                    expectation.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+
+        viewModel.input.onAppear()
+
+        wait(for: [expectation], timeout: 3.0)
+    }
+
+    func test_pullToRefresh_triggersReload() throws {
+        let expectation = XCTestExpectation(description: "Pull to refresh triggers reload")
+
+        viewModel.$isLoading
+            .dropFirst()
+            .sink { isLoading in
+                if isLoading {
+                    expectation.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+
+        viewModel.input.pullToRefresh()
+
+        wait(for: [expectation], timeout: 3.0)
+    }
+
+    func test_deliveryList_conformsToProtocol() throws {
+        XCTAssertNotNil(viewModel.input)
+        XCTAssertNotNil(viewModel.output)
+    }
 }

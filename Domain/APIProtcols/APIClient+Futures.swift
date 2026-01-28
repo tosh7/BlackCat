@@ -1,50 +1,321 @@
 import Foundation
 import Combine
 
+// MARK: - Combine Future API
 public extension ApiClient {
-    func tneko(_ request: TnekoRequest) -> Future<Tneko, APIError> {
-        return Future() { promise in
-            guard let urlRequest: URLRequest = URLRequest(request, baseURL: self.baseURL) else { return }
-            let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-                guard let data = data else {
-                    promise(Result.failure(.unknownError("An unknown error has occured.")))
+    /// ヤマト運輸の配送状況を取得（Combine Future版）
+    /// - Parameters:
+    ///   - request: TnekoRequest
+    ///   - useCache: キャッシュを使用するかどうか（デフォルト: true）
+    /// - Returns: Future<Tneko, APIError>
+    func tneko(_ request: TnekoRequest, useCache: Bool = true) -> Future<Tneko, APIError> {
+        return Future() { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(.unknownError("ApiClient was deallocated")))
+                return
+            }
+
+            // キャッシュチェック
+            if useCache && self.configuration.cacheEnabled {
+                let trackingNumbers = request.idList().map { String($0) }
+                var cachedInfos: [UnifiedDeliveryInfo] = []
+
+                for trackingNumber in trackingNumbers {
+                    if let cached = self.cache.get(for: trackingNumber, carrier: .yamato) {
+                        cachedInfos.append(cached)
+                    }
+                }
+
+                // すべてのトラッキング番号がキャッシュにある場合
+                if cachedInfos.count == trackingNumbers.count && !cachedInfos.isEmpty {
+                    let tneko = self.tnekoFromCacheFuture(cachedInfos)
+                    promise(.success(tneko))
+                    return
+                }
+            }
+
+            guard let urlRequest: URLRequest = URLRequest(request, baseURL: self.baseURL) else {
+                promise(.failure(.invalidURL))
+                return
+            }
+
+            self.fetchWithRetry(urlRequest: urlRequest) { [weak self] result in
+                guard let self = self else {
+                    promise(.failure(.unknownError("ApiClient was deallocated")))
                     return
                 }
 
-                if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
-                    let tneko = Tneko(
-                        idList: request.idList(),
-                        response: attributedString.string
-                    )
-                    promise(Result.success(tneko))
-                } else {
-                    promise(Result.failure(.decodeErrror("This is not HTML")))
+                switch result {
+                case .success(let data):
+                    switch self.parseHTML(from: data) {
+                    case .success(let htmlString):
+                        let tneko = Tneko(
+                            idList: request.idList(),
+                            response: htmlString
+                        )
+
+                        // キャッシュに保存
+                        if self.configuration.cacheEnabled {
+                            self.cacheDeliveryInfoFuture(tneko)
+                        }
+
+                        promise(.success(tneko))
+
+                    case .failure(let error):
+                        self.handleErrorWithCacheFuture(error: error, request: request, promise: promise)
+                    }
+
+                case .failure(let error):
+                    self.handleErrorWithCacheFuture(error: error, request: request, promise: promise)
                 }
             }
-            task.resume()
         }
     }
-    
-    func sagawa(_ request: SagawaRequest) -> Future<Sagawa, APIError> {
-        return Future() { promise in
-            guard let urlRequest: URLRequest = URLRequest(request, baseURL: self.sagawaBaseURL) else { return }
-            let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-                guard let data = data else {
-                    promise(Result.failure(.unknownError("An unknown error has occured.")))
+
+    /// 佐川急便の配送状況を取得（Combine Future版）
+    /// - Parameters:
+    ///   - request: SagawaRequest
+    ///   - useCache: キャッシュを使用するかどうか（デフォルト: true）
+    /// - Returns: Future<Sagawa, APIError>
+    func sagawa(_ request: SagawaRequest, useCache: Bool = true) -> Future<Sagawa, APIError> {
+        return Future() { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(.unknownError("ApiClient was deallocated")))
+                return
+            }
+
+            // キャッシュチェック
+            if useCache && self.configuration.cacheEnabled {
+                if let cached = self.cache.get(for: request.trackingNumber, carrier: .sagawa) {
+                    let sagawa = self.sagawaFromCacheFuture([cached])
+                    promise(.success(sagawa))
+                    return
+                }
+            }
+
+            guard let urlRequest: URLRequest = URLRequest(request, baseURL: self.sagawaBaseURL) else {
+                promise(.failure(.invalidURL))
+                return
+            }
+
+            self.fetchWithRetry(urlRequest: urlRequest) { [weak self] result in
+                guard let self = self else {
+                    promise(.failure(.unknownError("ApiClient was deallocated")))
                     return
                 }
 
-                if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
-                    let sagawa = Sagawa(
-                        trackingNumber: request.trackingNumber,
-                        response: attributedString.string
-                    )
-                    promise(Result.success(sagawa))
-                } else {
-                    promise(Result.failure(.decodeErrror("This is not HTML")))
+                switch result {
+                case .success(let data):
+                    switch self.parseHTML(from: data) {
+                    case .success(let htmlString):
+                        let sagawa = Sagawa(
+                            trackingNumber: request.trackingNumber,
+                            response: htmlString
+                        )
+
+                        // キャッシュに保存
+                        if self.configuration.cacheEnabled {
+                            self.cacheDeliveryInfoFuture(sagawa)
+                        }
+
+                        promise(.success(sagawa))
+
+                    case .failure(let error):
+                        self.handleErrorWithCacheFuture(error: error, request: request, promise: promise)
+                    }
+
+                case .failure(let error):
+                    self.handleErrorWithCacheFuture(error: error, request: request, promise: promise)
                 }
             }
-            task.resume()
         }
+    }
+
+    /// 統一形式で配送情報を取得（Combine Future版）
+    /// - Parameters:
+    ///   - trackingNumber: 追跡番号
+    ///   - carrier: 配送業者
+    ///   - useCache: キャッシュを使用するかどうか
+    /// - Returns: Future<UnifiedDeliveryInfo, APIError>
+    func fetchDeliveryInfo(
+        trackingNumber: String,
+        carrier: DeliveryCarrierType,
+        useCache: Bool = true
+    ) -> Future<UnifiedDeliveryInfo, APIError> {
+        return Future() { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(.unknownError("ApiClient was deallocated")))
+                return
+            }
+
+            // キャッシュチェック
+            if useCache && self.configuration.cacheEnabled {
+                if let cached = self.cache.get(for: trackingNumber, carrier: carrier) {
+                    promise(.success(cached))
+                    return
+                }
+            }
+
+            switch carrier {
+            case .yamato:
+                guard let trackingInt = Int(trackingNumber) else {
+                    promise(.failure(.invalidURL))
+                    return
+                }
+                let request = TnekoRequest(numbers: [trackingInt])
+                self.tneko(request, useCache: false) { result in
+                    switch result {
+                    case .success(let tneko):
+                        let infos = tneko.toUnifiedDeliveryInfo()
+                        if let info = infos.first {
+                            promise(.success(info))
+                        } else {
+                            promise(.failure(.emptyData))
+                        }
+
+                    case .failure(let error):
+                        promise(.failure(error))
+                    }
+                }
+
+            case .sagawa:
+                let request = SagawaRequest(trackingNumber: trackingNumber)
+                self.sagawa(request, useCache: false) { result in
+                    switch result {
+                    case .success(let sagawa):
+                        let infos = sagawa.toUnifiedDeliveryInfo()
+                        if let info = infos.first {
+                            promise(.success(info))
+                        } else {
+                            promise(.failure(.emptyData))
+                        }
+
+                    case .failure(let error):
+                        promise(.failure(error))
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - AnyPublisher Extensions
+public extension ApiClient {
+    /// ヤマト運輸の配送状況を取得（AnyPublisher版）
+    func tnekoPublisher(_ request: TnekoRequest, useCache: Bool = true) -> AnyPublisher<Tneko, APIError> {
+        return tneko(request, useCache: useCache).eraseToAnyPublisher()
+    }
+
+    /// 佐川急便の配送状況を取得（AnyPublisher版）
+    func sagawaPublisher(_ request: SagawaRequest, useCache: Bool = true) -> AnyPublisher<Sagawa, APIError> {
+        return sagawa(request, useCache: useCache).eraseToAnyPublisher()
+    }
+
+    /// 統一形式で配送情報を取得（AnyPublisher版）
+    func fetchDeliveryInfoPublisher(
+        trackingNumber: String,
+        carrier: DeliveryCarrierType,
+        useCache: Bool = true
+    ) -> AnyPublisher<UnifiedDeliveryInfo, APIError> {
+        return fetchDeliveryInfo(trackingNumber: trackingNumber, carrier: carrier, useCache: useCache)
+            .eraseToAnyPublisher()
+    }
+}
+
+// MARK: - Future用キャッシュヘルパー（privateアクセス制御のため別途定義）
+private extension ApiClient {
+    /// Tnekoの配送情報をキャッシュに保存
+    func cacheDeliveryInfoFuture(_ tneko: Tneko) {
+        let infos = tneko.toUnifiedDeliveryInfo()
+        for info in infos {
+            cache.set(info, for: info.trackingNumber, carrier: .yamato)
+        }
+    }
+
+    /// Sagawaの配送情報をキャッシュに保存
+    func cacheDeliveryInfoFuture(_ sagawa: Sagawa) {
+        let infos = sagawa.toUnifiedDeliveryInfo()
+        for info in infos {
+            cache.set(info, for: info.trackingNumber, carrier: .sagawa)
+        }
+    }
+
+    /// キャッシュからTnekoを復元
+    func tnekoFromCacheFuture(_ cachedInfos: [UnifiedDeliveryInfo]) -> Tneko {
+        let deliveryList = cachedInfos.map { info in
+            let statusList = info.statusList.map { status in
+                Tneko.DeliveryList.DeliveryStatus(
+                    status: status.status,
+                    date: status.date,
+                    time: status.time,
+                    shopName: status.location
+                )
+            }
+            return Tneko.DeliveryList(
+                deliveryID: Int(info.trackingNumber) ?? 0,
+                statusList: statusList
+            )
+        }
+        return Tneko(deliveryList: deliveryList)
+    }
+
+    /// キャッシュからSagawaを復元
+    func sagawaFromCacheFuture(_ cachedInfos: [UnifiedDeliveryInfo]) -> Sagawa {
+        let trackingList = cachedInfos.map { info in
+            let statusList = info.statusList.map { status in
+                Sagawa.TrackingInfo.DeliveryStatus(
+                    status: status.status,
+                    date: status.date,
+                    time: status.time,
+                    location: status.location
+                )
+            }
+            return Sagawa.TrackingInfo(
+                trackingNumber: info.trackingNumber,
+                statusList: statusList
+            )
+        }
+        return Sagawa(trackingList: trackingList)
+    }
+
+    /// エラー時にキャッシュからフォールバック（Future版 - Tneko）
+    func handleErrorWithCacheFuture(
+        error: APIError,
+        request: TnekoRequest,
+        promise: @escaping (Result<Tneko, APIError>) -> Void
+    ) {
+        if configuration.returnCacheOnError {
+            let trackingNumbers = request.idList().map { String($0) }
+            var cachedInfos: [UnifiedDeliveryInfo] = []
+
+            for trackingNumber in trackingNumbers {
+                if let cached = cache.get(for: trackingNumber, carrier: .yamato) {
+                    cachedInfos.append(cached)
+                }
+            }
+
+            if !cachedInfos.isEmpty {
+                let tneko = tnekoFromCacheFuture(cachedInfos)
+                promise(.success(tneko))
+                return
+            }
+        }
+        promise(.failure(error))
+    }
+
+    /// エラー時にキャッシュからフォールバック（Future版 - Sagawa）
+    func handleErrorWithCacheFuture(
+        error: APIError,
+        request: SagawaRequest,
+        promise: @escaping (Result<Sagawa, APIError>) -> Void
+    ) {
+        if configuration.returnCacheOnError {
+            if let cached = cache.get(for: request.trackingNumber, carrier: .sagawa) {
+                let sagawa = sagawaFromCacheFuture([cached])
+                promise(.success(sagawa))
+                return
+            }
+        }
+        promise(.failure(error))
     }
 }

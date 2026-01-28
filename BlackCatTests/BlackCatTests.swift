@@ -6,30 +6,109 @@
 //
 
 import XCTest
+@testable import BlackCat
 
 final class BlackCatTests: XCTestCase {
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    // MARK: - DeliveryItem Tests
+
+    func test_deliveryItem_hasUniqueId() throws {
+        let item1 = DeliveryItem(deliveryID: 123456789012, statusList: [])
+        let item2 = DeliveryItem(deliveryID: 123456789012, statusList: [])
+        XCTAssertNotEqual(item1.id, item2.id)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+    func test_deliveryItem_storesDeliveryID() throws {
+        let deliveryID = 123456789012
+        let item = DeliveryItem(deliveryID: deliveryID, statusList: [])
+        XCTAssertEqual(item.deliveryID, deliveryID)
     }
 
+    func test_deliveryItem_storesStatusList() throws {
+        let status = DeliveryStatus(status: "delivered", date: "01/01", time: "10:00", shopName: "TestShop")
+        let item = DeliveryItem(deliveryID: 123456789012, statusList: [status])
+        XCTAssertEqual(item.statusList.count, 1)
+        XCTAssertEqual(item.statusList[0].status, "delivered")
+    }
+
+    // MARK: - DeliveryStatus Tests
+
+    func test_deliveryStatus_storesAllProperties() throws {
+        let status = DeliveryStatus(status: "delivered", date: "01/15", time: "14:30", shopName: "Tokyo Center")
+        XCTAssertEqual(status.status, "delivered")
+        XCTAssertEqual(status.date, "01/15")
+        XCTAssertEqual(status.time, "14:30")
+        XCTAssertEqual(status.shopName, "Tokyo Center")
+    }
+
+    func test_deliveryStatus_hasUniqueId() throws {
+        let status1 = DeliveryStatus(status: "delivered", date: "01/01", time: "10:00", shopName: "Shop1")
+        let status2 = DeliveryStatus(status: "delivered", date: "01/01", time: "10:00", shopName: "Shop1")
+        XCTAssertNotEqual(status1.id, status2.id)
+    }
+
+    // MARK: - TnekoClient Tests
+
+    func test_tnekoClient_hasUniqueId() throws {
+        let client1 = TnekoClient(deliveryList: [])
+        let client2 = TnekoClient(deliveryList: [])
+        XCTAssertNotEqual(client1.id, client2.id)
+    }
+
+    func test_tnekoClient_storesDeliveryList() throws {
+        let item = DeliveryItem(deliveryID: 123456789012, statusList: [])
+        let client = TnekoClient(deliveryList: [item])
+        XCTAssertEqual(client.deliveryList.count, 1)
+    }
+
+    // MARK: - TnekoMock Tests
+
+    func test_tnekoMock_loadsJsonSuccessfully() throws {
+        let tnekoClient = TnekoMock.tnekoClient
+        XCTAssertFalse(tnekoClient.deliveryList.isEmpty)
+    }
+
+    func test_tnekoMock_hasCorrectNumberOfItems() throws {
+        let tnekoClient = TnekoMock.tnekoClient
+        XCTAssertEqual(tnekoClient.deliveryList.count, 6)
+    }
+
+    func test_tnekoMock_firstItemHasCorrectDeliveryID() throws {
+        let tnekoClient = TnekoMock.tnekoClient
+        XCTAssertEqual(tnekoClient.deliveryList[0].deliveryID, 429636181995)
+    }
+
+    func test_tnekoMock_firstItemHasCorrectStatusCount() throws {
+        let tnekoClient = TnekoMock.tnekoClient
+        XCTAssertEqual(tnekoClient.deliveryList[0].statusList.count, 5)
+    }
+
+    // MARK: - LocalDeliveryItems Tests
+
+    func test_localDeliveryItems_sharedInstanceExists() throws {
+        XCTAssertNotNil(LocalDeliveryItems.shared)
+    }
+}
+
+// MARK: - DeliveryItem Extension for Testing
+
+extension DeliveryItem {
+    init(deliveryID: Int, statusList: [DeliveryStatus]) {
+        self.deliveryID = deliveryID
+        self.statusList = statusList
+    }
+}
+
+// MARK: - TnekoClient Extension for Testing
+
+extension TnekoClient {
+    init(deliveryList: [DeliveryItem]) {
+        self.deliveryList = deliveryList
+    }
 }

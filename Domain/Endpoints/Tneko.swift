@@ -61,7 +61,7 @@ public struct TnekoRequest: RequestType, URLQueryEncodable {
 }
 
 public struct Tneko: ResponseType, Equatable {
-    public var deriveryList: [DeliveryList]
+    public var deliveryList: [DeliveryList]
 
     public struct DeliveryList: Codable, Equatable {
         public var deliveryID: Int
@@ -87,14 +87,14 @@ public struct Tneko: ResponseType, Equatable {
         }
     }
 
-    public init(deriveryList: [DeliveryList]) {
-        self.deriveryList = deriveryList
+    public init(deliveryList: [DeliveryList]) {
+        self.deliveryList = deliveryList
     }
 }
 
 extension Tneko {
     public init(idList: [Int], response: String) {
-        self.deriveryList = idList.enumerated().map { initialIndex, id in
+        self.deliveryList = idList.enumerated().map { initialIndex, id in
             let stringList = response.components(separatedBy: "\n")
             var newStatusList: [Tneko.DeliveryList.DeliveryStatus] = []
             var indexCounter = 0

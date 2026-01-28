@@ -2,6 +2,9 @@ import SwiftUI
 
 struct DonutsView: View {
 
+    // MARK: - Environment
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     private let deliveryStatusType: DeliveryStatusType
     private var trimValue: CGFloat {
         switch deliveryStatusType {
@@ -16,6 +19,27 @@ struct DonutsView: View {
         case .delivered:
             return 1
 
+        }
+    }
+
+    /// アクセシビリティ用の進捗パーセンテージ
+    private var progressPercentage: Int {
+        Int(trimValue * 100)
+    }
+
+    /// アクセシビリティ用のステータス説明
+    private var statusDescription: String {
+        switch deliveryStatusType {
+        case .received:
+            return "荷物受付済み"
+        case .sended:
+            return "発送済み"
+        case .shipping:
+            return "輸送中"
+        case .delivering:
+            return "配達中"
+        case .delivered:
+            return "配達完了"
         }
     }
 
@@ -39,6 +63,11 @@ struct DonutsView: View {
                     )
                 )
         }
+        // MARK: - Accessibility
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("配送進捗")
+        .accessibilityValue("\(statusDescription)、\(progressPercentage)パーセント完了")
+        .accessibilityHint("配送の進捗状況を示す円形グラフです")
     }
 }
 

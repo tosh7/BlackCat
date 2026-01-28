@@ -7,9 +7,9 @@ struct TnekoClient: Identifiable {
 }
 
 extension TnekoClient {
-    init(tneko: Tneko) {
-        self.deliveryList = tneko.deriveryList.map {
-            DeliveryItem(deliveryList: $0)
+    init(tneko: Tneko, carrier: DeliveryCarrier = .yamato) {
+        self.deliveryList = tneko.deliveryList.map {
+            DeliveryItem(deliveryList: $0, carrier: carrier)
         }
     }
 }
