@@ -120,6 +120,12 @@ struct StateDetailView: View {
             }
             Button("キャンセル", role: .cancel) {}
         }
+        .confetti(isShowing: $viewModel.showConfetti)
+        .onAppear {
+            // Check if confetti should be shown for delivered items
+            let isDelivered = currentStatus?.deliveryStatus == .delivered
+            viewModel.checkAndShowConfetti(for: deliveryDetail.deliveryID, isDelivered: isDelivered)
+        }
     }
 
     // MARK: - Status Header Card
