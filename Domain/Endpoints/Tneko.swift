@@ -98,28 +98,96 @@ extension Tneko {
             let stringList = response.components(separatedBy: "\n")
             var newStatusList: [Tneko.DeliveryList.DeliveryStatus] = []
             var indexCounter = 0
-            stringList.enumerated().forEach { index, str in
+
+            for (index, str) in stringList.enumerated() {
                 if str.contains("お届け予定日時：") {
                     if initialIndex == indexCounter {
-                        var counter = 0
-                        let initialStatusGroup = stringList[index + 1].split(separator: " ")
-                        if var countId = initialStatusGroup[0].split(separator: "\t")[safe: 0]?.description {
-                            while countId.isValidStatusCode {
-                                let statusCode = stringList[index + counter + 1].split(separator: " ")[0].split(separator: "\t")[safe: 1]?.description ?? ""
-                                let newStatusGroup = stringList[index + counter + 1].split(separator: " ")
-                                let date = newStatusGroup[1].split(separator: " ")[0].description.replacingOccurrences(of: "月", with: "/").replacingOccurrences(of: "日", with: "")
-                                let time = (newStatusGroup[1].split(separator: " ")[safe: 1])?.description
-                                let shopName = newStatusGroup[2].description
+                        var currentIndex = index + 1
+
+                        while currentIndex < stringList.count {
+                            let currentLine = stringList[currentIndex].trimmingCharacters(in: .whitespaces)
+
+                            // 次の荷物セクションまたはページの終わりを検出
+                            if currentLine.contains("tracking-invoice-block-title") ||
+                               currentLine.contains("page-content-information") {
+                                break
+                            }
+
+                            // ステータス名を含む行を検出（<div class="item">で始まり、「：」を含まない）
+                            if currentLine.hasPrefix("<div class=\"item\">") && !currentLine.contains("：") {
+                                let statusName = currentLine
+                                    .replacingOccurrences(of: "<div class=\"item\">", with: "")
+                                    .replacingOccurrences(of: "</div>", with: "")
+                                    .trimmingCharacters(in: .whitespaces)
+
+                                // 空行をスキップして日付行を取得
+                                var dateIndex = currentIndex + 1
+                                while dateIndex < stringList.count {
+                                    let dateLine = stringList[dateIndex].trimmingCharacters(in: .whitespaces)
+                                    if dateLine.hasPrefix("<div class=\"date\">") {
+                                        break
+                                    }
+                                    dateIndex += 1
+                                }
+
+                                var dateStr = ""
+                                var timeStr: String?
+
+                                if dateIndex < stringList.count {
+                                    let dateLine = stringList[dateIndex]
+                                        .replacingOccurrences(of: "<div class=\"date\">", with: "")
+                                        .replacingOccurrences(of: "</div>", with: "")
+                                        .trimmingCharacters(in: .whitespaces)
+
+                                    let dateComponents = dateLine.split(separator: " ")
+                                    if let first = dateComponents.first {
+                                        dateStr = String(first)
+                                            .replacingOccurrences(of: "月", with: "/")
+                                            .replacingOccurrences(of: "日", with: "")
+                                    }
+                                    if dateComponents.count > 1 {
+                                        timeStr = String(dateComponents[1])
+                                    }
+                                }
+
+                                // 空行をスキップして店舗名行を取得
+                                var nameIndex = dateIndex + 1
+                                while nameIndex < stringList.count {
+                                    let nameLine = stringList[nameIndex].trimmingCharacters(in: .whitespaces)
+                                    if nameLine.hasPrefix("<div class=\"name\">") {
+                                        break
+                                    }
+                                    nameIndex += 1
+                                }
+
+                                var shopName = ""
+                                if nameIndex < stringList.count {
+                                    var nameLine = stringList[nameIndex]
+                                        .replacingOccurrences(of: "<div class=\"name\">", with: "")
+                                        .replacingOccurrences(of: "</div>", with: "")
+
+                                    // <a>タグから店舗名を抽出
+                                    if nameLine.contains("<a href=") {
+                                        if let startRange = nameLine.range(of: ">"),
+                                           let endRange = nameLine.range(of: "</a>") {
+                                            nameLine = String(nameLine[startRange.upperBound..<endRange.lowerBound])
+                                        }
+                                    }
+                                    shopName = nameLine.trimmingCharacters(in: .whitespaces)
+                                }
+
                                 let status = Tneko.DeliveryList.DeliveryStatus(
-                                    status: statusCode,
-                                    date: date,
-                                    time: time,
+                                    status: statusName,
+                                    date: dateStr,
+                                    time: timeStr,
                                     shopName: shopName
                                 )
                                 newStatusList.append(status)
-                                counter += 1
-                                countId = stringList[index + counter + 1].split(separator: " ")[0].split(separator: "\t")[safe: 0]?.description ?? ""
+
+                                currentIndex = nameIndex
                             }
+
+                            currentIndex += 1
                         }
                     }
                     indexCounter += 1
@@ -133,14 +201,5 @@ extension Tneko {
 extension Array {
     subscript (safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
-    }
-}
-
-private extension String {
-    var isValidStatusCode: Bool {
-        let pattern = "^[\\d]+.$"
-        guard let regex = try? NSRegularExpression(pattern: pattern) else { return false }
-        let matches = regex.matches(in: self, range: NSRange(location: 0, length: self.count))
-        return matches.count > 0
     }
 }
