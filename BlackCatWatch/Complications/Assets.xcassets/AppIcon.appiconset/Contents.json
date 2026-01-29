@@ -1,0 +1,123 @@
+{
+  "images" : [
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "24x24",
+      "role" : "notificationCenter",
+      "subtype" : "38mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "27.5x27.5",
+      "role" : "notificationCenter",
+      "subtype" : "42mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "29x29",
+      "role" : "companionSettings"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "3x",
+      "size" : "29x29",
+      "role" : "companionSettings"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "33x33",
+      "role" : "notificationCenter",
+      "subtype" : "45mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "40x40",
+      "role" : "appLauncher",
+      "subtype" : "38mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "44x44",
+      "role" : "appLauncher",
+      "subtype" : "40mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "46x46",
+      "role" : "appLauncher",
+      "subtype" : "41mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "50x50",
+      "role" : "appLauncher",
+      "subtype" : "44mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "51x51",
+      "role" : "appLauncher",
+      "subtype" : "45mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "54x54",
+      "role" : "appLauncher",
+      "subtype" : "49mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "86x86",
+      "role" : "quickLook",
+      "subtype" : "38mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "98x98",
+      "role" : "quickLook",
+      "subtype" : "42mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "108x108",
+      "role" : "quickLook",
+      "subtype" : "44mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "117x117",
+      "role" : "quickLook",
+      "subtype" : "45mm"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x",
+      "size" : "129x129",
+      "role" : "quickLook",
+      "subtype" : "49mm"
+    },
+    {
+      "idiom" : "watch-marketing",
+      "scale" : "1x",
+      "size" : "1024x1024"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

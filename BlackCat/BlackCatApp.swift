@@ -3,6 +3,7 @@ import Domain
 import WidgetKit
 import UserNotifications
 import BackgroundTasks
+import WatchConnectivity
 
 let apiClient = ApiClient.shared
 
@@ -17,12 +18,18 @@ struct BlackCatApp: App {
     /// バックグラウンド更新マネージャーの初期化
     private let backgroundRefreshManager = BackgroundRefreshManager.shared
 
+    /// Watch Connectivityマネージャーの初期化
+    private let watchConnectivityManager = WatchConnectivityManager.shared
+
     init() {
         // アプリ起動時に通知の許可をリクエスト
         setupNotifications()
 
         // バックグラウンドタスクを登録
         setupBackgroundTasks()
+
+        // Watch Connectivityセッションをアクティベート
+        setupWatchConnectivity()
     }
 
     var body: some Scene {
@@ -83,6 +90,15 @@ struct BlackCatApp: App {
         }
     }
 
+    // MARK: - Watch Connectivity Setup
+
+    /// Watch Connectivityのセットアップ
+    private func setupWatchConnectivity() {
+        // WatchConnectivityManagerはシングルトンで初期化時にセッションをアクティベート
+        // ここでは追加の初期化が必要な場合に備えて参照を保持
+        print("[BlackCatApp] Watch Connectivity initialized, connected: \(watchConnectivityManager.isWatchConnected)")
+    }
+
     /// 通知タップ時のハンドリング
     private func handleNotificationTap(_ notification: Foundation.Notification) {
         guard let userInfo = notification.userInfo,
@@ -130,6 +146,20 @@ extension BlackCatApp {
 
         WidgetDataManager.shared.saveDeliveryItems(widgetItems)
         WidgetCenter.shared.reloadTimelines(ofKind: "BlackCarWidget")
+    }
+}
+
+// MARK: - Watch Data Synchronization
+
+extension BlackCatApp {
+    /// アプリからApple Watchへデータを同期する
+    /// DeliveryListViewModelの更新時に呼び出す
+    static func syncWatchData(deliveryItems: [DeliveryItem]) {
+        let watchItems = deliveryItems.map { item in
+            WatchDeliveryData(from: item, carrier: item.carrier)
+        }
+
+        WatchConnectivityManager.shared.sendDeliveries(watchItems)
     }
 }
 
