@@ -177,7 +177,6 @@ final class SettingsViewModel: ObservableObject, SettingsViewModelType, Settings
         } else {
             self.hapticEnabled = true
         }
-        HapticManager.shared.isHapticEnabled = self.hapticEnabled
 
         // Confetti設定を読み込み（デフォルトはtrue）
         if userDefaults.object(forKey: SettingsKey.confettiEnabled.rawValue) != nil {
@@ -185,6 +184,9 @@ final class SettingsViewModel: ObservableObject, SettingsViewModelType, Settings
         } else {
             self.confettiEnabled = true
         }
+
+        // 全てのストアドプロパティ初期化後にHapticManagerを設定
+        HapticManager.shared.isHapticEnabled = hapticEnabled
     }
 
     // MARK: - Input Methods

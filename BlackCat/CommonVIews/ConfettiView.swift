@@ -136,8 +136,7 @@ struct ConfettiParticleView: View {
     }
 
     var body: some View {
-        particleShape
-            .fill(particle.color)
+        particleShapeView
             .frame(width: particle.size, height: shapeHeight)
             .rotationEffect(.degrees(currentRotation))
             .rotation3DEffect(
@@ -149,14 +148,17 @@ struct ConfettiParticleView: View {
     }
 
     @ViewBuilder
-    private var particleShape: some Shape {
+    private var particleShapeView: some View {
         switch particle.shape {
         case .square:
             RoundedRectangle(cornerRadius: 2)
+                .fill(particle.color)
         case .circle:
             Circle()
+                .fill(particle.color)
         case .rectangle:
             RoundedRectangle(cornerRadius: 1)
+                .fill(particle.color)
         }
     }
 

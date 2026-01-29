@@ -1,7 +1,7 @@
 import Foundation
 
 /// API通信で発生するエラーを表す列挙型
-public enum APIError: Error, Equatable {
+public enum APIError: Error, Equatable, Hashable {
     // MARK: - ネットワークエラー
     /// URLが無効
     case invalidURL
@@ -59,6 +59,58 @@ public enum APIError: Error, Equatable {
     /// 非推奨: decodeErrorを使用してください
     @available(*, deprecated, renamed: "decodeError")
     static func decodeErrror(_ message: String) -> APIError { .decodeError(message) }
+
+    // MARK: - Hashable
+    public func hash(into hasher: inout Hasher) {
+        switch self {
+        case .invalidURL:
+            hasher.combine(0)
+        case .timeout:
+            hasher.combine(1)
+        case .noConnection:
+            hasher.combine(2)
+        case .sslError:
+            hasher.combine(3)
+        case .httpError(let statusCode, let message):
+            hasher.combine(4)
+            hasher.combine(statusCode)
+            hasher.combine(message)
+        case .badRequest(let message):
+            hasher.combine(5)
+            hasher.combine(message)
+        case .unauthorized:
+            hasher.combine(6)
+        case .forbidden:
+            hasher.combine(7)
+        case .notFound:
+            hasher.combine(8)
+        case .serverError(let statusCode):
+            hasher.combine(9)
+            hasher.combine(statusCode)
+        case .decodeError(let message):
+            hasher.combine(10)
+            hasher.combine(message)
+        case .emptyData:
+            hasher.combine(11)
+        case .htmlParseError(let message):
+            hasher.combine(12)
+            hasher.combine(message)
+        case .retryLimitExceeded(let lastError):
+            hasher.combine(13)
+            hasher.combine(lastError)
+        case .cacheReadError:
+            hasher.combine(14)
+        case .cacheWriteError:
+            hasher.combine(15)
+        case .requestError:
+            hasher.combine(16)
+        case .cancelled:
+            hasher.combine(17)
+        case .unknownError(let message):
+            hasher.combine(18)
+            hasher.combine(message)
+        }
+    }
 
     // MARK: - Equatable
     public static func == (lhs: APIError, rhs: APIError) -> Bool {

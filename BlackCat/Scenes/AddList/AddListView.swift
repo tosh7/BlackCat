@@ -399,7 +399,7 @@ struct AddListView: View {
         .disabled(!viewModel.output.isButtonEnabled)
         .accessibilityLabel("登録する")
         .accessibilityHint(viewModel.output.isButtonEnabled ? "伝票番号を登録します" : "伝票番号を入力すると有効になります")
-        .accessibilityAddTraits(viewModel.output.isButtonEnabled ? .isButton : [.isButton, .isNotEnabled])
+        .accessibilityAddTraits(.isButton)
         .alert(isPresented: $viewModel.showingAlert) {
             Alert(
                 title: Text(viewModel.output.errorMessage),

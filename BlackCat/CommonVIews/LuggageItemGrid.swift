@@ -113,9 +113,8 @@ struct LuggageItemGrid: View {
 
                 // Delivery ID badge
                 Text(String(deliveryItem.deliveryID))
-                    .font(.caption2)
+                    .font(.system(.caption2, design: .monospaced))
                     .fontWeight(.medium)
-                    .fontDesign(.monospaced)
                     .foregroundColor(.white)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)

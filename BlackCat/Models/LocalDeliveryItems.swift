@@ -21,13 +21,14 @@ final class LocalDeliveryItems {
 
     init() {
         // Try to load from shared defaults first, then fallback to standard
-        if let sharedDefaults = sharedDefaults,
+        let sharedDefaultsInstance = UserDefaults(suiteName: appGroupIdentifier)
+        if let sharedDefaults = sharedDefaultsInstance,
            let array = sharedDefaults.array(forKey: key) as? [Int] {
             items = array
         } else if let array = userdefaults.array(forKey: key) as? [Int] {
             items = array
             // Migrate to shared defaults
-            sharedDefaults?.set(array, forKey: key)
+            sharedDefaultsInstance?.set(array, forKey: key)
         } else {
             items = []
         }

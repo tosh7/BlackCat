@@ -131,6 +131,65 @@ public extension ApiClient {
         }
     }
 
+    /// 日本郵便の配送状況を取得（Combine Future版）
+    /// - Parameters:
+    ///   - request: JapanPostRequest
+    ///   - useCache: キャッシュを使用するかどうか（デフォルト: true）
+    /// - Returns: Future<JapanPost, APIError>
+    func japanPost(_ request: JapanPostRequest, useCache: Bool = true) -> Future<JapanPost, APIError> {
+        return Future() { [weak self] promise in
+            guard let self = self else {
+                promise(.failure(.unknownError("ApiClient was deallocated")))
+                return
+            }
+
+            // キャッシュチェック
+            if useCache && self.configuration.cacheEnabled {
+                if let cached = self.cache.get(for: request.trackingNumber, carrier: .japanPost) {
+                    let japanPost = self.japanPostFromCacheFuture([cached])
+                    promise(.success(japanPost))
+                    return
+                }
+            }
+
+            guard let urlRequest: URLRequest = URLRequest(request, baseURL: self.japanPostBaseURL) else {
+                promise(.failure(.invalidURL))
+                return
+            }
+
+            self.fetchWithRetry(urlRequest: urlRequest) { [weak self] result in
+                guard let self = self else {
+                    promise(.failure(.unknownError("ApiClient was deallocated")))
+                    return
+                }
+
+                switch result {
+                case .success(let data):
+                    switch self.parseHTML(from: data) {
+                    case .success(let htmlString):
+                        let japanPost = JapanPost(
+                            trackingNumber: request.trackingNumber,
+                            response: htmlString
+                        )
+
+                        // キャッシュに保存
+                        if self.configuration.cacheEnabled {
+                            self.cacheDeliveryInfoFuture(japanPost)
+                        }
+
+                        promise(.success(japanPost))
+
+                    case .failure(let error):
+                        self.handleErrorWithCacheFuture(error: error, request: request, promise: promise)
+                    }
+
+                case .failure(let error):
+                    self.handleErrorWithCacheFuture(error: error, request: request, promise: promise)
+                }
+            }
+        }
+    }
+
     /// 統一形式で配送情報を取得（Combine Future版）
     /// - Parameters:
     ///   - trackingNumber: 追跡番号
@@ -184,6 +243,23 @@ public extension ApiClient {
                     switch result {
                     case .success(let sagawa):
                         let infos = sagawa.toUnifiedDeliveryInfo()
+                        if let info = infos.first {
+                            promise(.success(info))
+                        } else {
+                            promise(.failure(.emptyData))
+                        }
+
+                    case .failure(let error):
+                        promise(.failure(error))
+                    }
+                }
+
+            case .japanPost:
+                let request = JapanPostRequest(trackingNumber: trackingNumber)
+                self.japanPost(request, useCache: false) { result in
+                    switch result {
+                    case .success(let japanPost):
+                        let infos = japanPost.toUnifiedDeliveryInfo()
                         if let info = infos.first {
                             promise(.success(info))
                         } else {
@@ -313,6 +389,51 @@ private extension ApiClient {
             if let cached = cache.get(for: request.trackingNumber, carrier: .sagawa) {
                 let sagawa = sagawaFromCacheFuture([cached])
                 promise(.success(sagawa))
+                return
+            }
+        }
+        promise(.failure(error))
+    }
+
+    // MARK: - JapanPost キャッシュヘルパー
+
+    /// JapanPostの配送情報をキャッシュに保存
+    func cacheDeliveryInfoFuture(_ japanPost: JapanPost) {
+        let infos = japanPost.toUnifiedDeliveryInfo()
+        for info in infos {
+            cache.set(info, for: info.trackingNumber, carrier: .japanPost)
+        }
+    }
+
+    /// キャッシュからJapanPostを復元
+    func japanPostFromCacheFuture(_ cachedInfos: [UnifiedDeliveryInfo]) -> JapanPost {
+        let trackingList = cachedInfos.map { info in
+            let statusList = info.statusList.map { status in
+                JapanPost.TrackingInfo.DeliveryStatus(
+                    status: status.status,
+                    date: status.date,
+                    time: status.time,
+                    location: status.location
+                )
+            }
+            return JapanPost.TrackingInfo(
+                trackingNumber: info.trackingNumber,
+                statusList: statusList
+            )
+        }
+        return JapanPost(trackingList: trackingList)
+    }
+
+    /// エラー時にキャッシュからフォールバック（Future版 - JapanPost）
+    func handleErrorWithCacheFuture(
+        error: APIError,
+        request: JapanPostRequest,
+        promise: @escaping (Result<JapanPost, APIError>) -> Void
+    ) {
+        if configuration.returnCacheOnError {
+            if let cached = cache.get(for: request.trackingNumber, carrier: .japanPost) {
+                let japanPost = japanPostFromCacheFuture([cached])
+                promise(.success(japanPost))
                 return
             }
         }
