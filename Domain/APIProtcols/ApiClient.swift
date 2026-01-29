@@ -213,9 +213,24 @@ extension ApiClient {
 
 extension Dictionary where Key == String, Value == Int {
     init?<Request>(_ request: Request) where Request: RequestType & URLQueryEncodable {
-        guard let json = ((try? JSONEncoder().encode(request))
-            .flatMap {try? JSONSerialization.jsonObject(with: $0, options: []) as? [String: Int]}) else { return nil }
-        self = json
+        guard let data = try? JSONEncoder().encode(request),
+              let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
+              let dict = jsonObject as? [String: Any] else {
+            return nil
+        }
+
+        // 各値を個別にIntに変換（NSNumber対応で大きな整数もサポート）
+        var result: [String: Int] = [:]
+        for (key, value) in dict {
+            if let intValue = value as? Int {
+                result[key] = intValue
+            } else if let nsNumber = value as? NSNumber {
+                result[key] = nsNumber.intValue
+            } else {
+                return nil
+            }
+        }
+        self = result
     }
 
     func equalEncode() -> String {
