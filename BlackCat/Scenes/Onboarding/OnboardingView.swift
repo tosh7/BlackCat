@@ -296,9 +296,12 @@ struct OnboardingPageView: View {
                     .foregroundColor(Color.BlackCat.shadowLevel3)
                     .multilineTextAlignment(.center)
                     .lineSpacing(6)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .opacity(textOpacity)
             .offset(y: textOpacity == 1 ? 0 : 20)
+            .fixedSize(horizontal: false, vertical: true)
 
             Spacer()
             Spacer()
