@@ -89,11 +89,12 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
             .store(in: &cancellables)
 
         $buttonTappedPublisher
+            .dropFirst() // 初期値の発行を無視
             .withLatestFrom(Publishers.CombineLatest($inputTextPublisher, $carrierPublisher)) { $1 }
             .handleEvents(receiveOutput: { _ in
                 self.isLoading = true
             })
-            .flatMap { (trackingNumber, carrier) -> AnyPublisher<UnifiedDeliveryInfo, APIError> in
+            .flatMap { (trackingNumber, carrier) -> AnyPublisher<UnifiedDeliveryInfo?, Never> in
                 let cleanedNumber = trackingNumber
                     .trimmingCharacters(in: .whitespacesAndNewlines)
                     .replacingOccurrences(of: "-", with: "")
@@ -105,16 +106,17 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
                 )
                 .subscribe(on: DispatchQueue.global())
                 .receive(on: DispatchQueue.main)
+                .map { Optional($0) }
+                .catch { _ in Just(nil) }
                 .eraseToAnyPublisher()
             }
-            .sink(receiveCompletion: { completion in
+            .sink(receiveValue: { deliveryInfo in
                 self.isLoading = false
-                if case .failure = completion {
+                guard let deliveryInfo = deliveryInfo else {
                     self.errorMessage = "登録に失敗しました"
                     self.showingAlert = true
+                    return
                 }
-            }, receiveValue: { deliveryInfo in
-                self.isLoading = false
                 let hasStatus = !deliveryInfo.statusList.isEmpty
                 self.errorMessage = hasStatus ? "登録に成功しました" : "登録に失敗しました"
                 self.showingAlert = true
