@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Domain
 
 enum DeliveryCarrier: String, CaseIterable, Identifiable {
     case yamato = "ヤマト運輸"
@@ -7,6 +8,18 @@ enum DeliveryCarrier: String, CaseIterable, Identifiable {
     case japanPost = "日本郵便"
 
     var id: String { self.rawValue }
+
+    /// Convert to Domain's DeliveryCarrierType for API calls
+    var carrierType: DeliveryCarrierType {
+        switch self {
+        case .yamato:
+            return .yamato
+        case .sagawa:
+            return .sagawa
+        case .japanPost:
+            return .japanPost
+        }
+    }
 
     var displayName: String {
         return self.rawValue

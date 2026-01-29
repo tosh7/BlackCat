@@ -88,21 +88,32 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
             .store(in: &cancellables)
 
         $buttonTappedPublisher
-            .withLatestFrom($inputTextPublisher) { $1 }
-            .compactMap { Int($0) }
-            .flatMap { itemNumber in
-                return apiClient.tneko(.init(numbers: [itemNumber]))
-                    .subscribe(on: DispatchQueue.global())
-                    .receive(on: DispatchQueue.main)
-                    .eraseToAnyPublisher()
+            .withLatestFrom(Publishers.CombineLatest($inputTextPublisher, $carrierPublisher)) { $1 }
+            .flatMap { (trackingNumber, carrier) -> AnyPublisher<UnifiedDeliveryInfo, APIError> in
+                let cleanedNumber = trackingNumber
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                    .replacingOccurrences(of: "-", with: "")
+                    .replacingOccurrences(of: " ", with: "")
+                return apiClient.fetchDeliveryInfoPublisher(
+                    trackingNumber: cleanedNumber,
+                    carrier: carrier.carrierType,
+                    useCache: false
+                )
+                .subscribe(on: DispatchQueue.global())
+                .receive(on: DispatchQueue.main)
+                .eraseToAnyPublisher()
             }
-            .sink(receiveCompletion: { _ in
-                self.errorMessage = "登録に失敗しました"
-            }, receiveValue: { value in
-                self.errorMessage = value.deliveryList[0].statusList.count != 0 ? "登録に成功しました" : "登録に失敗しました"
+            .sink(receiveCompletion: { completion in
+                if case .failure = completion {
+                    self.errorMessage = "登録に失敗しました"
+                    self.showingAlert = true
+                }
+            }, receiveValue: { deliveryInfo in
+                let hasStatus = !deliveryInfo.statusList.isEmpty
+                self.errorMessage = hasStatus ? "登録に成功しました" : "登録に失敗しました"
                 self.showingAlert = true
-                value.deliveryList.filter { $0.statusList.count != 0 }.forEach {
-                    LocalDeliveryItems.shared.add($0.deliveryID)
+                if hasStatus {
+                    LocalDeliveryItems.shared.add(deliveryInfo.trackingNumber)
                 }
             })
             .store(in: &cancellables)
