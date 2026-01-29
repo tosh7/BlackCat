@@ -14,9 +14,6 @@ protocol AddListViewModelOutputs {
     var errorMessage: String { get }
     var cautionMessage: String { get }
     var isSuccessfullyAdded: Bool { get }
-    var carrierDetectionResult: CarrierDetectionResult { get }
-    var autoDetectionMessage: String { get }
-    var isCarrierAutoDetected: Bool { get }
 }
 
 protocol AddListViewModelType {
@@ -27,49 +24,7 @@ protocol AddListViewModelType {
 final class AddListViewModel: ObservableObject, AddListViewModelType, AddListViewModelInputs, AddListViewModelOutputs {
 
     init() {
-        // 伝票番号の自動判別
-        $inputTextPublisher
-            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
-            .map { text -> CarrierDetectionResult in
-                let cleanedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-                guard !cleanedText.isEmpty else {
-                    return .insufficientInput
-                }
-                return DeliveryCarrier.detect(from: cleanedText)
-            }
-            .sink { [weak self] result in
-                guard let self = self else { return }
-                self.carrierDetectionResult = result
-
-                switch result {
-                case .detected(let carrier):
-                    // 自動判別成功: 配送業者を自動選択
-                    if !self.isCarrierManuallySelected {
-                        self.selectedCarrier = carrier
-                        self.carrierPublisher = carrier
-                        self.isCarrierAutoDetected = true
-                        self.autoDetectionMessage = result.feedbackMessage ?? ""
-                    }
-
-                case .multipleCandidates:
-                    // 複数候補: メッセージのみ表示（手動選択を促す）
-                    self.isCarrierAutoDetected = false
-                    self.autoDetectionMessage = result.feedbackMessage ?? ""
-
-                case .unknown:
-                    // 判別不可
-                    self.isCarrierAutoDetected = false
-                    self.autoDetectionMessage = result.feedbackMessage ?? ""
-
-                case .insufficientInput:
-                    // 入力不足: メッセージクリア
-                    self.isCarrierAutoDetected = false
-                    self.autoDetectionMessage = ""
-                }
-            }
-            .store(in: &cancellables)
-
-        // ボタン有効化判定（配送業者に応じた桁数チェック）
+        // ボタン有効化判定（桁数チェック）
         Publishers.CombineLatest($inputTextPublisher, $carrierPublisher)
             .map { text, carrier in
                 let cleanedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -91,8 +46,8 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
                     return false
                 }
 
-                // 配送業者のパターンにマッチするか確認
-                return carrier.matches(trackingNumber: cleanedText)
+                // 桁数チェック（11〜13桁）
+                return cleanedText.count >= 11 && cleanedText.count <= 13
             }
             .assign(to: \.isButtonEnabled, on: self)
             .store(in: &cancellables)
@@ -160,24 +115,12 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
     func textFieldDidChange(text: String) {
         inputTextPublisher = text
     }
-    
+
     @Published private var carrierPublisher: DeliveryCarrier = .yamato
-    private var isCarrierManuallySelected: Bool = false
 
     func carrierDidChange(carrier: DeliveryCarrier) {
         carrierPublisher = carrier
         selectedCarrier = carrier
-        isCarrierManuallySelected = true
-        isCarrierAutoDetected = false
-        autoDetectionMessage = ""
-    }
-
-    /// 自動判別をリセット（テキストクリア時など）
-    func resetAutoDetection() {
-        isCarrierManuallySelected = false
-        isCarrierAutoDetected = false
-        autoDetectionMessage = ""
-        carrierDetectionResult = .insufficientInput
     }
 
     @Published private var buttonTappedPublisher: Void = ()
@@ -192,9 +135,6 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
     @Published private(set) var errorMessage: String = ""
     @Published private(set) var cautionMessage: String = ""
     @Published private(set) var isSuccessfullyAdded: Bool = false
-    @Published private(set) var carrierDetectionResult: CarrierDetectionResult = .insufficientInput
-    @Published private(set) var autoDetectionMessage: String = ""
-    @Published private(set) var isCarrierAutoDetected: Bool = false
 
     var input: AddListViewModelInputs { return self }
     var output: AddListViewModelOutputs { return self }

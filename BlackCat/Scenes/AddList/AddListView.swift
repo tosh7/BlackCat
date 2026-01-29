@@ -76,45 +76,21 @@ struct AddListView: View {
     // MARK: - Carrier Selection Section
     private var carrierSelectionSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Label {
-                    Text("配送業者を選択")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                } icon: {
-                    Image(systemName: "building.2.fill")
-                        .foregroundColor(Color.BlackCat.primaryBlue)
-                }
-                .accessibilityAddTraits(.isHeader)
-
-                Spacer()
-
-                // 自動判別インジケーター
-                if viewModel.output.isCarrierAutoDetected {
-                    HStack(spacing: 4) {
-                        Image(systemName: "sparkles")
-                            .font(.caption)
-                        Text("自動判別")
-                            .font(.caption)
-                            .fontWeight(.medium)
-                    }
-                    .foregroundColor(Color.BlackCat.naturalGreen)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(
-                        Capsule()
-                            .fill(Color.BlackCat.naturalGreen.opacity(0.15))
-                    )
-                    .transition(.scale.combined(with: .opacity))
-                }
+            Label {
+                Text("配送業者を選択")
+                    .font(.headline)
+                    .foregroundColor(.white)
+            } icon: {
+                Image(systemName: "building.2.fill")
+                    .foregroundColor(Color.BlackCat.primaryBlue)
             }
+            .accessibilityAddTraits(.isHeader)
 
             HStack(spacing: 12) {
                 ForEach(DeliveryCarrier.allCases) { carrier in
                     CarrierCard(
                         carrier: carrier,
                         isSelected: viewModel.output.selectedCarrier == carrier,
-                        isAutoDetected: viewModel.output.isCarrierAutoDetected && viewModel.output.selectedCarrier == carrier,
                         onSelect: {
                             HapticManager.shared.carrierSelection()
                             withAnimation(.quickSpring) {
@@ -124,99 +100,6 @@ struct AddListView: View {
                     )
                 }
             }
-
-            // 自動判別メッセージ
-            if !viewModel.output.autoDetectionMessage.isEmpty {
-                autoDetectionFeedback
-            }
-        }
-        .animation(.quickSpring, value: viewModel.output.isCarrierAutoDetected)
-        .animation(.quickSpring, value: viewModel.output.autoDetectionMessage)
-    }
-
-    // MARK: - Auto Detection Feedback
-    private var autoDetectionFeedback: some View {
-        HStack(spacing: 8) {
-            Image(systemName: feedbackIcon)
-                .font(.caption)
-                .foregroundColor(feedbackColor)
-
-            Text(viewModel.output.autoDetectionMessage)
-                .font(.caption)
-                .foregroundColor(feedbackColor)
-
-            Spacer()
-
-            // 複数候補がある場合、選択ボタンを表示
-            if case .multipleCandidates(let carriers) = viewModel.output.carrierDetectionResult {
-                Menu {
-                    ForEach(carriers) { carrier in
-                        Button(action: {
-                            HapticManager.shared.carrierSelection()
-                            withAnimation(.quickSpring) {
-                                viewModel.input.carrierDidChange(carrier: carrier)
-                            }
-                        }) {
-                            Label(carrier.displayName, systemImage: carrier.iconName)
-                        }
-                    }
-                } label: {
-                    HStack(spacing: 4) {
-                        Text("選択")
-                            .font(.caption)
-                            .fontWeight(.medium)
-                        Image(systemName: "chevron.down")
-                            .font(.caption2)
-                    }
-                    .foregroundColor(Color.BlackCat.primaryBlue)
-                }
-            }
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .fill(feedbackBackgroundColor)
-        )
-        .transition(.move(edge: .top).combined(with: .opacity))
-    }
-
-    private var feedbackIcon: String {
-        switch viewModel.output.carrierDetectionResult {
-        case .detected:
-            return "checkmark.circle.fill"
-        case .multipleCandidates:
-            return "questionmark.circle.fill"
-        case .unknown:
-            return "exclamationmark.triangle.fill"
-        case .insufficientInput:
-            return "info.circle"
-        }
-    }
-
-    private var feedbackColor: Color {
-        switch viewModel.output.carrierDetectionResult {
-        case .detected:
-            return Color.BlackCat.naturalGreen
-        case .multipleCandidates:
-            return Color.BlackCat.primaryOrange
-        case .unknown:
-            return Color.BlackCat.primaryOrange
-        case .insufficientInput:
-            return Color.BlackCat.shadowLevel3
-        }
-    }
-
-    private var feedbackBackgroundColor: Color {
-        switch viewModel.output.carrierDetectionResult {
-        case .detected:
-            return Color.BlackCat.naturalGreen.opacity(0.1)
-        case .multipleCandidates:
-            return Color.BlackCat.primaryOrange.opacity(0.1)
-        case .unknown:
-            return Color.BlackCat.primaryOrange.opacity(0.1)
-        case .insufficientInput:
-            return Color.BlackCat.shadowLevel6
         }
     }
 
@@ -242,10 +125,6 @@ struct AddListView: View {
                 hasError: !viewModel.output.cautionMessage.isEmpty && !itemNumber.isEmpty,
                 onTextChange: { text in
                     viewModel.textFieldDidChange(text: text)
-                    // テキストクリア時に自動判別をリセット
-                    if text.isEmpty {
-                        viewModel.resetAutoDetection()
-                    }
                 }
             )
             .offset(x: shakeOffset)
@@ -256,7 +135,7 @@ struct AddListView: View {
                     Image(systemName: "info.circle")
                         .font(.caption)
                         .foregroundColor(Color.BlackCat.shadowLevel3)
-                    Text("伝票番号を入力すると配送業者を自動判別します")
+                    Text("11〜13桁の伝票番号を入力してください")
                         .font(.caption)
                         .foregroundColor(Color.BlackCat.shadowLevel3)
                 } else {
@@ -479,7 +358,6 @@ struct AddListView: View {
 struct CarrierCard: View {
     let carrier: DeliveryCarrier
     let isSelected: Bool
-    var isAutoDetected: Bool = false
     let onSelect: () -> Void
 
     var body: some View {
@@ -502,15 +380,6 @@ struct CarrierCard: View {
                                 ? carrier.brandColor
                                 : Color.BlackCat.shadowLevel3
                         )
-
-                    // Auto-detected sparkle indicator
-                    if isAutoDetected {
-                        Image(systemName: "sparkle")
-                            .font(.system(size: 12, weight: .bold))
-                            .foregroundColor(Color.BlackCat.naturalGreen)
-                            .offset(x: 20, y: -20)
-                            .transition(.scale.combined(with: .opacity))
-                    }
                 }
                 .overlay(
                     Circle()
@@ -545,14 +414,14 @@ struct CarrierCard: View {
                         RoundedRectangle(cornerRadius: 16)
                             .strokeBorder(
                                 isSelected
-                                    ? (isAutoDetected ? Color.BlackCat.naturalGreen : carrier.brandColor.opacity(0.5))
+                                    ? carrier.brandColor.opacity(0.5)
                                     : Color.BlackCat.shadowLevel6,
                                 lineWidth: isSelected ? 2 : 1
                             )
                     )
             )
             .shadow(
-                color: isSelected ? (isAutoDetected ? Color.BlackCat.naturalGreen.opacity(0.2) : carrier.brandColor.opacity(0.2)) : Color.clear,
+                color: isSelected ? carrier.brandColor.opacity(0.2) : Color.clear,
                 radius: 8,
                 x: 0,
                 y: 4
@@ -560,10 +429,9 @@ struct CarrierCard: View {
             .scaleEffect(isSelected ? 1.02 : 1.0)
         }
         .buttonStyle(PlainButtonStyle())
-        .accessibilityLabel("\(carrier.displayName)、\(carrier.shortDescription)\(isAutoDetected ? "、自動判別" : "")")
+        .accessibilityLabel("\(carrier.displayName)、\(carrier.shortDescription)")
         .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
         .accessibilityHint(isSelected ? "選択中" : "タップして選択")
-        .animation(.quickSpring, value: isAutoDetected)
     }
 }
 
@@ -611,7 +479,7 @@ struct ModernTextField: View {
                     }
                 }
                 .accessibilityLabel("伝票番号入力欄")
-                .accessibilityHint("11から13桁の数字を入力してください。配送業者を自動判別します。")
+                .accessibilityHint("11から13桁の数字を入力してください")
                 .accessibilityValue(text.isEmpty ? "未入力" : text)
 
             // Clear button or validation indicator
