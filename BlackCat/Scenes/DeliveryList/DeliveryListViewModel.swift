@@ -3,6 +3,7 @@ import Domain
 import Combine
 import WidgetKit
 import UserNotifications
+import WatchConnectivity
 
 // MARK: - Filter & Sort Types
 
@@ -117,7 +118,12 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     /// 通知マネージャー
     private let notificationManager = NotificationManager.shared
 
+    /// Watch Connectivityマネージャー
+    private let watchConnectivityManager = WatchConnectivityManager.shared
+
     init() {
+        // Watch Connectivityのデータプロバイダーを設定
+        setupWatchConnectivity()
         $onAppearPublisher.sink { [weak self] _ in
             guard let self,
                   self.shouldReload else { return }
@@ -290,6 +296,38 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
 
             // ウィジェットにデータを同期
             BlackCatApp.syncWidgetData(deliveryItems: tnekoClient.deliveryList)
+
+            // Apple Watchにデータを同期
+            BlackCatApp.syncWatchData(deliveryItems: tnekoClient.deliveryList)
+        }
+    }
+
+    // MARK: - Watch Connectivity Setup
+
+    /// Watch Connectivityのセットアップ
+    private func setupWatchConnectivity() {
+        // データプロバイダーを設定
+        watchConnectivityManager.setDeliveryDataProvider { [weak self] in
+            guard let self = self else { return [] }
+            return self.deliveryList.map { item in
+                WatchDeliveryData(from: item, carrier: item.carrier)
+            }
+        }
+
+        // ステータス更新ハンドラーを設定
+        watchConnectivityManager.setStatusRefreshHandler { [weak self] completion in
+            guard let self = self else {
+                completion(false)
+                return
+            }
+
+            // データを再読み込み
+            Task { @MainActor in
+                self.loadItem()
+                // 少し待機してからcompletionを呼び出す
+                try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
+                completion(true)
+            }
         }
     }
 
