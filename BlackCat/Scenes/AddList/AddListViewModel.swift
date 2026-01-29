@@ -14,6 +14,7 @@ protocol AddListViewModelOutputs {
     var errorMessage: String { get }
     var cautionMessage: String { get }
     var isSuccessfullyAdded: Bool { get }
+    var isLoading: Bool { get }
 }
 
 protocol AddListViewModelType {
@@ -89,6 +90,9 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
 
         $buttonTappedPublisher
             .withLatestFrom(Publishers.CombineLatest($inputTextPublisher, $carrierPublisher)) { $1 }
+            .handleEvents(receiveOutput: { _ in
+                self.isLoading = true
+            })
             .flatMap { (trackingNumber, carrier) -> AnyPublisher<UnifiedDeliveryInfo, APIError> in
                 let cleanedNumber = trackingNumber
                     .trimmingCharacters(in: .whitespacesAndNewlines)
@@ -104,11 +108,13 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
                 .eraseToAnyPublisher()
             }
             .sink(receiveCompletion: { completion in
+                self.isLoading = false
                 if case .failure = completion {
                     self.errorMessage = "登録に失敗しました"
                     self.showingAlert = true
                 }
             }, receiveValue: { deliveryInfo in
+                self.isLoading = false
                 let hasStatus = !deliveryInfo.statusList.isEmpty
                 self.errorMessage = hasStatus ? "登録に成功しました" : "登録に失敗しました"
                 self.showingAlert = true
@@ -148,6 +154,7 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
     @Published private(set) var errorMessage: String = ""
     @Published private(set) var cautionMessage: String = ""
     @Published private(set) var isSuccessfullyAdded: Bool = false
+    @Published private(set) var isLoading: Bool = false
 
     var input: AddListViewModelInputs { return self }
     var output: AddListViewModelOutputs { return self }

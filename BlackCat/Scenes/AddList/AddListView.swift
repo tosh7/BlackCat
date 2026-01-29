@@ -44,12 +44,31 @@ struct AddListView: View {
                 .padding(.bottom, 40)
             }
 
+            // Loading overlay
+            if viewModel.output.isLoading {
+                loadingOverlay
+            }
+
             // Success overlay
             if showSuccessAnimation {
                 successOverlay
             }
         }
         .accessibilityElement(children: .contain)
+    }
+
+    // MARK: - Loading Overlay
+    private var loadingOverlay: some View {
+        ZStack {
+            Color.black.opacity(0.5)
+                .edgesIgnoringSafeArea(.all)
+
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                .scaleEffect(1.5)
+        }
+        .transition(.opacity)
+        .animation(.gentleEaseOut, value: viewModel.output.isLoading)
     }
 
     // MARK: - Header Section
@@ -237,28 +256,33 @@ struct AddListView: View {
     // MARK: - Register Button Section
     private var registerButtonSection: some View {
         Button(action: {
-            if viewModel.output.isButtonEnabled {
+            if viewModel.output.isButtonEnabled && !viewModel.output.isLoading {
                 triggerHapticFeedback()
                 viewModel.input.buttonDidTap()
-            } else {
+            } else if !viewModel.output.isLoading {
                 triggerErrorShake()
             }
         }) {
             HStack(spacing: 12) {
-                if viewModel.output.isButtonEnabled {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 20))
+                if viewModel.output.isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                } else {
+                    if viewModel.output.isButtonEnabled {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.system(size: 20))
+                    }
+                    Text("登録する")
+                        .font(.body)
+                        .fontWeight(.bold)
                 }
-                Text("登録する")
-                    .font(.body)
-                    .fontWeight(.bold)
             }
-            .foregroundColor(viewModel.output.isButtonEnabled ? .black : Color.BlackCat.shadowLevel4)
+            .foregroundColor(viewModel.output.isButtonEnabled && !viewModel.output.isLoading ? .black : Color.BlackCat.shadowLevel4)
             .frame(maxWidth: .infinity)
             .frame(height: 56)
             .background(
                 Group {
-                    if viewModel.output.isButtonEnabled {
+                    if viewModel.output.isButtonEnabled && !viewModel.output.isLoading {
                         Color.BlackCat.successGradient
                     } else {
                         Color.BlackCat.shadowLevel6
@@ -267,17 +291,18 @@ struct AddListView: View {
             )
             .cornerRadius(16)
             .shadow(
-                color: viewModel.output.isButtonEnabled ? Color.BlackCat.naturalGreen.opacity(0.4) : Color.clear,
+                color: viewModel.output.isButtonEnabled && !viewModel.output.isLoading ? Color.BlackCat.naturalGreen.opacity(0.4) : Color.clear,
                 radius: 12,
                 x: 0,
                 y: 6
             )
-            .scaleEffect(viewModel.output.isButtonEnabled ? 1.0 : 0.98)
+            .scaleEffect(viewModel.output.isButtonEnabled && !viewModel.output.isLoading ? 1.0 : 0.98)
             .animation(.quickSpring, value: viewModel.output.isButtonEnabled)
+            .animation(.quickSpring, value: viewModel.output.isLoading)
         }
-        .disabled(!viewModel.output.isButtonEnabled)
+        .disabled(!viewModel.output.isButtonEnabled || viewModel.output.isLoading)
         .accessibilityLabel("登録する")
-        .accessibilityHint(viewModel.output.isButtonEnabled ? "伝票番号を登録します" : "伝票番号を入力すると有効になります")
+        .accessibilityHint(viewModel.output.isLoading ? "読み込み中です" : (viewModel.output.isButtonEnabled ? "伝票番号を登録します" : "伝票番号を入力すると有効になります"))
         .accessibilityAddTraits(.isButton)
         .alert(isPresented: $viewModel.showingAlert) {
             Alert(
