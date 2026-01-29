@@ -100,7 +100,8 @@ extension Tneko {
             var indexCounter = 0
 
             for (index, str) in stringList.enumerated() {
-                if str.contains("お届け予定日時：") {
+                // 各荷物の詳細セクションを検出
+                if str.contains("tracking-invoice-block-detail") {
                     if initialIndex == indexCounter {
                         var currentIndex = index + 1
 
@@ -108,7 +109,8 @@ extension Tneko {
                             let currentLine = stringList[currentIndex].trimmingCharacters(in: .whitespaces)
 
                             // 次の荷物セクションまたはページの終わりを検出
-                            if currentLine.contains("tracking-invoice-block-title") ||
+                            if currentLine.contains("tracking-invoice-block-footer") ||
+                               currentLine.contains("tracking-invoice-block-cooperation") ||
                                currentLine.contains("page-content-information") {
                                 break
                             }

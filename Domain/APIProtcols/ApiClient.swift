@@ -220,15 +220,15 @@ extension Dictionary where Key == String, Value == Int {
         }
 
         // 各値を個別にIntに変換（NSNumber対応で大きな整数もサポート）
+        // nilの値はスキップ（POSTボディに含めない）
         var result: [String: Int] = [:]
         for (key, value) in dict {
             if let intValue = value as? Int {
                 result[key] = intValue
             } else if let nsNumber = value as? NSNumber {
                 result[key] = nsNumber.intValue
-            } else {
-                return nil
             }
+            // null（JSONのnull）の場合はスキップ
         }
         self = result
     }

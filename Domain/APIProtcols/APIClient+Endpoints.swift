@@ -40,23 +40,24 @@ public extension ApiClient {
 
             switch result {
             case .success(let data):
-                switch self.parseHTML(from: data) {
-                case .success(let htmlString):
-                    let tneko = Tneko(
-                        idList: request.idList(),
-                        response: htmlString
-                    )
-
-                    // キャッシュに保存
-                    if self.configuration.cacheEnabled {
-                        self.cacheDeliveryInfo(tneko)
-                    }
-
-                    completion(.success(tneko))
-
-                case .failure(let error):
-                    self.handleErrorWithCache(error: error, request: request, completion: completion)
+                // Tnekoは生のHTMLを直接パースする（HTMLタグを検索するため）
+                guard let htmlString = String(data: data, encoding: .utf8) ??
+                                       String(data: data, encoding: .shiftJIS) else {
+                    self.handleErrorWithCache(error: .htmlParseError("Failed to decode HTML"), request: request, completion: completion)
+                    return
                 }
+
+                let tneko = Tneko(
+                    idList: request.idList(),
+                    response: htmlString
+                )
+
+                // キャッシュに保存
+                if self.configuration.cacheEnabled {
+                    self.cacheDeliveryInfo(tneko)
+                }
+
+                completion(.success(tneko))
 
             case .failure(let error):
                 self.handleErrorWithCache(error: error, request: request, completion: completion)
@@ -203,23 +204,23 @@ public extension ApiClient {
 
         switch result {
         case .success(let data):
-            switch parseHTML(from: data) {
-            case .success(let htmlString):
-                let tneko = Tneko(
-                    idList: request.idList(),
-                    response: htmlString
-                )
-
-                // キャッシュに保存
-                if configuration.cacheEnabled {
-                    cacheDeliveryInfo(tneko)
-                }
-
-                return .success(tneko)
-
-            case .failure(let error):
-                return handleErrorWithCacheAsync(error: error, request: request)
+            // Tnekoは生のHTMLを直接パースする（HTMLタグを検索するため）
+            guard let htmlString = String(data: data, encoding: .utf8) ??
+                                   String(data: data, encoding: .shiftJIS) else {
+                return handleErrorWithCacheAsync(error: .htmlParseError("Failed to decode HTML"), request: request)
             }
+
+            let tneko = Tneko(
+                idList: request.idList(),
+                response: htmlString
+            )
+
+            // キャッシュに保存
+            if configuration.cacheEnabled {
+                cacheDeliveryInfo(tneko)
+            }
+
+            return .success(tneko)
 
         case .failure(let error):
             return handleErrorWithCacheAsync(error: error, request: request)
