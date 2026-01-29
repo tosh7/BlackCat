@@ -113,7 +113,9 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
                 self.errorMessage = hasStatus ? "登録に成功しました" : "登録に失敗しました"
                 self.showingAlert = true
                 if hasStatus {
-                    LocalDeliveryItems.shared.add(deliveryInfo.trackingNumber)
+                    if let trackingInt = Int(deliveryInfo.trackingNumber) {
+                        LocalDeliveryItems.shared.add(trackingInt)
+                    }
                 }
             })
             .store(in: &cancellables)
