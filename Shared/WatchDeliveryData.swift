@@ -14,7 +14,7 @@ import Foundation
 /// Codableプロトコルに対応し、WatchConnectivityでの転送に最適化
 struct WatchDeliveryData: Codable, Identifiable, Equatable {
     let id: String
-    let deliveryID: Int
+    let deliveryID: String
     let carrierName: String
     let carrierIcon: String
     let latestStatus: String
@@ -28,7 +28,7 @@ struct WatchDeliveryData: Codable, Identifiable, Equatable {
     /// メンバーワイズイニシャライザ
     init(
         id: String,
-        deliveryID: Int,
+        deliveryID: String,
         carrierName: String,
         carrierIcon: String,
         latestStatus: String,
@@ -55,7 +55,7 @@ struct WatchDeliveryData: Codable, Identifiable, Equatable {
     /// ディクショナリからの初期化
     init?(dictionary: [String: Any]) {
         guard let id = dictionary["id"] as? String,
-              let deliveryID = dictionary["deliveryID"] as? Int,
+              let deliveryID = dictionary["deliveryID"] as? String,
               let carrierName = dictionary["carrierName"] as? String,
               let carrierIcon = dictionary["carrierIcon"] as? String,
               let latestStatus = dictionary["latestStatus"] as? String,

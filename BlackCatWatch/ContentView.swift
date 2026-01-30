@@ -187,7 +187,7 @@ struct DeliveryDetailView: View {
                         .font(.caption2)
                         .foregroundColor(.secondary)
 
-                    Text(String(delivery.deliveryID))
+                    Text(delivery.deliveryID)
                         .font(.caption)
                         .fontDesign(.monospaced)
                 }

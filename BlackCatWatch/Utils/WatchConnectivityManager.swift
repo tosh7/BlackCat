@@ -302,7 +302,7 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
 
     /// 配達削除メッセージの処理
     private func handleDeliveryDeleted(_ message: [String: Any]) {
-        guard let deliveryID = message["deliveryID"] as? Int else {
+        guard let deliveryID = message["deliveryID"] as? String else {
             return
         }
 

@@ -23,7 +23,7 @@ struct WatchDeliveryItem: Identifiable, Equatable {
 
     // MARK: - Convenience Properties
 
-    var deliveryID: Int { deliveryData.deliveryID }
+    var deliveryID: String { deliveryData.deliveryID }
     var carrierName: String { deliveryData.carrierName }
     var latestStatus: String { deliveryData.latestStatus }
     var latestDate: String { deliveryData.latestDate }
@@ -34,7 +34,7 @@ struct WatchDeliveryItem: Identifiable, Equatable {
 
     /// 伝票番号の文字列表現
     var trackingNumberString: String {
-        String(deliveryData.deliveryID)
+        deliveryData.deliveryID
     }
 
     /// 日時のフォーマット済み表示

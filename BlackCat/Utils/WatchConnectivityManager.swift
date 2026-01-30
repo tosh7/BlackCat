@@ -165,7 +165,7 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
 
     /// 配達削除通知を送信
     /// - Parameter deliveryID: 削除された配達ID
-    func sendDeliveryDeleted(deliveryID: Int) {
+    func sendDeliveryDeleted(deliveryID: String) {
         guard let session = session,
               session.activationState == .activated else {
             return
@@ -436,7 +436,7 @@ extension WatchDeliveryData {
     /// 注: この初期化子はiOSアプリ側でのみ使用
     init(from item: DeliveryItem, carrier: DeliveryCarrier) {
         self.id = item.id.uuidString
-        self.deliveryID = item.deliveryID
+        self.deliveryID = String(item.deliveryID)
         self.carrierName = carrier.displayName
         self.carrierIcon = carrier.iconName
         self.latestStatus = item.latestStatus?.status ?? "不明"
