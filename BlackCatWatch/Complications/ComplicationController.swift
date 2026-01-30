@@ -27,7 +27,7 @@ struct WatchComplicationEntry: TimelineEntry {
             deliveries: [
                 WatchDeliveryData(
                     id: UUID().uuidString,
-                    deliveryID: 123456789012,
+                    deliveryID: 1234567890,
                     carrierName: "ヤマト運輸",
                     carrierIcon: "shippingbox.fill",
                     latestStatus: "配達中",
@@ -57,7 +57,7 @@ struct WatchComplicationEntry: TimelineEntry {
             deliveries: [
                 WatchDeliveryData(
                     id: UUID().uuidString,
-                    deliveryID: 123456789012,
+                    deliveryID: 1234567890,
                     carrierName: "ヤマト運輸",
                     carrierIcon: "shippingbox.fill",
                     latestStatus: "配達中",
@@ -70,7 +70,7 @@ struct WatchComplicationEntry: TimelineEntry {
                 ),
                 WatchDeliveryData(
                     id: UUID().uuidString,
-                    deliveryID: 987654321098,
+                    deliveryID: 987654321,
                     carrierName: "佐川急便",
                     carrierIcon: "truck.box.fill",
                     latestStatus: "輸送中",

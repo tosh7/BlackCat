@@ -174,7 +174,7 @@ struct WatchDeliveryDetailView_Previews: PreviewProvider {
             WatchDeliveryDetailView(
                 deliveryData: WatchDeliveryData(
                     id: "preview-123",
-                    deliveryID: 123456789012,
+                    deliveryID: 1234567890,
                     carrierName: "ヤマト運輸",
                     carrierIcon: "shippingbox.fill",
                     latestStatus: "配達中",
