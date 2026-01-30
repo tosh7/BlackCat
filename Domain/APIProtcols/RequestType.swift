@@ -16,6 +16,7 @@ public extension URLRequest {
             let queryData = queryItems.equalEncode().data(using: .utf8)
             self.init(url: url)
             self.httpBody = queryData
+            self.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         case .get:
             guard let urlWithQuery = components.url else { return nil }
             self.init(url: urlWithQuery)
