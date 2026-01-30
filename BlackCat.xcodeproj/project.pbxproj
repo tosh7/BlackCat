@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+	BCWATCH05000000000000002 /* BlackCatWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BCWATCH04249CA04A97F01 /* BlackCatWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BCWATCH011B442929E4593 /* BlackCatWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH001C4F5793BE31B /* BlackCatWatchApp.swift */; };
+		BCWATCH01214E7882B14E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH002779125FE75CF /* ContentView.swift */; };
+		BCWATCH0130478CB7770DC /* WatchDeliveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH003AEE26FF5EC46 /* WatchDeliveryViewModel.swift */; };
+		BCWATCH014A6F97A76425E /* WatchDeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH0043573586FD0BE /* WatchDeliveryItem.swift */; };
+		BCWATCH015A3263D5BB6CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCWATCH0058C3446B79F39 /* Assets.xcassets */; };
+		BCWATCH0338061C1008830 /* SharedDeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH03175D7F53C6170 /* SharedDeliveryItem.swift */; };
+		BCWATCH034A66BD580E85F /* SharedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH0321B1868BAB38B /* SharedDataManager.swift */; };
+		BCWATCH03599FA2E8BA070 /* SharedDeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH03175D7F53C6170 /* SharedDeliveryItem.swift */; };
+		BCWATCH0369939F397947D /* SharedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH0321B1868BAB38B /* SharedDataManager.swift */; };
+
 		19ABC02226D5500000000014 /* DeliveryShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC02326D5500000000015 /* DeliveryShareContent.swift */; };
 		19ABC02426D5500000000016 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC02526D5500000000017 /* ShareSheet.swift */; };
 		19ABC02626D5500000000018 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC02726D5500000000019 /* ConfettiView.swift */; };
@@ -75,6 +86,14 @@
 		2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
 		2B5D54B826ED084100189351 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5D54B726ED084100189351 /* View+extension.swift */; };
 		19ABC02026D5500000000012 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC01F26D5500000000012 /* SplashView.swift */; };
+		WCMGR001A1B2C3D4E5F6 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = WCMGR002A1B2C3D4E5F6 /* WatchConnectivityManager.swift */; };
+		WDATA001A1B2C3D4E5F6 /* WatchDeliveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = WDATA002A1B2C3D4E5F6 /* WatchDeliveryData.swift */; };
+		WDATA003A1B2C3D4E5F6 /* WatchDeliveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = WDATA002A1B2C3D4E5F6 /* WatchDeliveryData.swift */; };
+		BCWATCH05A12345678901 /* WatchDeliveryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH05B12345678901 /* WatchDeliveryListView.swift */; };
+		BCWATCH05C12345678901 /* WatchDeliveryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH05D12345678901 /* WatchDeliveryDetailView.swift */; };
+		BCWATCH05E12345678901 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH05F12345678901 /* ComplicationController.swift */; };
+		BCWATCH06012345678901 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH06112345678901 /* WatchConnectivityManager.swift */; };
+		BCWATCH06212345678901 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCWATCH06312345678901 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +125,13 @@
 			remoteGlobalIDString = 19A9A2B426C1342E00BD5AF8;
 			remoteInfo = Domain;
 		};
+	BCWATCH05000000000000004 /* PBXContainerItemProxy */ = {
+		isa = PBXContainerItemProxy;
+		containerPortal = 2B5AC1D12670EBAF00CB80F6 /* Project object */;
+		proxyType = 1;
+		remoteGlobalIDString = BCWATCH041A78B91429135;
+		remoteInfo = BlackCatWatch;
+	};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -195,7 +221,25 @@
 		2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B5AC1FC2670EDAB00CB80F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B5D54B726ED084100189351 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
+		BCWATCH001C4F5793BE31B /* BlackCatWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCatWatchApp.swift; sourceTree = "<group>"; };
+		BCWATCH002779125FE75CF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BCWATCH003AEE26FF5EC46 /* WatchDeliveryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveryViewModel.swift; sourceTree = "<group>"; };
+		BCWATCH0043573586FD0BE /* WatchDeliveryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveryItem.swift; sourceTree = "<group>"; };
+		BCWATCH0058C3446B79F39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BCWATCH006DDC961025C0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCWATCH04249CA04A97F01 /* BlackCatWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackCatWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCWATCH03175D7F53C6170 /* SharedDeliveryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDeliveryItem.swift; sourceTree = "<group>"; };
+		BCWATCH0321B1868BAB38B /* SharedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataManager.swift; sourceTree = "<group>"; };
+		WCMGR002A1B2C3D4E5F6 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
+		WDATA002A1B2C3D4E5F6 /* WatchDeliveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WatchDeliveryData.swift; path = Shared/WatchDeliveryData.swift; sourceTree = SOURCE_ROOT; };
+		BCWATCH05B12345678901 /* WatchDeliveryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveryListView.swift; sourceTree = "<group>"; };
+		BCWATCH05D12345678901 /* WatchDeliveryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveryDetailView.swift; sourceTree = "<group>"; };
+		BCWATCH05F12345678901 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		BCWATCH06112345678901 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
+		BCWATCH06312345678901 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BCWATCH06412345678901 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
 
 /* Begin PBXFrameworksBuildPhase section */
 		197A43F229E137F700D111B2 /* Frameworks */ = {
@@ -237,7 +281,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BCWATCH0446D0F16032B15 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
+
 
 /* Begin PBXGroup section */
 		19334B9826C8185800840389 /* Resources */ = {
@@ -378,6 +430,7 @@
 				19ABC01226D550000000000A /* BackgroundRefreshManager.swift */,
 				19ABC01B26D550000000000F /* HapticManager.swift */,
 				19ABC02326D5500000000015 /* DeliveryShareContent.swift */,
+				WCMGR002A1B2C3D4E5F6 /* WatchConnectivityManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -404,6 +457,8 @@
 				19A9A2C326C1342E00BD5AF8 /* DomainTests */,
 				2B5AC1F12670EDA300CB80F6 /* Frameworks */,
 				2B5AC1DA2670EBAF00CB80F6 /* Products */,
+				BCWATCH02106BE1DE65B10 /* BlackCatWatch */,
+				BCWATCH0228A49BD09C96F /* Shared */,
 			);
 			sourceTree = "<group>";
 		};
@@ -415,6 +470,7 @@
 				19A9A2B526C1342E00BD5AF8 /* Domain.framework */,
 				19A9A2BD26C1342E00BD5AF8 /* DomainTests.xctest */,
 				197A43F529E137F800D111B2 /* BlackCatTests.xctest */,
+				BCWATCH04249CA04A97F01 /* BlackCatWatch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -510,7 +566,61 @@
 			path = Splash;
 			sourceTree = "<group>";
 		};
+		BCWATCH02106BE1DE65B10 /* BlackCatWatch */ = {
+			isa = PBXGroup;
+			children = (
+				BCWATCH001C4F5793BE31B /* BlackCatWatchApp.swift */,
+				BCWATCH002779125FE75CF /* ContentView.swift */,
+				BCWATCH003AEE26FF5EC46 /* WatchDeliveryViewModel.swift */,
+				BCWATCH0043573586FD0BE /* WatchDeliveryItem.swift */,
+				BCWATCH07012345678901 /* Views */,
+				BCWATCH07112345678901 /* Complications */,
+				BCWATCH07212345678901 /* Utils */,
+				BCWATCH0058C3446B79F39 /* Assets.xcassets */,
+				BCWATCH006DDC961025C0A /* Info.plist */,
+			);
+			path = BlackCatWatch;
+			sourceTree = "<group>";
+		};
+		BCWATCH07012345678901 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BCWATCH05B12345678901 /* WatchDeliveryListView.swift */,
+				BCWATCH05D12345678901 /* WatchDeliveryDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BCWATCH07112345678901 /* Complications */ = {
+			isa = PBXGroup;
+			children = (
+				BCWATCH05F12345678901 /* ComplicationController.swift */,
+				BCWATCH06312345678901 /* Assets.xcassets */,
+				BCWATCH06412345678901 /* Info.plist */,
+			);
+			path = Complications;
+			sourceTree = "<group>";
+		};
+		BCWATCH07212345678901 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BCWATCH06112345678901 /* WatchConnectivityManager.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		BCWATCH0228A49BD09C96F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				BCWATCH03175D7F53C6170 /* SharedDeliveryItem.swift */,
+				BCWATCH0321B1868BAB38B /* SharedDataManager.swift */,
+				WDATA002A1B2C3D4E5F6 /* WatchDeliveryData.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
 
 /* Begin PBXHeadersBuildPhase section */
 		19A9A2B026C1342E00BD5AF8 /* Headers */ = {
@@ -579,7 +689,18 @@
 			productReference = 19A9A2BD26C1342E00BD5AF8 /* DomainTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		2B5AC1D82670EBAF00CB80F6 /* BlackCat */ = {
+		BCWATCH05000000000000001 /* Embed Watch Content */ = {
+		isa = PBXCopyFilesBuildPhase;
+		buildActionMask = 2147483647;
+		dstPath = "\/Watch";
+		dstSubfolderSpec = 16;
+		files = (
+			BCWATCH05000000000000002 /* BlackCatWatch.app in Embed Watch Content */,
+		);
+		name = "Embed Watch Content";
+		runOnlyForDeploymentPostprocessing = 0;
+	};
+	2B5AC1D82670EBAF00CB80F6 /* BlackCat */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B5AC1E82670EBB300CB80F6 /* Build configuration list for PBXNativeTarget "BlackCat" */;
 			buildPhases = (
@@ -587,11 +708,13 @@
 				2B5AC1D62670EBAF00CB80F6 /* Frameworks */,
 				2B5AC1D72670EBAF00CB80F6 /* Resources */,
 				19A9A2CF26C1342E00BD5AF8 /* Embed Frameworks */,
+				BCWATCH05000000000000001 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				19A9A2C926C1342E00BD5AF8 /* PBXTargetDependency */,
+				BCWATCH05000000000000003 /* PBXTargetDependency */,
 			);
 			name = BlackCat;
 			productName = BlackCat;
@@ -615,7 +738,25 @@
 			productReference = 2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		BCWATCH041A78B91429135 /* BlackCatWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCWATCH0460BC07372DDE1 /* Build configuration list for PBXNativeTarget "BlackCatWatch" */;
+			buildPhases = (
+				BCWATCH043BEED89F960F1 /* Sources */,
+				BCWATCH0446D0F16032B15 /* Frameworks */,
+				BCWATCH045760F1E941CF0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BlackCatWatch;
+			productName = BlackCatWatch;
+			productReference = BCWATCH04249CA04A97F01 /* BlackCatWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
+
 
 /* Begin PBXProject section */
 		2B5AC1D12670EBAF00CB80F6 /* Project object */ = {
@@ -661,6 +802,7 @@
 				19A9A2B426C1342E00BD5AF8 /* Domain */,
 				19A9A2BC26C1342E00BD5AF8 /* DomainTests */,
 				197A43F429E137F700D111B2 /* BlackCatTests */,
+				BCWATCH041A78B91429135 /* BlackCatWatch */,
 			);
 		};
 /* End PBXProject section */
@@ -705,7 +847,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BCWATCH045760F1E941CF0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCWATCH015A3263D5BB6CD /* Assets.xcassets in Resources */,
+				BCWATCH06212345678901 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
 
 /* Begin PBXSourcesBuildPhase section */
 		197A43F129E137F700D111B2 /* Sources */ = {
@@ -789,6 +941,10 @@
 				19ABC02226D5500000000014 /* DeliveryShareContent.swift in Sources */,
 				19ABC02426D5500000000016 /* ShareSheet.swift in Sources */,
 				19ABC02626D5500000000018 /* ConfettiView.swift in Sources */,
+				BCWATCH03599FA2E8BA070 /* SharedDeliveryItem.swift in Sources */,
+				BCWATCH0369939F397947D /* SharedDataManager.swift in Sources */,
+				WCMGR001A1B2C3D4E5F6 /* WatchConnectivityManager.swift in Sources */,
+				WDATA001A1B2C3D4E5F6 /* WatchDeliveryData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -801,7 +957,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BCWATCH043BEED89F960F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BCWATCH011B442929E4593 /* BlackCatWatchApp.swift in Sources */,
+				BCWATCH01214E7882B14E5 /* ContentView.swift in Sources */,
+				BCWATCH0130478CB7770DC /* WatchDeliveryViewModel.swift in Sources */,
+				BCWATCH014A6F97A76425E /* WatchDeliveryItem.swift in Sources */,
+				BCWATCH0338061C1008830 /* SharedDeliveryItem.swift in Sources */,
+				BCWATCH034A66BD580E85F /* SharedDataManager.swift in Sources */,
+				WDATA003A1B2C3D4E5F6 /* WatchDeliveryData.swift in Sources */,
+				BCWATCH05A12345678901 /* WatchDeliveryListView.swift in Sources */,
+				BCWATCH05C12345678901 /* WatchDeliveryDetailView.swift in Sources */,
+				BCWATCH05E12345678901 /* ComplicationController.swift in Sources */,
+				BCWATCH06012345678901 /* WatchConnectivityManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
 
 /* Begin PBXTargetDependency section */
 		197A43FA29E137F800D111B2 /* PBXTargetDependency */ = {
@@ -824,6 +999,11 @@
 			target = 19A9A2B426C1342E00BD5AF8 /* Domain */;
 			targetProxy = 19A9A2C826C1342E00BD5AF8 /* PBXContainerItemProxy */;
 		};
+	BCWATCH05000000000000003 /* PBXTargetDependency */ = {
+		isa = PBXTargetDependency;
+		target = BCWATCH041A78B91429135 /* BlackCatWatch */;
+		targetProxy = BCWATCH05000000000000004 /* PBXContainerItemProxy */;
+	};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -836,7 +1016,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tosh7.BlackCatTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -856,7 +1036,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tosh7.BlackCatTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -879,7 +1059,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Domain/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -908,7 +1088,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Domain/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -932,7 +1112,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				INFOPLIST_FILE = DomainTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -953,7 +1133,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				INFOPLIST_FILE = DomainTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1018,7 +1198,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1073,7 +1253,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1095,7 +1275,7 @@
 				DEVELOPMENT_TEAM = 56787CM63P;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BlackCat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1120,7 +1300,7 @@
 				DEVELOPMENT_TEAM = 56787CM63P;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BlackCat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1141,7 +1321,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				INFOPLIST_FILE = BlackCarWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1164,7 +1344,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				INFOPLIST_FILE = BlackCarWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1179,7 +1359,58 @@
 			};
 			name = Release;
 		};
+		BCWATCH04797412A78246D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56787CM63P;
+				INFOPLIST_FILE = BlackCatWatch/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tosh7.BlackCat.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		BCWATCH048EC73E8494380 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56787CM63P;
+				INFOPLIST_FILE = BlackCatWatch/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tosh7.BlackCat.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
+
 
 /* Begin XCConfigurationList section */
 		197A43FD29E137F800D111B2 /* Build configuration list for PBXNativeTarget "BlackCatTests" */ = {
@@ -1236,7 +1467,17 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		BCWATCH0460BC07372DDE1 /* Build configuration list for PBXNativeTarget "BlackCatWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCWATCH04797412A78246D /* Debug */,
+				BCWATCH048EC73E8494380 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
 	};
 	rootObject = 2B5AC1D12670EBAF00CB80F6 /* Project object */;
 }

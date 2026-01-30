@@ -3,6 +3,7 @@ import Domain
 import Combine
 import WidgetKit
 import UserNotifications
+import WatchConnectivity
 
 // MARK: - Filter & Sort Types
 
@@ -117,7 +118,12 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     /// 通知マネージャー
     private let notificationManager = NotificationManager.shared
 
+    /// Watch Connectivityマネージャー
+    private let watchConnectivityManager = WatchConnectivityManager.shared
+
     init() {
+        // Watch Connectivityのデータプロバイダーを設定
+        setupWatchConnectivity()
         $onAppearPublisher.sink { [weak self] _ in
             guard let self,
                   self.shouldReload else { return }
@@ -273,23 +279,64 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
         }
 
         Task { @MainActor in
-            isLoading = true
-            let result = await apiClient.tneko(.init(numbers: goodsIdList))
-            isLoading = false
-            guard let tneko = result.value else { return }
-            let tnekoClient = TnekoClient(tneko: tneko)
-            if isInitialLoad {
-                LocalDeliveryItems.shared.removeDeplicates(deliveryItems: tnekoClient.deliveryList)
-                isInitialLoad = false
+            await loadItemAsync()
+        }
+    }
+
+    /// データ読み込みの非同期実装（完了を待機可能）
+    @MainActor
+    private func loadItemAsync() async {
+        guard !goodsIdList.isEmpty else {
+            deliveryList = []
+            return
+        }
+
+        isLoading = true
+        let result = await apiClient.tneko(.init(numbers: goodsIdList))
+        isLoading = false
+        guard let tneko = result.value else { return }
+        let tnekoClient = TnekoClient(tneko: tneko)
+        if isInitialLoad {
+            LocalDeliveryItems.shared.removeDeplicates(deliveryItems: tnekoClient.deliveryList)
+            isInitialLoad = false
+        }
+
+        // 配達状況の変更を検知して通知を送信
+        checkAndNotifyStatusChanges(newItems: tnekoClient.deliveryList)
+
+        self.deliveryList = tnekoClient.deliveryList
+
+        // ウィジェットにデータを同期
+        BlackCatApp.syncWidgetData(deliveryItems: tnekoClient.deliveryList)
+
+        // Apple Watchにデータを同期
+        BlackCatApp.syncWatchData(deliveryItems: tnekoClient.deliveryList)
+    }
+
+    // MARK: - Watch Connectivity Setup
+
+    /// Watch Connectivityのセットアップ
+    private func setupWatchConnectivity() {
+        // データプロバイダーを設定
+        watchConnectivityManager.setDeliveryDataProvider { [weak self] in
+            guard let self = self else { return [] }
+            return self.deliveryList.map { item in
+                WatchDeliveryData(from: item, carrier: item.carrier)
+            }
+        }
+
+        // ステータス更新ハンドラーを設定
+        watchConnectivityManager.setStatusRefreshHandler { [weak self] completion in
+            guard let self = self else {
+                completion(false)
+                return
             }
 
-            // 配達状況の変更を検知して通知を送信
-            checkAndNotifyStatusChanges(newItems: tnekoClient.deliveryList)
-
-            self.deliveryList = tnekoClient.deliveryList
-
-            // ウィジェットにデータを同期
-            BlackCatApp.syncWidgetData(deliveryItems: tnekoClient.deliveryList)
+            // データを再読み込みし、完了を待ってからcompletionを呼び出す
+            Task { @MainActor in
+                await self.loadItemAsync()
+                completion(true)
+            }
         }
     }
 
