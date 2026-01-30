@@ -439,7 +439,9 @@ struct ComplicationEntryView: View {
 // MARK: - Widget Bundle
 
 /// Complication Widget Bundle
-@main
+/// NOTE: @main はBlackCatWatchApp.swiftで宣言済みのため、ここでは宣言しない。
+/// Complicationを有効にするには、独立したWidget Extensionターゲットを作成するか、
+/// BlackCatWatchAppにWidgetBundleを統合する必要がある。
 struct BlackCatWatchWidgetBundle: WidgetBundle {
     var body: some Widget {
         BlackCatWatchComplication()

@@ -90,11 +90,15 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
     func sendDeliveries(_ deliveries: [WatchDeliveryData]) {
         guard let session = session, session.activationState == .activated else {
             print("[WatchConnectivity] Session not activated")
-            syncState = .error(WatchSyncError.sessionNotActivated.localizedDescription)
+            DispatchQueue.main.async { [weak self] in
+                self?.syncState = .error(WatchSyncError.sessionNotActivated.localizedDescription)
+            }
             return
         }
 
-        syncState = .syncing
+        DispatchQueue.main.async { [weak self] in
+            self?.syncState = .syncing
+        }
 
         // Application Contextを使用してバックグラウンドでも同期
         let activeCount = deliveries.filter { !$0.isDelivered }.count
@@ -109,13 +113,17 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
 
         do {
             try session.updateApplicationContext(context.toDictionary())
-            lastSyncDate = Date()
-            syncState = .success
+            DispatchQueue.main.async { [weak self] in
+                self?.lastSyncDate = Date()
+                self?.syncState = .success
+            }
 
             print("[WatchConnectivity] Application context updated with \(deliveries.count) deliveries")
         } catch {
             print("[WatchConnectivity] Failed to update application context: \(error)")
-            syncState = .error(error.localizedDescription)
+            DispatchQueue.main.async { [weak self] in
+                self?.syncState = .error(error.localizedDescription)
+            }
         }
 
         // Watchがリーチャブルならメッセージも送信（即時反映のため）
@@ -185,7 +193,15 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
 
     /// 手動で同期を実行
     func syncNow() {
-        guard let deliveries = deliveryDataProvider?() else {
+        let deliveries: [WatchDeliveryData]?
+        // deliveryDataProviderはDeliveryListViewModelのdeliveryListにアクセスするためメインスレッドで実行
+        if Thread.isMainThread {
+            deliveries = deliveryDataProvider?()
+        } else {
+            deliveries = DispatchQueue.main.sync { deliveryDataProvider?() }
+        }
+
+        guard let deliveries else {
             print("[WatchConnectivity] No delivery data provider set")
             return
         }
@@ -247,28 +263,31 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
 
     /// 全配達データリクエストの処理
     private func handleAllDeliveriesRequest(replyHandler: @escaping ([String: Any]) -> Void) {
-        guard let deliveries = deliveryDataProvider?() else {
-            replyHandler([
-                "type": WatchMessageType.error.rawValue,
-                "error": "No delivery data available"
-            ])
-            return
-        }
+        // deliveryDataProviderはDeliveryListViewModelにアクセスするためメインスレッドで実行
+        DispatchQueue.main.async { [weak self] in
+            guard let self, let deliveries = self.deliveryDataProvider?() else {
+                replyHandler([
+                    "type": WatchMessageType.error.rawValue,
+                    "error": "No delivery data available"
+                ])
+                return
+            }
 
-        do {
-            let data = try JSONEncoder().encode(deliveries)
-            replyHandler([
-                "type": WatchMessageType.allDeliveriesResponse.rawValue,
-                "timestamp": Date().timeIntervalSince1970,
-                "payload": data
-            ])
+            do {
+                let data = try JSONEncoder().encode(deliveries)
+                replyHandler([
+                    "type": WatchMessageType.allDeliveriesResponse.rawValue,
+                    "timestamp": Date().timeIntervalSince1970,
+                    "payload": data
+                ])
 
-            print("[WatchConnectivity] Sent \(deliveries.count) deliveries to Watch")
-        } catch {
-            replyHandler([
-                "type": WatchMessageType.error.rawValue,
-                "error": error.localizedDescription
-            ])
+                print("[WatchConnectivity] Sent \(deliveries.count) deliveries to Watch")
+            } catch {
+                replyHandler([
+                    "type": WatchMessageType.error.rawValue,
+                    "error": error.localizedDescription
+                ])
+            }
         }
     }
 
@@ -284,8 +303,15 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
 
         refreshHandler { [weak self] success in
             if success {
-                // 更新成功、最新データを返す
-                if let deliveries = self?.deliveryDataProvider?() {
+                // 更新成功、最新データをメインスレッドで取得して返す
+                DispatchQueue.main.async {
+                    guard let deliveries = self?.deliveryDataProvider?() else {
+                        replyHandler([
+                            "type": WatchMessageType.error.rawValue,
+                            "error": "No delivery data available"
+                        ])
+                        return
+                    }
                     do {
                         let data = try JSONEncoder().encode(deliveries)
                         replyHandler([

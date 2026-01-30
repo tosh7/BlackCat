@@ -279,27 +279,38 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
         }
 
         Task { @MainActor in
-            isLoading = true
-            let result = await apiClient.tneko(.init(numbers: goodsIdList))
-            isLoading = false
-            guard let tneko = result.value else { return }
-            let tnekoClient = TnekoClient(tneko: tneko)
-            if isInitialLoad {
-                LocalDeliveryItems.shared.removeDeplicates(deliveryItems: tnekoClient.deliveryList)
-                isInitialLoad = false
-            }
-
-            // 配達状況の変更を検知して通知を送信
-            checkAndNotifyStatusChanges(newItems: tnekoClient.deliveryList)
-
-            self.deliveryList = tnekoClient.deliveryList
-
-            // ウィジェットにデータを同期
-            BlackCatApp.syncWidgetData(deliveryItems: tnekoClient.deliveryList)
-
-            // Apple Watchにデータを同期
-            BlackCatApp.syncWatchData(deliveryItems: tnekoClient.deliveryList)
+            await loadItemAsync()
         }
+    }
+
+    /// データ読み込みの非同期実装（完了を待機可能）
+    @MainActor
+    private func loadItemAsync() async {
+        guard !goodsIdList.isEmpty else {
+            deliveryList = []
+            return
+        }
+
+        isLoading = true
+        let result = await apiClient.tneko(.init(numbers: goodsIdList))
+        isLoading = false
+        guard let tneko = result.value else { return }
+        let tnekoClient = TnekoClient(tneko: tneko)
+        if isInitialLoad {
+            LocalDeliveryItems.shared.removeDeplicates(deliveryItems: tnekoClient.deliveryList)
+            isInitialLoad = false
+        }
+
+        // 配達状況の変更を検知して通知を送信
+        checkAndNotifyStatusChanges(newItems: tnekoClient.deliveryList)
+
+        self.deliveryList = tnekoClient.deliveryList
+
+        // ウィジェットにデータを同期
+        BlackCatApp.syncWidgetData(deliveryItems: tnekoClient.deliveryList)
+
+        // Apple Watchにデータを同期
+        BlackCatApp.syncWatchData(deliveryItems: tnekoClient.deliveryList)
     }
 
     // MARK: - Watch Connectivity Setup
@@ -321,11 +332,9 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
                 return
             }
 
-            // データを再読み込み
+            // データを再読み込みし、完了を待ってからcompletionを呼び出す
             Task { @MainActor in
-                self.loadItem()
-                // 少し待機してからcompletionを呼び出す
-                try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
+                await self.loadItemAsync()
                 completion(true)
             }
         }

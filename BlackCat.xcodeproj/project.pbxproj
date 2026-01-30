@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+	BCWATCH05000000000000002 /* BlackCatWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BCWATCH04249CA04A97F01 /* BlackCatWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BCWATCH011B442929E4593 /* BlackCatWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH001C4F5793BE31B /* BlackCatWatchApp.swift */; };
 		BCWATCH01214E7882B14E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH002779125FE75CF /* ContentView.swift */; };
 		BCWATCH0130478CB7770DC /* WatchDeliveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH003AEE26FF5EC46 /* WatchDeliveryViewModel.swift */; };
@@ -124,6 +125,13 @@
 			remoteGlobalIDString = 19A9A2B426C1342E00BD5AF8;
 			remoteInfo = Domain;
 		};
+	BCWATCH05000000000000004 /* PBXContainerItemProxy */ = {
+		isa = PBXContainerItemProxy;
+		containerPortal = 2B5AC1D12670EBAF00CB80F6 /* Project object */;
+		proxyType = 1;
+		remoteGlobalIDString = BCWATCH041A78B91429135;
+		remoteInfo = BlackCatWatch;
+	};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -681,7 +689,18 @@
 			productReference = 19A9A2BD26C1342E00BD5AF8 /* DomainTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		2B5AC1D82670EBAF00CB80F6 /* BlackCat */ = {
+		BCWATCH05000000000000001 /* Embed Watch Content */ = {
+		isa = PBXCopyFilesBuildPhase;
+		buildActionMask = 2147483647;
+		dstPath = "\/Watch";
+		dstSubfolderSpec = 16;
+		files = (
+			BCWATCH05000000000000002 /* BlackCatWatch.app in Embed Watch Content */,
+		);
+		name = "Embed Watch Content";
+		runOnlyForDeploymentPostprocessing = 0;
+	};
+	2B5AC1D82670EBAF00CB80F6 /* BlackCat */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B5AC1E82670EBB300CB80F6 /* Build configuration list for PBXNativeTarget "BlackCat" */;
 			buildPhases = (
@@ -689,11 +708,13 @@
 				2B5AC1D62670EBAF00CB80F6 /* Frameworks */,
 				2B5AC1D72670EBAF00CB80F6 /* Resources */,
 				19A9A2CF26C1342E00BD5AF8 /* Embed Frameworks */,
+				BCWATCH05000000000000001 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				19A9A2C926C1342E00BD5AF8 /* PBXTargetDependency */,
+				BCWATCH05000000000000003 /* PBXTargetDependency */,
 			);
 			name = BlackCat;
 			productName = BlackCat;
@@ -978,6 +999,11 @@
 			target = 19A9A2B426C1342E00BD5AF8 /* Domain */;
 			targetProxy = 19A9A2C826C1342E00BD5AF8 /* PBXContainerItemProxy */;
 		};
+	BCWATCH05000000000000003 /* PBXTargetDependency */ = {
+		isa = PBXTargetDependency;
+		target = BCWATCH041A78B91429135 /* BlackCatWatch */;
+		targetProxy = BCWATCH05000000000000004 /* PBXContainerItemProxy */;
+	};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
