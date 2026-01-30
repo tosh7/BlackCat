@@ -113,4 +113,76 @@ final class AddListViewModelTest: XCTestCase {
         XCTAssertNotNil(viewModel.input)
         XCTAssertNotNil(viewModel.output)
     }
+
+    // MARK: - Debug Test for 508382115290
+
+    func test_Debug_508382115290_buttonTap_flow() throws {
+        let trackingNumber = "508382115290"
+
+        print("=== DEBUG: AddListViewModel Button Tap Flow ===")
+
+        // Set up expectations
+        let loadingStarted = XCTestExpectation(description: "Loading started")
+        let loadingFinished = XCTestExpectation(description: "Loading finished")
+        let alertShown = XCTestExpectation(description: "Alert shown")
+
+        // Track isLoading changes
+        viewModel.$isLoading
+            .dropFirst()
+            .sink { isLoading in
+                print("isLoading changed to: \(isLoading)")
+                if isLoading {
+                    loadingStarted.fulfill()
+                } else {
+                    loadingFinished.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+
+        // Track showingAlert changes
+        viewModel.$showingAlert
+            .dropFirst()
+            .sink { showing in
+                print("showingAlert changed to: \(showing)")
+                if showing {
+                    print("errorMessage: \(self.viewModel.output.errorMessage)")
+                    alertShown.fulfill()
+                }
+            }
+            .store(in: &cancellables)
+
+        // Step 1: Enter tracking number
+        print("Step 1: Entering tracking number: \(trackingNumber)")
+        viewModel.input.textFieldDidChange(text: trackingNumber)
+
+        // Wait for button to become enabled
+        let buttonEnabled = XCTestExpectation(description: "Button enabled")
+        viewModel.$isButtonEnabled
+            .dropFirst()
+            .filter { $0 }
+            .sink { _ in
+                print("Button is now enabled")
+                buttonEnabled.fulfill()
+            }
+            .store(in: &cancellables)
+
+        wait(for: [buttonEnabled], timeout: 2.0)
+        print("isButtonEnabled: \(viewModel.output.isButtonEnabled)")
+        print("selectedCarrier: \(viewModel.output.selectedCarrier)")
+
+        // Step 2: Tap button
+        print("Step 2: Tapping button...")
+        viewModel.input.buttonDidTap()
+
+        // Wait for all async operations
+        wait(for: [loadingStarted, loadingFinished, alertShown], timeout: 10.0)
+
+        // Step 3: Check result
+        print("=== RESULT ===")
+        print("errorMessage: \(viewModel.output.errorMessage)")
+        print("showingAlert: \(viewModel.showingAlert)")
+
+        // Assert
+        XCTAssertEqual(viewModel.output.errorMessage, "登録に成功しました", "Registration should succeed for valid Yamato tracking number")
+    }
 }
