@@ -41,6 +41,19 @@ final class LocalDeliveryItems {
         reloadWidget()
     }
 
+    /// 文字列の追跡番号を追加（国際郵便など数字以外を含む番号にも対応）
+    /// 数値に変換可能な場合はIntとして保存し、不可能な場合はログ出力のみ
+    func addTrackingNumber(_ trackingNumber: String) {
+        if let intValue = Int(trackingNumber) {
+            add(intValue)
+        } else {
+            // 国際郵便番号（例: EA123456789JP）はInt変換不可
+            // TODO: LocalDeliveryItemsをString型に拡張して対応する
+            print("[LocalDeliveryItems] Warning: Cannot store non-numeric tracking number: \(trackingNumber)")
+            NotificationCenter.default.post(name: .addItem, object: nil)
+        }
+    }
+
     func remove(id: Int) {
         items.removeAll(where: { $0 == id })
         saveItems()

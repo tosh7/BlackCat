@@ -93,6 +93,9 @@ public struct Tneko: ResponseType, Equatable {
 }
 
 extension Tneko {
+    /// HTMLレスポンス内で次の要素を探す際の最大スキャン行数
+    private static let maxScanLines = 50
+
     public init(idList: [Int], response: String) {
         self.deliveryList = idList.enumerated().map { initialIndex, id in
             let stringList = response.components(separatedBy: "\n")
@@ -104,14 +107,16 @@ extension Tneko {
                 if str.contains("tracking-invoice-block-detail") {
                     if initialIndex == indexCounter {
                         var currentIndex = index + 1
+                        let sectionEndIndex = min(currentIndex + stringList.count, stringList.count)
 
-                        while currentIndex < stringList.count {
+                        while currentIndex < sectionEndIndex {
                             let currentLine = stringList[currentIndex].trimmingCharacters(in: .whitespaces)
 
                             // 次の荷物セクションまたはページの終わりを検出
                             if currentLine.contains("tracking-invoice-block-footer") ||
                                currentLine.contains("tracking-invoice-block-cooperation") ||
-                               currentLine.contains("page-content-information") {
+                               currentLine.contains("page-content-information") ||
+                               currentLine.contains("tracking-invoice-block-detail") {
                                 break
                             }
 
@@ -122,11 +127,21 @@ extension Tneko {
                                     .replacingOccurrences(of: "</div>", with: "")
                                     .trimmingCharacters(in: .whitespaces)
 
-                                // 空行をスキップして日付行を取得
+                                guard !statusName.isEmpty else {
+                                    currentIndex += 1
+                                    continue
+                                }
+
+                                // 空行をスキップして日付行を取得（最大スキャン行数制限付き）
                                 var dateIndex = currentIndex + 1
-                                while dateIndex < stringList.count {
+                                let dateSearchLimit = min(dateIndex + Tneko.maxScanLines, stringList.count)
+                                while dateIndex < dateSearchLimit {
                                     let dateLine = stringList[dateIndex].trimmingCharacters(in: .whitespaces)
                                     if dateLine.hasPrefix("<div class=\"date\">") {
+                                        break
+                                    }
+                                    // 別のステータスブロックに入った場合は中断
+                                    if dateLine.hasPrefix("<div class=\"item\">") {
                                         break
                                     }
                                     dateIndex += 1
@@ -135,7 +150,8 @@ extension Tneko {
                                 var dateStr = ""
                                 var timeStr: String?
 
-                                if dateIndex < stringList.count {
+                                if dateIndex < dateSearchLimit,
+                                   stringList[dateIndex].trimmingCharacters(in: .whitespaces).hasPrefix("<div class=\"date\">") {
                                     let dateLine = stringList[dateIndex]
                                         .replacingOccurrences(of: "<div class=\"date\">", with: "")
                                         .replacingOccurrences(of: "</div>", with: "")
@@ -152,26 +168,38 @@ extension Tneko {
                                     }
                                 }
 
-                                // 空行をスキップして店舗名行を取得
+                                // 空行をスキップして店舗名行を取得（最大スキャン行数制限付き）
                                 var nameIndex = dateIndex + 1
-                                while nameIndex < stringList.count {
+                                let nameSearchLimit = min(nameIndex + Tneko.maxScanLines, stringList.count)
+                                while nameIndex < nameSearchLimit {
                                     let nameLine = stringList[nameIndex].trimmingCharacters(in: .whitespaces)
                                     if nameLine.hasPrefix("<div class=\"name\">") {
+                                        break
+                                    }
+                                    // 別のステータスブロックに入った場合は中断
+                                    if nameLine.hasPrefix("<div class=\"item\">") {
                                         break
                                     }
                                     nameIndex += 1
                                 }
 
                                 var shopName = ""
-                                if nameIndex < stringList.count {
+                                if nameIndex < nameSearchLimit,
+                                   stringList[nameIndex].trimmingCharacters(in: .whitespaces).hasPrefix("<div class=\"name\">") {
                                     var nameLine = stringList[nameIndex]
                                         .replacingOccurrences(of: "<div class=\"name\">", with: "")
                                         .replacingOccurrences(of: "</div>", with: "")
 
                                     // <a>タグから店舗名を抽出
                                     if nameLine.contains("<a href=") {
-                                        if let startRange = nameLine.range(of: ">"),
-                                           let endRange = nameLine.range(of: "</a>") {
+                                        // href属性内の ">" ではなく、タグの閉じ ">" を正確に取得
+                                        if let tagCloseRange = nameLine.range(of: "\">"),
+                                           let endRange = nameLine.range(of: "</a>"),
+                                           tagCloseRange.upperBound <= endRange.lowerBound {
+                                            nameLine = String(nameLine[tagCloseRange.upperBound..<endRange.lowerBound])
+                                        } else if let startRange = nameLine.range(of: ">"),
+                                                  let endRange = nameLine.range(of: "</a>"),
+                                                  startRange.upperBound <= endRange.lowerBound {
                                             nameLine = String(nameLine[startRange.upperBound..<endRange.lowerBound])
                                         }
                                     }
@@ -186,7 +214,7 @@ extension Tneko {
                                 )
                                 newStatusList.append(status)
 
-                                currentIndex = nameIndex
+                                currentIndex = max(currentIndex, nameIndex)
                             }
 
                             currentIndex += 1
