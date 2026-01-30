@@ -66,7 +66,7 @@ struct WatchDeliveryDetailView: View {
                         .font(.caption2)
                         .foregroundColor(Color(hex: "0x808080"))
 
-                    Text(String(deliveryData.deliveryID))
+                    Text(deliveryData.deliveryID)
                         .font(.system(.caption, design: .monospaced))
                         .foregroundColor(Color(hex: "0xc0c0c0"))
 
@@ -174,7 +174,7 @@ struct WatchDeliveryDetailView_Previews: PreviewProvider {
             WatchDeliveryDetailView(
                 deliveryData: WatchDeliveryData(
                     id: "preview-123",
-                    deliveryID: 123456789012,
+                    deliveryID: "123456789012",
                     carrierName: "ヤマト運輸",
                     carrierIcon: "shippingbox.fill",
                     latestStatus: "配達中",

@@ -55,7 +55,7 @@ struct WatchDeliveryRowView: View {
             // 情報
             VStack(alignment: .leading, spacing: 4) {
                 // 伝票番号
-                Text(String(deliveryData.deliveryID))
+                Text(deliveryData.deliveryID)
                     .font(.system(.headline, design: .monospaced))
                     .foregroundColor(.white)
                     .lineLimit(1)
