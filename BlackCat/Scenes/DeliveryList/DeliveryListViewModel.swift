@@ -55,6 +55,20 @@ enum SortOption: String, CaseIterable, Identifiable {
     var displayName: String { self.rawValue }
 }
 
+extension SortOption {
+    init(from listSortOrder: ListSortOrder) {
+        switch listSortOrder {
+        case .newestFirst:
+            self = .registeredDateDesc
+        case .oldestFirst:
+            self = .registeredDateAsc
+        case .byStatus:
+            self = .status
+        }
+    }
+}
+
+
 protocol DeliveryListViewModelInputs {
     func onAppear()
     func pullToRefresh()
@@ -102,7 +116,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     @Published var carrierFilter: CarrierFilter = .all
 
     /// ソートオプション
-    @Published var sortOption: SortOption = .registeredDateDesc
+    @Published var sortOption: SortOption = SortOption(from: SettingsManager.shared.listSortOrder)
 
     /// フィルターがアクティブかどうか
     var isFilterActive: Bool {
@@ -187,7 +201,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
         searchText = ""
         statusFilter = .all
         carrierFilter = .all
-        sortOption = .registeredDateDesc
+        sortOption = SortOption(from: SettingsManager.shared.listSortOrder)
     }
 
     /// フィルターとソートを適用
