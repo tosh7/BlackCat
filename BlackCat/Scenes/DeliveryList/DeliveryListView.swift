@@ -521,7 +521,13 @@ struct FilterSortSheet: View {
                             title: "ステータス",
                             options: StatusFilter.allCases,
                             selected: viewModel.statusFilter,
-                            onSelect: { viewModel.input.updateStatusFilter($0) }
+                            onSelect: { filter in
+                                if viewModel.statusFilter == filter {
+                                    viewModel.input.updateStatusFilter(.all)
+                                } else {
+                                    viewModel.input.updateStatusFilter(filter)
+                                }
+                            }
                         )
 
                         Divider()
@@ -532,7 +538,13 @@ struct FilterSortSheet: View {
                             title: "配送業者",
                             options: CarrierFilter.allCases,
                             selected: viewModel.carrierFilter,
-                            onSelect: { viewModel.input.updateCarrierFilter($0) }
+                            onSelect: { filter in
+                                if viewModel.carrierFilter == filter {
+                                    viewModel.input.updateCarrierFilter(.all)
+                                } else {
+                                    viewModel.input.updateCarrierFilter(filter)
+                                }
+                            }
                         )
 
                         Divider()
