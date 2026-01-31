@@ -59,8 +59,8 @@ struct StateDetailView: View {
                         ForEach(Array(deliveryDetail.statusList.reversed().enumerated()), id: \.element.id) { index, status in
                             StateDetailListView(
                                 deliveryStatus: status,
-                                isFirst: index == 0,
-                                isLast: index == deliveryDetail.statusList.count - 1
+                                isFirst: index == deliveryDetail.statusList.count - 1,
+                                isLast: index == 0
                             )
                         }
                     }
