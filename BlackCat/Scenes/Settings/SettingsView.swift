@@ -479,7 +479,7 @@ struct SettingsView: View {
 
             // Privacy Policy
             Button(action: {
-                if let url = URL(string: "https://tosh7.github.io/BlackCat/privacy-policy") {
+                if let url = URL(string: "https://ameblo.jp/tosh7/entry-12418412449.html") {
                     openURL(url)
                 }
             }) {
