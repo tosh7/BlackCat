@@ -33,9 +33,6 @@ struct AddListView: View {
                     // Tracking Number Input
                     trackingNumberSection
 
-                    // Barcode Scan Button
-                    barcodeScanSection
-
                     // Register Button
                     registerButtonSection
                 }
@@ -180,76 +177,6 @@ struct AddListView: View {
             }
             .padding(.horizontal, 4)
             .animation(.gentleEaseOut, value: viewModel.output.cautionMessage)
-        }
-    }
-
-    // MARK: - Barcode Scan Section
-    private var barcodeScanSection: some View {
-        VStack(spacing: 12) {
-            HStack {
-                Rectangle()
-                    .fill(Color.BlackCat.shadowLevel5)
-                    .frame(height: 1)
-                Text("または")
-                    .font(.caption)
-                    .foregroundColor(Color.BlackCat.shadowLevel3)
-                Rectangle()
-                    .fill(Color.BlackCat.shadowLevel5)
-                    .frame(height: 1)
-            }
-            .padding(.vertical, 8)
-
-            Button(action: {
-                // Barcode scan action - not implemented yet
-                triggerHapticFeedback()
-            }) {
-                HStack(spacing: 12) {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.BlackCat.accentPrimary.opacity(0.15))
-                            .frame(width: 44, height: 44)
-
-                        Image(systemName: "barcode.viewfinder")
-                            .font(.system(size: 22))
-                            .foregroundColor(Color.BlackCat.accentPrimary)
-                    }
-
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("バーコードをスキャン")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-
-                        Text("カメラで伝票番号を読み取り")
-                            .font(.caption)
-                            .foregroundColor(Color.BlackCat.shadowLevel3)
-                    }
-
-                    Spacer()
-
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(Color.BlackCat.shadowLevel4)
-                }
-                .padding(16)
-                .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(Color.BlackCat.backgroundCard.opacity(0.6))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .strokeBorder(
-                                    LinearGradient(
-                                        colors: [Color.BlackCat.shadowLevel5, Color.clear],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    ),
-                                    lineWidth: 1
-                                )
-                        )
-                )
-            }
-            .accessibilityLabel("バーコードをスキャン")
-            .accessibilityHint("カメラを使用して伝票番号を読み取ります")
         }
     }
 
