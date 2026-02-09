@@ -8,15 +8,8 @@ class SagawaTests: XCTestCase {
         let trackingNumber = "1234567890"
         let request = SagawaRequest(trackingNumber: trackingNumber)
         XCTAssertEqual(request.trackingNumber, trackingNumber)
-        XCTAssertEqual(SagawaRequest.path, "web/okurijoinput.jsp")
-        XCTAssertEqual(SagawaRequest.method, .post)
-    }
-    
-    func test_SagawaRequest_encode() {
-        let trackingNumber = "1234567890"
-        let request = SagawaRequest(trackingNumber: trackingNumber)
-        let encoded = request.encode()
-        XCTAssertEqual(encoded["no"] as? String, trackingNumber)
+        XCTAssertEqual(SagawaRequest.path, "web/okurijosearch.do")
+        XCTAssertEqual(SagawaRequest.method, .get)
     }
     
     func test_Sagawa_initialization() {
@@ -47,18 +40,22 @@ class SagawaTests: XCTestCase {
     }
     
     func test_Sagawa_parsing_mock_response() {
-        let mockHTML = """
-        <html>
-        <body>
-        <div>配達状況 集荷完了 12月25日 14:30 東京営業所</div>
-        <div>輸送状況 配送中 12月26日 09:15 大阪営業所</div>
-        </body>
-        </html>
+        // NSAttributedString経由で変換された後のプレーンテキストを想定
+        let mockText = """
+        集荷 2/09 10:43 野田営業所
+        輸送中 2/09 12:03 東関東中継センター
         """
-        
-        let sagawa = Sagawa(trackingNumber: "1234567890", response: mockHTML)
+
+        let sagawa = Sagawa(trackingNumber: "1234567890", response: mockText)
         XCTAssertEqual(sagawa.trackingList.count, 1)
         XCTAssertEqual(sagawa.trackingList[0].trackingNumber, "1234567890")
+        XCTAssertEqual(sagawa.trackingList[0].statusList.count, 2)
+        XCTAssertEqual(sagawa.trackingList[0].statusList[0].status, "集荷")
+        XCTAssertEqual(sagawa.trackingList[0].statusList[0].date, "2/09")
+        XCTAssertEqual(sagawa.trackingList[0].statusList[0].time, "10:43")
+        XCTAssertEqual(sagawa.trackingList[0].statusList[0].location, "野田営業所")
+        XCTAssertEqual(sagawa.trackingList[0].statusList[1].status, "輸送中")
+        XCTAssertEqual(sagawa.trackingList[0].statusList[1].location, "東関東中継センター")
     }
     
     func test_Sagawa_empty_response() {
