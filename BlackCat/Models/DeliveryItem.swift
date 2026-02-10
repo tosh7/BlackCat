@@ -29,3 +29,14 @@ extension DeliveryItem {
         self.registeredDate = Date()
     }
 }
+
+extension DeliveryItem {
+    init(trackingInfo: Sagawa.TrackingInfo, carrier: DeliveryCarrier = .sagawa) {
+        self.deliveryID = Int(trackingInfo.trackingNumber) ?? 0
+        self.statusList = trackingInfo.statusList.map {
+            DeliveryStatus(sagawaStatus: $0)
+        }
+        self.carrier = carrier
+        self.registeredDate = Date()
+    }
+}

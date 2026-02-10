@@ -110,7 +110,8 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
                 .catch { _ in Just(nil) }
                 .eraseToAnyPublisher()
             }
-            .sink(receiveValue: { deliveryInfo in
+            .sink(receiveValue: { [weak self] deliveryInfo in
+                guard let self = self else { return }
                 self.isLoading = false
                 guard let deliveryInfo = deliveryInfo else {
                     self.errorMessage = "登録に失敗しました"
@@ -121,7 +122,10 @@ final class AddListViewModel: ObservableObject, AddListViewModelType, AddListVie
                 self.errorMessage = hasStatus ? "登録に成功しました" : "登録に失敗しました"
                 self.showingAlert = true
                 if hasStatus {
-                    LocalDeliveryItems.shared.addTrackingNumber(deliveryInfo.trackingNumber)
+                    LocalDeliveryItems.shared.addTrackingNumber(
+                        deliveryInfo.trackingNumber,
+                        carrier: self.carrierPublisher
+                    )
                     self.isSuccessfullyAdded = true
                 }
             })

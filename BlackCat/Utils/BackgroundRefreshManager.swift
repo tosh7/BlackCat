@@ -263,36 +263,89 @@ final class BackgroundRefreshManager: ObservableObject {
         }
     }
 
-    /// 配達状況を更新
+    /// 配達状況を更新（ヤマト・佐川マルチキャリア対応）
     @discardableResult
     private func refreshDeliveryStatus() async -> Bool {
-        let deliveryIDs = LocalDeliveryItems.shared.items
+        let allStoredItems = LocalDeliveryItems.shared.storedItems
 
-        guard !deliveryIDs.isEmpty else {
+        guard !allStoredItems.isEmpty else {
             print("[BackgroundRefreshManager] No delivery items to refresh")
             return true
         }
 
-        print("[BackgroundRefreshManager] Refreshing \(deliveryIDs.count) delivery items")
+        print("[BackgroundRefreshManager] Refreshing \(allStoredItems.count) delivery items")
 
-        // APIから最新の配達状況を取得
-        let result = await apiClient.tneko(.init(numbers: deliveryIDs))
+        // キャリアごとにグルーピング
+        let yamatoNumbers = allStoredItems
+            .filter { $0.carrier == .yamato }
+            .compactMap { $0.trackingNumberInt }
+        let sagawaNumbers = allStoredItems
+            .filter { $0.carrier == .sagawa }
+            .compactMap { $0.trackingNumber as String? }
+            .filter { !$0.isEmpty }
 
-        guard let tneko = result.value else {
-            print("[BackgroundRefreshManager] Failed to fetch delivery status")
+        // ヤマトと佐川を並行で取得
+        async let yamatoItems = fetchYamatoItems(numbers: yamatoNumbers)
+        async let sagawaItems = fetchSagawaItems(trackingNumbers: sagawaNumbers)
+
+        let yamatoResult = await yamatoItems
+        let sagawaResult = await sagawaItems
+
+        var allDeliveryItems: [DeliveryItem] = []
+        allDeliveryItems.append(contentsOf: yamatoResult)
+        allDeliveryItems.append(contentsOf: sagawaResult)
+
+        // 1件も取得できなかった場合は失敗とみなす（ただし全キャリアが空の場合は成功）
+        if allDeliveryItems.isEmpty && (!yamatoNumbers.isEmpty || !sagawaNumbers.isEmpty) {
+            print("[BackgroundRefreshManager] Failed to fetch any delivery status")
             return false
         }
 
-        let deliveryItems = tneko.deliveryList.map { DeliveryItem(deliveryList: $0) }
-
         // 状態変更を検知して通知を送信
-        await checkAndNotifyStatusChanges(items: deliveryItems)
+        await checkAndNotifyStatusChanges(items: allDeliveryItems)
 
         // ウィジェットデータを同期
-        BlackCatApp.syncWidgetData(deliveryItems: deliveryItems)
+        BlackCatApp.syncWidgetData(deliveryItems: allDeliveryItems)
 
         print("[BackgroundRefreshManager] Delivery status refresh completed")
         return true
+    }
+
+    // MARK: - Carrier-specific Fetch Methods
+
+    /// ヤマト運輸の配送情報を一括取得
+    private func fetchYamatoItems(numbers: [Int]) async -> [DeliveryItem] {
+        guard !numbers.isEmpty else { return [] }
+        let result = await apiClient.tneko(.init(numbers: numbers))
+        guard let tneko = result.value else {
+            print("[BackgroundRefreshManager] Failed to fetch Yamato delivery status")
+            return []
+        }
+        return tneko.deliveryList.map { DeliveryItem(deliveryList: $0) }
+    }
+
+    /// 佐川急便の配送情報を並行取得（1件ずつAPIを呼び出し、TaskGroupで並行実行）
+    private func fetchSagawaItems(trackingNumbers: [String]) async -> [DeliveryItem] {
+        guard !trackingNumbers.isEmpty else { return [] }
+
+        return await withTaskGroup(of: DeliveryItem?.self, returning: [DeliveryItem].self) { group in
+            for trackingNumber in trackingNumbers {
+                group.addTask { [apiClient] in
+                    let result = await apiClient.sagawa(SagawaRequest(trackingNumber: trackingNumber))
+                    guard let sagawa = result.value else { return nil }
+                    guard let trackingInfo = sagawa.trackingList.first else { return nil }
+                    return DeliveryItem(trackingInfo: trackingInfo)
+                }
+            }
+
+            var items: [DeliveryItem] = []
+            for await item in group {
+                if let item = item {
+                    items.append(item)
+                }
+            }
+            return items
+        }
     }
 
     /// 配達状況の変更を検知して通知を送信

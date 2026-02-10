@@ -49,6 +49,21 @@ struct DeliveryStatus: Identifiable {
             return .delivered
         case "配達日・時間帯指定（保管中）":
             return .delivering
+        // 佐川急便のステータス
+        case "集荷":
+            return .received
+        case "配送中":
+            return .shipping
+        case "到着":
+            return .shipping
+        case "出荷":
+            return .sended
+        case "持戻り":
+            return .delivering
+        case "不在":
+            return .delivering
+        case "保管中":
+            return .delivering
         default:
             return nil
         }
@@ -61,5 +76,14 @@ extension DeliveryStatus {
         self.date = deliveryStatus.date
         self.time = deliveryStatus.time
         self.shopName = deliveryStatus.shopName
+    }
+}
+
+extension DeliveryStatus {
+    init(sagawaStatus: Sagawa.TrackingInfo.DeliveryStatus) {
+        self.status = sagawaStatus.status
+        self.date = sagawaStatus.date
+        self.time = sagawaStatus.time
+        self.shopName = sagawaStatus.location
     }
 }
