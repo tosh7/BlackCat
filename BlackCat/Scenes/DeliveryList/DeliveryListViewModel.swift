@@ -19,6 +19,18 @@ enum StatusFilter: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 
     var displayName: String { self.rawValue }
+
+    /// 対応するDeliveryStatusTypeを返す（.allの場合はnil）
+    var deliveryStatusType: DeliveryStatusType? {
+        switch self {
+        case .all: return nil
+        case .received: return .received
+        case .sended: return .sended
+        case .shipping: return .shipping
+        case .delivering: return .delivering
+        case .delivered: return .delivered
+        }
+    }
 }
 
 /// 配送業者フィルター用の列挙型
@@ -26,6 +38,7 @@ enum CarrierFilter: String, CaseIterable, Identifiable {
     case all = "すべて"
     case yamato = "ヤマト運輸"
     case sagawa = "佐川急便"
+    case japanPost = "日本郵便"
 
     var id: String { self.rawValue }
 
@@ -39,6 +52,8 @@ enum CarrierFilter: String, CaseIterable, Identifiable {
             return .yamato
         case .sagawa:
             return .sagawa
+        case .japanPost:
+            return .japanPost
         }
     }
 }
@@ -221,12 +236,11 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
             }
         }
 
-        // ステータスフィルター
-        if statusFilter != .all {
+        // ステータスフィルター（DeliveryStatusTypeで比較し、バリアント表記にも対応）
+        if let targetStatusType = statusFilter.deliveryStatusType {
             result = result.filter { item in
-                guard let latestStatus = item.latestStatus else { return false }
-                return latestStatus.status == statusFilter.rawValue ||
-                       (statusFilter == .delivered && latestStatus.status == "配達完了（宅配ボックス）")
+                guard let itemStatusType = item.latestStatusType else { return false }
+                return itemStatusType == targetStatusType
             }
         }
 
