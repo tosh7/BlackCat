@@ -49,7 +49,7 @@ struct DeliveryStatus: Identifiable {
             return .delivered
         case "配達日・時間帯指定（保管中）":
             return .delivering
-        // 佐川急便のステータス
+        // Sagawa statuses
         case "集荷":
             return .received
         case "配送中":

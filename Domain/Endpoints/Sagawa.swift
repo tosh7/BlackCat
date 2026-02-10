@@ -1,5 +1,16 @@
 import Foundation
 
+// MARK: - Debug Logging Helper
+#if DEBUG
+@inline(__always)
+func sagawaDebugLog(_ message: @autoclosure () -> String) {
+    print("[SAGAWA_DEBUG] \(message())")
+}
+#else
+@inline(__always)
+func sagawaDebugLog(_ message: @autoclosure () -> String) {}
+#endif
+
 public struct SagawaRequest: RequestType, URLQueryEncodable {
     public static let path: String = "web/okurijosearch.do"
     public static let method: HTTPMethod = .get
@@ -71,75 +82,113 @@ private struct SagawaResponseParser {
     // 時刻パターン: HH:MM
     private static let timePattern = #"\d{1,2}:\d{2}"#
 
+    /// 佐川のHTMLをパースして配達ステータスリストを生成
+    /// データは3行1セットで構成される:
+    ///   行1: ステータス (例: "↓集荷", "↓輸送中", "⇒配達完了")
+    ///   行2: 日時 (例: "02/09 10:43")
+    ///   行3: 営業所 (例: "野田営業所")
     func parse(trackingNumber: String, htmlContent: String) -> [Sagawa.TrackingInfo] {
+        sagawaDebugLog("SagawaResponseParser.parse() - START - trackingNumber: \(trackingNumber)")
+
         var statusList: [Sagawa.TrackingInfo.DeliveryStatus] = []
 
         let lines = htmlContent.components(separatedBy: .newlines)
             .map { $0.trimmingCharacters(in: .whitespaces) }
             .filter { !$0.isEmpty }
 
+        // State machine: collect status → date/time → location across lines
+        var pendingStatus: String?
+        var pendingDate: String?
+        var pendingTime: String?
+
         for line in lines {
-            let parsed = parseStatusLine(line)
-            if let status = parsed.status,
-               let date = parsed.date,
-               let location = parsed.location {
-                let deliveryStatus = Sagawa.TrackingInfo.DeliveryStatus(
-                    status: status,
-                    date: date,
-                    time: parsed.time,
-                    location: location
-                )
-                statusList.append(deliveryStatus)
+            let lineType = classifyLine(line)
+
+            switch lineType {
+            case .status(let status):
+                // New status found — flush any incomplete pending entry
+                pendingStatus = status
+                pendingDate = nil
+                pendingTime = nil
+
+            case .dateTime(let date, let time):
+                if pendingStatus != nil {
+                    pendingDate = date
+                    pendingTime = time
+                }
+
+            case .location(let location):
+                if let status = pendingStatus, let date = pendingDate {
+                    let entry = Sagawa.TrackingInfo.DeliveryStatus(
+                        status: status,
+                        date: date,
+                        time: pendingTime,
+                        location: location
+                    )
+                    sagawaDebugLog("parse() - entry: \(entry.status) \(entry.date) \(entry.time ?? "") \(entry.location)")
+                    statusList.append(entry)
+                }
+                pendingStatus = nil
+                pendingDate = nil
+                pendingTime = nil
+
+            case .other:
+                break
             }
         }
 
-        let trackingInfo = Sagawa.TrackingInfo(
-            trackingNumber: trackingNumber,
-            statusList: statusList
-        )
+        sagawaDebugLog("SagawaResponseParser.parse() - COMPLETE - statusList count: \(statusList.count)")
 
-        return [trackingInfo]
+        return [Sagawa.TrackingInfo(trackingNumber: trackingNumber, statusList: statusList)]
     }
 
-    private func parseStatusLine(_ line: String) -> (status: String?, date: String?, time: String?, location: String?) {
+    // MARK: - Line Classification
+
+    private enum LineType {
+        case status(String)
+        case dateTime(date: String, time: String?)
+        case location(String)
+        case other
+    }
+
+    private func classifyLine(_ line: String) -> LineType {
+        // ステータス判定: "↓集荷", "↓輸送中", "⇒配達完了" など
+        if Self.statusKeywords.contains(where: { line.contains($0) }) {
+            // 先頭の矢印記号を除去してステータス名を取得
+            let cleaned = line.replacingOccurrences(of: "↓", with: "")
+                              .replacingOccurrences(of: "⇒", with: "")
+                              .trimmingCharacters(in: .whitespaces)
+            return .status(cleaned)
+        }
+
+        // 日時判定: "02/09 10:43" or "02月09日"
         let components = line.components(separatedBy: .whitespaces).filter { !$0.isEmpty }
-
-        var status: String?
-        var date: String?
-        var time: String?
-        var location: String?
-
-        for component in components {
-            // 日付の検出（M月D日 形式）
-            if date == nil,
-               let match = component.range(of: Self.japaneseDatePattern, options: .regularExpression) {
-                let matched = String(component[match])
-                date = matched
+        if let firstComp = components.first {
+            // MM/DD形式
+            if firstComp.range(of: Self.datePattern, options: .regularExpression) != nil {
+                let time = components.count > 1 && components[1].range(of: Self.timePattern, options: .regularExpression) != nil
+                    ? components[1] : nil
+                return .dateTime(date: firstComp, time: time)
+            }
+            // M月D日形式
+            if let match = firstComp.range(of: Self.japaneseDatePattern, options: .regularExpression) {
+                let matched = String(firstComp[match])
+                let date = matched
                     .replacingOccurrences(of: "月", with: "/")
                     .replacingOccurrences(of: "日", with: "")
-            }
-            // 日付の検出（M/DD 形式）
-            else if date == nil,
-                    component.range(of: Self.datePattern, options: .regularExpression) != nil {
-                date = component
-            }
-            // 時刻の検出
-            else if time == nil,
-                    component.range(of: Self.timePattern, options: .regularExpression) != nil {
-                time = component
-            }
-            // 場所の検出
-            else if location == nil,
-                    Self.locationKeywords.contains(where: { component.contains($0) }) {
-                location = component
-            }
-            // ステータスの検出
-            else if status == nil,
-                    Self.statusKeywords.contains(where: { component.contains($0) }) {
-                status = component
+                let time = components.count > 1 && components[1].range(of: Self.timePattern, options: .regularExpression) != nil
+                    ? components[1] : nil
+                return .dateTime(date: date, time: time)
             }
         }
 
-        return (status: status, date: date, time: time, location: location)
+        // 場所判定: "野田営業所", "東関東中継センター" など
+        if Self.locationKeywords.contains(where: { line.contains($0) }) {
+            // TEL/FAX情報を除去して営業所名のみ取得
+            let name = components.first ?? line
+            return .location(name)
+        }
+
+        return .other
     }
 }

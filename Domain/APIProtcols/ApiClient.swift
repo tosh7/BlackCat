@@ -195,7 +195,9 @@ extension ApiClient {
 extension ApiClient {
     /// HTMLデータをパースしてAttributedStringに変換
     internal func parseHTML(from data: Data) -> Result<String, APIError> {
+        sagawaDebugLog("parseHTML() called - data size: \(data.count) bytes")
         guard !data.isEmpty else {
+            sagawaDebugLog("parseHTML() empty data received")
             return .failure(.emptyData)
         }
 
@@ -204,9 +206,12 @@ extension ApiClient {
             options: [.documentType: NSAttributedString.DocumentType.html],
             documentAttributes: nil
         ) else {
+            sagawaDebugLog("parseHTML() NSAttributedString conversion failed")
             return .failure(.htmlParseError("Failed to parse HTML content"))
         }
 
+        sagawaDebugLog("parseHTML() NSAttributedString conversion success - length: \(attributedString.string.count)")
+        sagawaDebugLog("parseHTML() result preview: \(String(attributedString.string.prefix(200)))")
         return .success(attributedString.string)
     }
 }

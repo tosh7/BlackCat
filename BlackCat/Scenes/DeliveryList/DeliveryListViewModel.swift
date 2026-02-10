@@ -5,6 +5,17 @@ import WidgetKit
 import UserNotifications
 import WatchConnectivity
 
+// MARK: - Debug Logging Helper
+#if DEBUG
+@inline(__always)
+private func sagawaDebugLog(_ message: @autoclosure () -> String) {
+    print("[SAGAWA_DEBUG] \(message())")
+}
+#else
+@inline(__always)
+private func sagawaDebugLog(_ message: @autoclosure () -> String) {}
+#endif
+
 // MARK: - Filter & Sort Types
 
 /// ステータスフィルター用の列挙型
@@ -284,7 +295,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     }
 
     /// データ読み込みの非同期実装（完了を待機可能）
-    /// ヤマト・佐川のマルチキャリアに対応
+    /// Multi-carrier support for Yamato and Sagawa
     @MainActor
     private func loadItemAsync() async {
         let allStoredItems = LocalDeliveryItems.shared.storedItems
@@ -295,7 +306,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
 
         isLoading = true
 
-        // キャリアごとにグルーピング
+        // Group by carrier
         let yamatoNumbers = allStoredItems
             .filter { $0.carrier == .yamato }
             .compactMap { $0.trackingNumberInt }
@@ -306,7 +317,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
 
         var allDeliveryItems: [DeliveryItem] = []
 
-        // ヤマトと佐川を並行で取得
+        // Fetch Yamato and Sagawa in parallel
         async let yamatoItems = fetchYamatoItems(numbers: yamatoNumbers)
         async let sagawaItems = fetchSagawaItems(trackingNumbers: sagawaNumbers)
 
@@ -337,7 +348,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
 
     // MARK: - Carrier-specific Fetch Methods
 
-    /// ヤマト運輸の配送情報を一括取得
+    /// Fetch Yamato delivery info in batch
     private func fetchYamatoItems(numbers: [Int]) async -> [DeliveryItem] {
         guard !numbers.isEmpty else { return [] }
         let result = await apiClient.tneko(.init(numbers: numbers))
@@ -345,17 +356,32 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
         return TnekoClient(tneko: tneko).deliveryList
     }
 
-    /// 佐川急便の配送情報を並行取得（1件ずつAPIを呼び出し、TaskGroupで並行実行）
+    /// Fetch Sagawa delivery info in parallel (one API call per item via TaskGroup)
     private func fetchSagawaItems(trackingNumbers: [String]) async -> [DeliveryItem] {
-        guard !trackingNumbers.isEmpty else { return [] }
+        sagawaDebugLog("fetchSagawaItems() - START - trackingNumbers: \(trackingNumbers)")
+        guard !trackingNumbers.isEmpty else {
+            sagawaDebugLog("fetchSagawaItems() - trackingNumbers is empty, returning []")
+            return []
+        }
 
         return await withTaskGroup(of: DeliveryItem?.self, returning: [DeliveryItem].self) { group in
             for trackingNumber in trackingNumbers {
                 group.addTask { [apiClient] in
+                    sagawaDebugLog("fetchSagawaItems() - calling API for trackingNumber: \(trackingNumber)")
                     let result = await apiClient.sagawa(SagawaRequest(trackingNumber: trackingNumber))
-                    guard let sagawa = result.value else { return nil }
-                    guard let trackingInfo = sagawa.trackingList.first else { return nil }
-                    return DeliveryItem(trackingInfo: trackingInfo)
+                    if let sagawa = result.value {
+                        sagawaDebugLog("fetchSagawaItems() - API success for \(trackingNumber) - trackingList count: \(sagawa.trackingList.count), first statusList count: \(sagawa.trackingList.first?.statusList.count ?? 0)")
+                        guard let trackingInfo = sagawa.trackingList.first else {
+                            sagawaDebugLog("fetchSagawaItems() - trackingList is empty for \(trackingNumber)")
+                            return nil
+                        }
+                        let deliveryItem = DeliveryItem(trackingInfo: trackingInfo)
+                        sagawaDebugLog("fetchSagawaItems() - DeliveryItem created - deliveryID: \(deliveryItem.deliveryID), statusList count: \(deliveryItem.statusList.count)")
+                        return deliveryItem
+                    } else {
+                        sagawaDebugLog("fetchSagawaItems() - API failure for \(trackingNumber) - error: \(result.error?.localizedDescription ?? "unknown")")
+                        return nil
+                    }
                 }
             }
 
@@ -365,6 +391,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
                     items.append(item)
                 }
             }
+            sagawaDebugLog("fetchSagawaItems() - COMPLETE - total items: \(items.count)")
             return items
         }
     }

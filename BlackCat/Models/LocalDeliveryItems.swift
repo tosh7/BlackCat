@@ -3,12 +3,12 @@ import WidgetKit
 
 // MARK: - StoredDeliveryItem
 
-/// キャリア情報を含む配達アイテムの永続化モデル
+/// Persistent model for delivery items with carrier information
 struct StoredDeliveryItem: Codable, Equatable {
     let trackingNumber: String
     let carrier: DeliveryCarrier
 
-    /// 後方互換性のため、trackingNumber を Int に変換して返す（変換不可の場合は nil）
+    /// Converts trackingNumber to Int for backward compatibility (nil if not convertible)
     var trackingNumberInt: Int? {
         return Int(trackingNumber)
     }
@@ -23,11 +23,11 @@ final class LocalDeliveryItems {
     /// App Group identifier for sharing data with widget
     private let appGroupIdentifier = "group.com.blackcat.delivery"
 
-    /// Codable ベースの保存データ
+    /// Codable-based stored data
     private(set) var storedItems: [StoredDeliveryItem]
 
-    /// 後方互換性のための computed property
-    /// storedItems から trackingNumber の Int 値を返す
+    /// Computed property for backward compatibility
+    /// Returns Int values of trackingNumber from storedItems
     var items: [Int] {
         return storedItems.compactMap { $0.trackingNumberInt }
     }
@@ -43,15 +43,15 @@ final class LocalDeliveryItems {
     init() {
         let sharedDefaultsInstance = UserDefaults(suiteName: appGroupIdentifier)
 
-        // 1. まず新形式 (StoredDeliveryItem) のデータを試みる
+        // 1. Try loading new format (StoredDeliveryItem) first
         if let loaded = Self.loadStoredItems(from: sharedDefaultsInstance, key: "StoredItemList") {
             storedItems = loaded
         } else if let loaded = Self.loadStoredItems(from: UserDefaults.standard, key: "StoredItemList") {
             storedItems = loaded
-            // shared defaults へ同期
+            // Sync to shared defaults
             Self.saveStoredItems(loaded, to: sharedDefaultsInstance, key: "StoredItemList")
         }
-        // 2. 新形式がなければ旧形式 ([Int]) からマイグレーション
+        // 2. Fall back to legacy format ([Int]) and migrate
         else if let sharedDefaults = sharedDefaultsInstance,
                 let array = sharedDefaults.array(forKey: key) as? [Int] {
             storedItems = Self.migrateFromIntArray(array)
@@ -65,7 +65,7 @@ final class LocalDeliveryItems {
             storedItems = []
         }
 
-        // 旧形式のデータも引き続き同期しておく（Widget フォールバック用）
+        // Keep legacy format in sync for Widget fallback
         syncLegacyItems()
     }
 
@@ -79,7 +79,7 @@ final class LocalDeliveryItems {
         reloadWidget()
     }
 
-    /// 文字列の追跡番号を追加（キャリア情報付き）
+    /// Add tracking number as string with carrier info
     func addTrackingNumber(_ trackingNumber: String, carrier: DeliveryCarrier = .yamato) {
         let cleanedNumber = trackingNumber.trimmingCharacters(in: .whitespacesAndNewlines)
             .replacingOccurrences(of: "-", with: "")
@@ -124,12 +124,12 @@ final class LocalDeliveryItems {
         saveItems()
     }
 
-    /// 特定の追跡番号に対応する StoredDeliveryItem を取得
+    /// Get StoredDeliveryItem for a specific tracking number
     func storedItem(for trackingNumber: Int) -> StoredDeliveryItem? {
         return storedItems.first(where: { $0.trackingNumberInt == trackingNumber })
     }
 
-    /// 特定の追跡番号のキャリアを取得（見つからない場合は .yamato をデフォルトで返す）
+    /// Get carrier for a specific tracking number (defaults to .yamato if not found)
     func carrier(for trackingNumber: Int) -> DeliveryCarrier {
         return storedItem(for: trackingNumber)?.carrier ?? .yamato
     }
@@ -138,15 +138,15 @@ final class LocalDeliveryItems {
 
     /// Save items to both standard and shared UserDefaults
     private func saveItems() {
-        // 新形式で保存
+        // Save in new format
         Self.saveStoredItems(storedItems, to: userdefaults, key: storedItemsKey)
         Self.saveStoredItems(storedItems, to: sharedDefaults, key: storedItemsKey)
 
-        // 旧形式も同期（Widget フォールバック用）
+        // Sync legacy format for Widget fallback
         syncLegacyItems()
     }
 
-    /// 旧形式の [Int] データを同期（後方互換性・Widget用）
+    /// Sync legacy [Int] data for backward compatibility and Widget
     private func syncLegacyItems() {
         let legacyItems = items
         userdefaults.set(legacyItems, forKey: key)
@@ -160,20 +160,20 @@ final class LocalDeliveryItems {
 
     // MARK: - Static Helpers
 
-    /// 旧形式の [Int] 配列を StoredDeliveryItem 配列にマイグレーション
-    /// 既存データは全て .yamato として扱う
+    /// Migrate legacy [Int] array to StoredDeliveryItem array
+    /// All existing data is treated as .yamato
     private static func migrateFromIntArray(_ array: [Int]) -> [StoredDeliveryItem] {
         return array.map { StoredDeliveryItem(trackingNumber: String($0), carrier: .yamato) }
     }
 
-    /// UserDefaults から StoredDeliveryItem 配列を読み込む
+    /// Load StoredDeliveryItem array from UserDefaults
     private static func loadStoredItems(from defaults: UserDefaults?, key: String) -> [StoredDeliveryItem]? {
         guard let defaults = defaults,
               let data = defaults.data(forKey: key) else { return nil }
         return try? JSONDecoder().decode([StoredDeliveryItem].self, from: data)
     }
 
-    /// UserDefaults に StoredDeliveryItem 配列を保存する
+    /// Save StoredDeliveryItem array to UserDefaults
     private static func saveStoredItems(_ items: [StoredDeliveryItem], to defaults: UserDefaults?, key: String) {
         guard let defaults = defaults,
               let data = try? JSONEncoder().encode(items) else { return }

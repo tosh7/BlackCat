@@ -71,9 +71,11 @@ public extension ApiClient {
     ///   - useCache: キャッシュを使用するかどうか（デフォルト: true）
     ///   - completion: 結果のコールバック
     func sagawa(_ request: SagawaRequest, useCache: Bool = true, completion: @escaping (Result<Sagawa, APIError>) -> Void) {
+        sagawaDebugLog("sagawa() called - trackingNumber: \(request.trackingNumber), useCache: \(useCache)")
         // キャッシュチェック
         if useCache && configuration.cacheEnabled {
             if let cached = cache.get(for: request.trackingNumber, carrier: .sagawa) {
+                sagawaDebugLog("sagawa() cache hit - returning cached result")
                 let sagawa = sagawaFromCache([cached])
                 completion(.success(sagawa))
                 return
@@ -81,6 +83,7 @@ public extension ApiClient {
         }
 
         guard let urlRequest: URLRequest = URLRequest(request, baseURL: sagawaBaseURL) else {
+            sagawaDebugLog("sagawa() URLRequest generation failed - invalidURL")
             completion(.failure(.invalidURL))
             return
         }
@@ -93,12 +96,15 @@ public extension ApiClient {
 
             switch result {
             case .success(let data):
+                sagawaDebugLog("sagawa() fetchWithRetry success - data size: \(data.count) bytes")
                 switch self.parseHTML(from: data) {
                 case .success(let htmlString):
+                    sagawaDebugLog("sagawa() parseHTML success - preview: \(String(htmlString.prefix(200)))")
                     let sagawa = Sagawa(
                         trackingNumber: request.trackingNumber,
                         response: htmlString
                     )
+                    sagawaDebugLog("sagawa() Sagawa object created - trackingList count: \(sagawa.trackingList.count), statusList counts: \(sagawa.trackingList.map { $0.statusList.count })")
 
                     // キャッシュに保存
                     if self.configuration.cacheEnabled {
@@ -108,10 +114,12 @@ public extension ApiClient {
                     completion(.success(sagawa))
 
                 case .failure(let error):
+                    sagawaDebugLog("sagawa() parseHTML failed - error: \(error)")
                     self.handleErrorWithCache(error: error, request: request, completion: completion)
                 }
 
             case .failure(let error):
+                sagawaDebugLog("sagawa() fetchWithRetry failed - error: \(error)")
                 self.handleErrorWithCache(error: error, request: request, completion: completion)
             }
         }
@@ -233,15 +241,18 @@ public extension ApiClient {
     ///   - useCache: キャッシュを使用するかどうか（デフォルト: true）
     /// - Returns: Result<Sagawa, APIError>
     func sagawa(_ request: SagawaRequest, useCache: Bool = true) async -> Result<Sagawa, APIError> {
+        sagawaDebugLog("sagawa() async called - trackingNumber: \(request.trackingNumber), useCache: \(useCache)")
         // キャッシュチェック
         if useCache && configuration.cacheEnabled {
             if let cached = cache.get(for: request.trackingNumber, carrier: .sagawa) {
+                sagawaDebugLog("sagawa() async cache hit - returning cached result")
                 let sagawa = sagawaFromCache([cached])
                 return .success(sagawa)
             }
         }
 
         guard let urlRequest: URLRequest = URLRequest(request, baseURL: sagawaBaseURL) else {
+            sagawaDebugLog("sagawa() async URLRequest generation failed - invalidURL")
             return .failure(.invalidURL)
         }
 
@@ -249,12 +260,15 @@ public extension ApiClient {
 
         switch result {
         case .success(let data):
+            sagawaDebugLog("sagawa() async fetchWithRetry success - data size: \(data.count) bytes")
             switch parseHTML(from: data) {
             case .success(let htmlString):
+                sagawaDebugLog("sagawa() async parseHTML success - preview: \(String(htmlString.prefix(200)))")
                 let sagawa = Sagawa(
                     trackingNumber: request.trackingNumber,
                     response: htmlString
                 )
+                sagawaDebugLog("sagawa() async Sagawa object created - trackingList count: \(sagawa.trackingList.count), statusList counts: \(sagawa.trackingList.map { $0.statusList.count })")
 
                 // キャッシュに保存
                 if configuration.cacheEnabled {
@@ -264,10 +278,12 @@ public extension ApiClient {
                 return .success(sagawa)
 
             case .failure(let error):
+                sagawaDebugLog("sagawa() async parseHTML failed - error: \(error)")
                 return handleErrorWithCacheAsync(error: error, request: request)
             }
 
         case .failure(let error):
+            sagawaDebugLog("sagawa() async fetchWithRetry failed - error: \(error)")
             return handleErrorWithCacheAsync(error: error, request: request)
         }
     }
