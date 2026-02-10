@@ -301,7 +301,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     }
 
     private func loadItem() {
-        guard !goodsIdList.isEmpty else {
+        guard !LocalDeliveryItems.shared.storedItems.isEmpty else {
             deliveryList = []
             return
         }
@@ -312,33 +312,91 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     }
 
     /// データ読み込みの非同期実装（完了を待機可能）
+    /// Multi-carrier support for Yamato and Sagawa
     @MainActor
     private func loadItemAsync() async {
-        guard !goodsIdList.isEmpty else {
+        let allStoredItems = LocalDeliveryItems.shared.storedItems
+        guard !allStoredItems.isEmpty else {
             deliveryList = []
             return
         }
 
         isLoading = true
-        let result = await apiClient.tneko(.init(numbers: goodsIdList))
+
+        // Group by carrier
+        let yamatoNumbers = allStoredItems
+            .filter { $0.carrier == .yamato }
+            .compactMap { $0.trackingNumberInt }
+        let sagawaNumbers = allStoredItems
+            .filter { $0.carrier == .sagawa }
+            .compactMap { $0.trackingNumber as String? }
+            .filter { !$0.isEmpty }
+
+        var allDeliveryItems: [DeliveryItem] = []
+
+        // Fetch Yamato and Sagawa in parallel
+        async let yamatoItems = fetchYamatoItems(numbers: yamatoNumbers)
+        async let sagawaItems = fetchSagawaItems(trackingNumbers: sagawaNumbers)
+
+        let yamatoResult = await yamatoItems
+        let sagawaResult = await sagawaItems
+
+        allDeliveryItems.append(contentsOf: yamatoResult)
+        allDeliveryItems.append(contentsOf: sagawaResult)
+
         isLoading = false
-        guard let tneko = result.value else { return }
-        let tnekoClient = TnekoClient(tneko: tneko)
+
         if isInitialLoad {
-            LocalDeliveryItems.shared.removeDeplicates(deliveryItems: tnekoClient.deliveryList)
+            LocalDeliveryItems.shared.removeDeplicates(deliveryItems: allDeliveryItems)
             isInitialLoad = false
         }
 
         // 配達状況の変更を検知して通知を送信
-        checkAndNotifyStatusChanges(newItems: tnekoClient.deliveryList)
+        checkAndNotifyStatusChanges(newItems: allDeliveryItems)
 
-        self.deliveryList = tnekoClient.deliveryList
+        self.deliveryList = allDeliveryItems
 
         // ウィジェットにデータを同期
-        BlackCatApp.syncWidgetData(deliveryItems: tnekoClient.deliveryList)
+        BlackCatApp.syncWidgetData(deliveryItems: allDeliveryItems)
 
         // Apple Watchにデータを同期
-        BlackCatApp.syncWatchData(deliveryItems: tnekoClient.deliveryList)
+        BlackCatApp.syncWatchData(deliveryItems: allDeliveryItems)
+    }
+
+    // MARK: - Carrier-specific Fetch Methods
+
+    /// Fetch Yamato delivery info in batch
+    private func fetchYamatoItems(numbers: [Int]) async -> [DeliveryItem] {
+        guard !numbers.isEmpty else { return [] }
+        let result = await apiClient.tneko(.init(numbers: numbers))
+        guard let tneko = result.value else { return [] }
+        return TnekoClient(tneko: tneko).deliveryList
+    }
+
+    /// Fetch Sagawa delivery info in parallel (one API call per item via TaskGroup)
+    private func fetchSagawaItems(trackingNumbers: [String]) async -> [DeliveryItem] {
+        guard !trackingNumbers.isEmpty else { return [] }
+
+        return await withTaskGroup(of: DeliveryItem?.self, returning: [DeliveryItem].self) { group in
+            for trackingNumber in trackingNumbers {
+                group.addTask { [apiClient] in
+                    let result = await apiClient.sagawa(SagawaRequest(trackingNumber: trackingNumber))
+                    guard let sagawa = result.value,
+                          let trackingInfo = sagawa.trackingList.first else {
+                        return nil
+                    }
+                    return DeliveryItem(trackingInfo: trackingInfo)
+                }
+            }
+
+            var items: [DeliveryItem] = []
+            for await item in group {
+                if let item = item {
+                    items.append(item)
+                }
+            }
+            return items
+        }
     }
 
     // MARK: - Watch Connectivity Setup
@@ -374,7 +432,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     /// - Parameter newItems: 新しい配達アイテムリスト
     private func checkAndNotifyStatusChanges(newItems: [DeliveryItem]) {
         for item in newItems {
-            guard let latestStatus = item.statusList.first else { continue }
+            guard let latestStatus = item.statusList.last else { continue }
 
             let deliveryID = item.deliveryID
             let currentStatus = latestStatus.status

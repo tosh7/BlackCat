@@ -3,7 +3,7 @@ import Foundation
 public final class ApiClient {
     public static let shared: ApiClient = ApiClient()
     public let basePath: String = "https://toi.kuronekoyamato.co.jp/cgi-bin"
-    public let sagawaBasePath: String = "https://k2k.sagawa-exp.co.jp/p/sagawa"
+    public let sagawaBasePath: String = "https://k2k.sagawa-exp.co.jp/p"
     public let japanPostBasePath: String = "https://trackings.post.japanpost.jp"
 
     /// APIクライアント設定
@@ -211,7 +211,7 @@ extension ApiClient {
     }
 }
 
-extension Dictionary where Key == String, Value == Int {
+extension Dictionary where Key == String, Value == String {
     init?<Request>(_ request: Request) where Request: RequestType & URLQueryEncodable {
         guard let data = try? JSONEncoder().encode(request),
               let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []),
@@ -219,23 +219,25 @@ extension Dictionary where Key == String, Value == Int {
             return nil
         }
 
-        // 各値を個別にIntに変換（NSNumber対応で大きな整数もサポート）
-        // nilの値はスキップ（POSTボディに含めない）
-        var result: [String: Int] = [:]
+        // 各値をStringに変換（Int/NSNumber/Stringに対応）
+        // nilの値はスキップ（POSTボディ/クエリパラメータに含めない）
+        var result: [String: String] = [:]
         for (key, value) in dict {
-            if let intValue = value as? Int {
-                result[key] = intValue
+            if let stringValue = value as? String {
+                result[key] = stringValue
+            } else if let intValue = value as? Int {
+                result[key] = String(intValue)
             } else if let nsNumber = value as? NSNumber {
-                result[key] = nsNumber.intValue
+                result[key] = nsNumber.stringValue
             }
-            // null（JSONのnull）の場合はスキップ
+            // NSNull（JSONのnull）の場合はスキップ
         }
         self = result
     }
 
     func equalEncode() -> String {
         return map { key, value in
-            return key + "=" + String(value)
+            return key + "=" + value
         }
         .joined(separator: "&")
     }

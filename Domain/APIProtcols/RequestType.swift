@@ -7,9 +7,9 @@ public protocol RequestType {
 
 public extension URLRequest {
     init?<Request>(_ request: Request, baseURL: URL) where Request: RequestType & URLQueryEncodable {
-        guard let queryItems = [String: Int](request) else { return nil }
+        guard let queryItems = [String: String](request) else { return nil }
         let url = URL(string: "\(baseURL)/\(type(of: request).path)")!
-        let components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
 
         switch type(of: request).method {
         case .post:
@@ -18,6 +18,9 @@ public extension URLRequest {
             self.httpBody = queryData
             self.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         case .get:
+            if !queryItems.isEmpty {
+                components.queryItems = queryItems.map { URLQueryItem(name: $0.key, value: $0.value) }
+            }
             guard let urlWithQuery = components.url else { return nil }
             self.init(url: urlWithQuery)
         }

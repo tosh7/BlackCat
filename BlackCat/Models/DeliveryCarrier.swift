@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Domain
 
-enum DeliveryCarrier: String, CaseIterable, Identifiable {
+enum DeliveryCarrier: String, CaseIterable, Identifiable, Codable {
     case yamato = "ヤマト運輸"
     case sagawa = "佐川急便"
     case japanPost = "日本郵便"
