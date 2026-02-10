@@ -351,7 +351,7 @@ final class BackgroundRefreshManager: ObservableObject {
     /// 配達状況の変更を検知して通知を送信
     private func checkAndNotifyStatusChanges(items: [DeliveryItem]) async {
         for item in items {
-            guard let latestStatus = item.statusList.first else { continue }
+            guard let latestStatus = item.statusList.last else { continue }
 
             let deliveryID = item.deliveryID
             let currentStatus = latestStatus.status

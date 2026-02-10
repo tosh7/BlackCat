@@ -133,7 +133,7 @@ extension BlackCatApp {
     /// DeliveryListViewModelの更新時に呼び出す
     static func syncWidgetData(deliveryItems: [DeliveryItem]) {
         let widgetItems = deliveryItems.compactMap { item -> WidgetDeliveryItem? in
-            guard let latestStatus = item.statusList.first else { return nil }
+            guard let latestStatus = item.statusList.last else { return nil }
             return WidgetDeliveryItem(
                 deliveryID: item.deliveryID,
                 latestStatus: latestStatus.status,

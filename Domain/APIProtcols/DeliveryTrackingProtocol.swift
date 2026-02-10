@@ -48,8 +48,9 @@ public struct UnifiedDeliveryInfo: Codable, Equatable {
     }
 
     /// 最新のステータスを取得
+    /// statusList は古い順（chronological）で格納されるため .last が最新
     public var latestStatus: UnifiedDeliveryStatus? {
-        return statusList.first
+        return statusList.last
     }
 
     /// 配達完了かどうか

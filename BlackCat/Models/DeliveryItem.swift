@@ -10,7 +10,7 @@ struct DeliveryItem: Identifiable {
 
     /// 最新のステータスを取得
     var latestStatus: DeliveryStatus? {
-        statusList.first
+        statusList.last
     }
 
     /// 最新のステータスタイプを取得

@@ -1,16 +1,5 @@
 import Foundation
 
-// MARK: - Debug Logging Helper
-#if DEBUG
-@inline(__always)
-func sagawaDebugLog(_ message: @autoclosure () -> String) {
-    print("[SAGAWA_DEBUG] \(message())")
-}
-#else
-@inline(__always)
-func sagawaDebugLog(_ message: @autoclosure () -> String) {}
-#endif
-
 public struct SagawaRequest: RequestType, URLQueryEncodable {
     public static let path: String = "web/okurijosearch.do"
     public static let method: HTTPMethod = .get
@@ -88,7 +77,6 @@ private struct SagawaResponseParser {
     ///   行2: 日時 (例: "02/09 10:43")
     ///   行3: 営業所 (例: "野田営業所")
     func parse(trackingNumber: String, htmlContent: String) -> [Sagawa.TrackingInfo] {
-        sagawaDebugLog("SagawaResponseParser.parse() - START - trackingNumber: \(trackingNumber)")
 
         var statusList: [Sagawa.TrackingInfo.DeliveryStatus] = []
 
@@ -125,7 +113,6 @@ private struct SagawaResponseParser {
                         time: pendingTime,
                         location: location
                     )
-                    sagawaDebugLog("parse() - entry: \(entry.status) \(entry.date) \(entry.time ?? "") \(entry.location)")
                     statusList.append(entry)
                 }
                 pendingStatus = nil
@@ -136,8 +123,6 @@ private struct SagawaResponseParser {
                 break
             }
         }
-
-        sagawaDebugLog("SagawaResponseParser.parse() - COMPLETE - statusList count: \(statusList.count)")
 
         return [Sagawa.TrackingInfo(trackingNumber: trackingNumber, statusList: statusList)]
     }

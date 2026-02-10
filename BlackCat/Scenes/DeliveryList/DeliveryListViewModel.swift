@@ -5,17 +5,6 @@ import WidgetKit
 import UserNotifications
 import WatchConnectivity
 
-// MARK: - Debug Logging Helper
-#if DEBUG
-@inline(__always)
-private func sagawaDebugLog(_ message: @autoclosure () -> String) {
-    print("[SAGAWA_DEBUG] \(message())")
-}
-#else
-@inline(__always)
-private func sagawaDebugLog(_ message: @autoclosure () -> String) {}
-#endif
-
 // MARK: - Filter & Sort Types
 
 /// ステータスフィルター用の列挙型
@@ -358,30 +347,17 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
 
     /// Fetch Sagawa delivery info in parallel (one API call per item via TaskGroup)
     private func fetchSagawaItems(trackingNumbers: [String]) async -> [DeliveryItem] {
-        sagawaDebugLog("fetchSagawaItems() - START - trackingNumbers: \(trackingNumbers)")
-        guard !trackingNumbers.isEmpty else {
-            sagawaDebugLog("fetchSagawaItems() - trackingNumbers is empty, returning []")
-            return []
-        }
+        guard !trackingNumbers.isEmpty else { return [] }
 
         return await withTaskGroup(of: DeliveryItem?.self, returning: [DeliveryItem].self) { group in
             for trackingNumber in trackingNumbers {
                 group.addTask { [apiClient] in
-                    sagawaDebugLog("fetchSagawaItems() - calling API for trackingNumber: \(trackingNumber)")
                     let result = await apiClient.sagawa(SagawaRequest(trackingNumber: trackingNumber))
-                    if let sagawa = result.value {
-                        sagawaDebugLog("fetchSagawaItems() - API success for \(trackingNumber) - trackingList count: \(sagawa.trackingList.count), first statusList count: \(sagawa.trackingList.first?.statusList.count ?? 0)")
-                        guard let trackingInfo = sagawa.trackingList.first else {
-                            sagawaDebugLog("fetchSagawaItems() - trackingList is empty for \(trackingNumber)")
-                            return nil
-                        }
-                        let deliveryItem = DeliveryItem(trackingInfo: trackingInfo)
-                        sagawaDebugLog("fetchSagawaItems() - DeliveryItem created - deliveryID: \(deliveryItem.deliveryID), statusList count: \(deliveryItem.statusList.count)")
-                        return deliveryItem
-                    } else {
-                        sagawaDebugLog("fetchSagawaItems() - API failure for \(trackingNumber) - error: \(result.error?.localizedDescription ?? "unknown")")
+                    guard let sagawa = result.value,
+                          let trackingInfo = sagawa.trackingList.first else {
                         return nil
                     }
+                    return DeliveryItem(trackingInfo: trackingInfo)
                 }
             }
 
@@ -391,7 +367,6 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
                     items.append(item)
                 }
             }
-            sagawaDebugLog("fetchSagawaItems() - COMPLETE - total items: \(items.count)")
             return items
         }
     }
@@ -429,7 +404,7 @@ final class DeliveryListViewModel: ObservableObject, DeliveryListViewModelType, 
     /// - Parameter newItems: 新しい配達アイテムリスト
     private func checkAndNotifyStatusChanges(newItems: [DeliveryItem]) {
         for item in newItems {
-            guard let latestStatus = item.statusList.first else { continue }
+            guard let latestStatus = item.statusList.last else { continue }
 
             let deliveryID = item.deliveryID
             let currentStatus = latestStatus.status
