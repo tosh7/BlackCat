@@ -12,25 +12,16 @@ concurrency:
 
 jobs:
   test:
-    runs-on: macos-15
+    runs-on: macos-26
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Select Xcode 26
-        run: sudo xcode-select -s /Applications/Xcode_26.app/Contents/Developer
-
-      - name: Boot Simulator
-        run: |
-          DEVICE_ID=$(xcrun simctl create "CI iPhone" "iPhone 16" "iOS26")
-          xcrun simctl boot "$DEVICE_ID"
-          echo "DEVICE_ID=$DEVICE_ID" >> "$GITHUB_ENV"
 
       - name: Run BlackCatTests
         run: |
           xcodebuild test \
             -scheme BlackCat \
-            -destination "platform=iOS Simulator,id=$DEVICE_ID" \
+            -destination "platform=iOS Simulator,name=iPhone 16" \
             -resultBundlePath TestResults/BlackCatTests \
             CODE_SIGNING_ALLOWED=NO
 
@@ -38,10 +29,6 @@ jobs:
         run: |
           xcodebuild test \
             -scheme DomainTests \
-            -destination "platform=iOS Simulator,id=$DEVICE_ID" \
+            -destination "platform=iOS Simulator,name=iPhone 16" \
             -resultBundlePath TestResults/DomainTests \
             CODE_SIGNING_ALLOWED=NO
-
-      - name: Shutdown Simulator
-        if: always()
-        run: xcrun simctl shutdown "$DEVICE_ID" || true
