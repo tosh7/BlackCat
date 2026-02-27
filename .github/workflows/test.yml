@@ -21,7 +21,7 @@ jobs:
         run: |
           xcodebuild test \
             -scheme BlackCat \
-            -destination "platform=iOS Simulator,name=iPhone 16" \
+            -destination "platform=iOS Simulator,name=iPhone 16e" \
             -resultBundlePath TestResults/BlackCatTests \
             CODE_SIGNING_ALLOWED=NO
 
@@ -29,6 +29,6 @@ jobs:
         run: |
           xcodebuild test \
             -scheme DomainTests \
-            -destination "platform=iOS Simulator,name=iPhone 16" \
+            -destination "platform=iOS Simulator,name=iPhone 16e" \
             -resultBundlePath TestResults/DomainTests \
             CODE_SIGNING_ALLOWED=NO
