@@ -19,20 +19,20 @@ final class BlackCatTests: XCTestCase {
     // MARK: - DeliveryItem Tests
 
     func test_deliveryItem_hasUniqueId() throws {
-        let item1 = DeliveryItem(deliveryID: 123456789012, statusList: [])
-        let item2 = DeliveryItem(deliveryID: 123456789012, statusList: [])
+        let item1 = makeDeliveryItem(deliveryID: 123456789012, statusList: [])
+        let item2 = makeDeliveryItem(deliveryID: 123456789012, statusList: [])
         XCTAssertNotEqual(item1.id, item2.id)
     }
 
     func test_deliveryItem_storesDeliveryID() throws {
         let deliveryID = 123456789012
-        let item = DeliveryItem(deliveryID: deliveryID, statusList: [])
+        let item = makeDeliveryItem(deliveryID: deliveryID, statusList: [])
         XCTAssertEqual(item.deliveryID, deliveryID)
     }
 
     func test_deliveryItem_storesStatusList() throws {
         let status = DeliveryStatus(status: "delivered", date: "01/01", time: "10:00", shopName: "TestShop")
-        let item = DeliveryItem(deliveryID: 123456789012, statusList: [status])
+        let item = makeDeliveryItem(deliveryID: 123456789012, statusList: [status])
         XCTAssertEqual(item.statusList.count, 1)
         XCTAssertEqual(item.statusList[0].status, "delivered")
     }
@@ -56,14 +56,14 @@ final class BlackCatTests: XCTestCase {
     // MARK: - TnekoClient Tests
 
     func test_tnekoClient_hasUniqueId() throws {
-        let client1 = TnekoClient(deliveryList: [])
-        let client2 = TnekoClient(deliveryList: [])
+        let client1 = makeTnekoClient(deliveryList: [])
+        let client2 = makeTnekoClient(deliveryList: [])
         XCTAssertNotEqual(client1.id, client2.id)
     }
 
     func test_tnekoClient_storesDeliveryList() throws {
-        let item = DeliveryItem(deliveryID: 123456789012, statusList: [])
-        let client = TnekoClient(deliveryList: [item])
+        let item = makeDeliveryItem(deliveryID: 123456789012, statusList: [])
+        let client = makeTnekoClient(deliveryList: [item])
         XCTAssertEqual(client.deliveryList.count, 1)
     }
 
@@ -96,19 +96,17 @@ final class BlackCatTests: XCTestCase {
     }
 }
 
-// MARK: - DeliveryItem Extension for Testing
+// MARK: - Test Helpers
 
-extension DeliveryItem {
-    init(deliveryID: Int, statusList: [DeliveryStatus]) {
-        self.deliveryID = deliveryID
-        self.statusList = statusList
-    }
+private func makeDeliveryItem(deliveryID: Int, statusList: [DeliveryStatus]) -> DeliveryItem {
+    DeliveryItem(
+        deliveryID: deliveryID,
+        statusList: statusList,
+        carrier: .yamato,
+        registeredDate: Date()
+    )
 }
 
-// MARK: - TnekoClient Extension for Testing
-
-extension TnekoClient {
-    init(deliveryList: [DeliveryItem]) {
-        self.deliveryList = deliveryList
-    }
+private func makeTnekoClient(deliveryList: [DeliveryItem]) -> TnekoClient {
+    TnekoClient(deliveryList: deliveryList)
 }

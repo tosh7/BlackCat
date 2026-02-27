@@ -21,22 +21,26 @@ struct DeliveryItem: Identifiable {
 
 extension DeliveryItem {
     init(deliveryList: Tneko.DeliveryList, carrier: DeliveryCarrier = .yamato) {
-        self.deliveryID = deliveryList.deliveryID
-        self.statusList = deliveryList.statusList.map {
-            DeliveryStatus(deliveryStatus: $0)
-        }
-        self.carrier = carrier
-        self.registeredDate = Date()
+        self.init(
+            deliveryID: deliveryList.deliveryID,
+            statusList: deliveryList.statusList.map {
+                DeliveryStatus(deliveryStatus: $0)
+            },
+            carrier: carrier,
+            registeredDate: Date()
+        )
     }
 }
 
 extension DeliveryItem {
     init(trackingInfo: Sagawa.TrackingInfo, carrier: DeliveryCarrier = .sagawa) {
-        self.deliveryID = Int(trackingInfo.trackingNumber) ?? 0
-        self.statusList = trackingInfo.statusList.map {
-            DeliveryStatus(sagawaStatus: $0)
-        }
-        self.carrier = carrier
-        self.registeredDate = Date()
+        self.init(
+            deliveryID: Int(trackingInfo.trackingNumber) ?? 0,
+            statusList: trackingInfo.statusList.map {
+                DeliveryStatus(sagawaStatus: $0)
+            },
+            carrier: carrier,
+            registeredDate: Date()
+        )
     }
 }

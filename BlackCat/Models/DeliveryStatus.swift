@@ -72,18 +72,22 @@ struct DeliveryStatus: Identifiable {
 
 extension DeliveryStatus {
     init(deliveryStatus: Tneko.DeliveryList.DeliveryStatus) {
-        self.status = deliveryStatus.status
-        self.date = deliveryStatus.date
-        self.time = deliveryStatus.time
-        self.shopName = deliveryStatus.shopName
+        self.init(
+            status: deliveryStatus.status,
+            date: deliveryStatus.date,
+            time: deliveryStatus.time,
+            shopName: deliveryStatus.shopName
+        )
     }
 }
 
 extension DeliveryStatus {
     init(sagawaStatus: Sagawa.TrackingInfo.DeliveryStatus) {
-        self.status = sagawaStatus.status
-        self.date = sagawaStatus.date
-        self.time = sagawaStatus.time
-        self.shopName = sagawaStatus.location
+        self.init(
+            status: sagawaStatus.status,
+            date: sagawaStatus.date,
+            time: sagawaStatus.time,
+            shopName: sagawaStatus.location
+        )
     }
 }
