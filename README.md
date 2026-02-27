@@ -74,7 +74,6 @@ BlackCarWidget/            # WidgetKit home screen widget
 | UI | SwiftUI |
 | Reactive | Combine |
 | Testing | XCTest |
-| CI/CD | Fastlane |
 | Background (planned) | BGTaskScheduler |
 | Widget (planned) | WidgetKit |
 | Watch (planned) | WatchConnectivity, App Groups |
