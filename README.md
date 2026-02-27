@@ -1,6 +1,6 @@
-# BlackCat - Package Delivery Tracker for iOS & Apple Watch
+# BlackCat - Package Delivery Tracker for iOS
 
-![](https://img.shields.io/badge/Platform-iOS%20%7C%20watchOS-blue.svg)
+![](https://img.shields.io/badge/Platform-iOS-blue.svg)
 ![](https://img.shields.io/badge/Xcode-26%2B-blue.svg)
 ![](https://img.shields.io/badge/Swift-5.0-orange.svg)
 ![](https://img.shields.io/badge/UI-SwiftUI-purple.svg)
@@ -13,12 +13,15 @@ Available on the [App Store](https://apps.apple.com/jp/app/%E3%82%AF%E3%83%AD%E3
 ## Features
 
 - **Multi-Carrier Tracking** — Track packages from Yamato (ヤマト運輸), Sagawa (佐川急便), and Japan Post (日本郵便) in a unified interface
-- **Apple Watch App** — View delivery status directly from your wrist with watch complications support
-- **Home Screen Widget** — Glance at your deliveries via a WidgetKit-powered widget
-- **Background Refresh** — Automatically fetches updated delivery status at configurable intervals (15 min – 2 hr)
-- **Push Notifications** — Get notified on status changes and delivery completion
 - **Dark Mode** — Full support for both light and dark appearances
 - **Zero Dependencies** — Built entirely with Apple-native frameworks
+
+### Coming Soon
+
+- **Apple Watch App** — View delivery status from your wrist with watch complications (code in place, under testing)
+- **Home Screen Widget** — WidgetKit-powered widget for at-a-glance delivery status
+- **Background Refresh** — Automatic status updates via BGTaskScheduler at configurable intervals
+- **Push Notifications** — Alerts on status changes and delivery completion
 
 ## Architecture
 
@@ -70,20 +73,18 @@ BlackCarWidget/            # WidgetKit home screen widget
 |---|---|
 | UI | SwiftUI |
 | Reactive | Combine |
-| Background | BGTaskScheduler |
-| Notifications | UserNotifications |
-| Widget | WidgetKit |
-| Watch Sync | WatchConnectivity |
-| Data Sharing | App Groups |
 | Testing | XCTest |
 | CI/CD | Fastlane |
+| Background (planned) | BGTaskScheduler |
+| Widget (planned) | WidgetKit |
+| Watch (planned) | WatchConnectivity, App Groups |
 
 ## Getting Started
 
 ### Requirements
 
 - Xcode 26 or later (recommended)
-- iOS / watchOS deployment target: 26.0
+- iOS deployment target: 26.0
 
 ### Build & Run
 
