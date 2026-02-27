@@ -13,7 +13,6 @@ Available on the [App Store](https://apps.apple.com/jp/app/%E3%82%AF%E3%83%AD%E3
 ## Features
 
 - **Multi-Carrier Tracking** — Track packages from Yamato (ヤマト運輸), Sagawa (佐川急便), and Japan Post (日本郵便) in a unified interface
-- **Dark Mode** — Full support for both light and dark appearances
 - **Zero Dependencies** — Built entirely with Apple-native frameworks
 
 ### Coming Soon
@@ -22,6 +21,7 @@ Available on the [App Store](https://apps.apple.com/jp/app/%E3%82%AF%E3%83%AD%E3
 - **Home Screen Widget** — WidgetKit-powered widget for at-a-glance delivery status
 - **Background Refresh** — Automatic status updates via BGTaskScheduler at configurable intervals
 - **Push Notifications** — Alerts on status changes and delivery completion
+- **Dark Mode** — Full support for both light and dark appearances
 
 ## Architecture
 
