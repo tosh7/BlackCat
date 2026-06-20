@@ -3,96 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		19334B9F26C826E800840389 /* TnekoMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19334B9E26C826E800840389 /* TnekoMock.swift */; };
-		19334BA426C8283D00840389 /* TnekoMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 19334BA326C8283D00840389 /* TnekoMock.json */; };
-		19334BA626C8399700840389 /* StateDetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19334BA526C8399700840389 /* StateDetailListView.swift */; };
-		19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */; };
-		194D26DD27C61E430077DD80 /* APIClient+Futures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194D26DC27C61E430077DD80 /* APIClient+Futures.swift */; };
-		194D26DF27C645640077DD80 /* Publisher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194D26DE27C645640077DD80 /* Publisher+Extension.swift */; };
-		1978FCF826E9E587008C0CAB /* StateDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1978FCF726E9E587008C0CAB /* StateDetailViewModel.swift */; };
-		197A43F829E137F800D111B2 /* BlackCatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197A43F729E137F800D111B2 /* BlackCatTests.swift */; };
-		197A440029E139F900D111B2 /* DeliveryListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197A43FF29E139F900D111B2 /* DeliveryListViewModelTest.swift */; };
-		197A440129E139FA00D111B2 /* AddListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197A440229E139FA00D111B2 /* AddListViewModelTest.swift */; };
-		197A440329E139FB00D111B2 /* StateDetailViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197A440429E139FB00D111B2 /* StateDetailViewModelTest.swift */; };
-		19913CA4289554590074B6D6 /* Result+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19913CA3289554590074B6D6 /* Result+extension.swift */; };
-		19A72FA92956CCA100981186 /* Result+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19913CA3289554590074B6D6 /* Result+extension.swift */; };
-		19A9A2AB26C1060F00BD5AF8 /* StateDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */; };
-		19A9A2AD26C1285800BD5AF8 /* DeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */; };
-		19A9A2AF26C128A800BD5AF8 /* DeliveryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2AE26C128A800BD5AF8 /* DeliveryStatus.swift */; };
 		19A9A2BE26C1342E00BD5AF8 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9A2B526C1342E00BD5AF8 /* Domain.framework */; };
-		19A9A2C1026C1342F00BD5AF8 /* APIErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2C2026C1342F00BD5AF8 /* APIErrorTests.swift */; };
-		19A9A2C1126C1343000BD5AF8 /* HTTPMethodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2C2126C1343000BD5AF8 /* HTTPMethodTests.swift */; };
-		19A9A2C526C1342E00BD5AF8 /* TnekoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A9A2C426C1342E00BD5AF8 /* TnekoTests.swift */; };
-		19A9A2C726C1342E00BD5AF8 /* Domain.h in Headers */ = {isa = PBXBuildFile; fileRef = 19A9A2B726C1342E00BD5AF8 /* Domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		19A9A2CA26C1342E00BD5AF8 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9A2B526C1342E00BD5AF8 /* Domain.framework */; };
 		19A9A2CB26C1342E00BD5AF8 /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9A2B526C1342E00BD5AF8 /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		19A9A2D326C134AA00BD5AF8 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E5A7FE267219B4000CFC3F /* ApiClient.swift */; };
-		19A9A2D426C134AC00BD5AF8 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6DA3726B559650030343D /* APIError.swift */; };
-		19A9A2D526C134B000BD5AF8 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6DA3B26B591850030343D /* RequestType.swift */; };
-		19A9A2D626C134B400BD5AF8 /* ResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6DA3F26B639A50030343D /* ResponseType.swift */; };
-		19A9A2D826C134B800BD5AF8 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6DA3D26B592040030343D /* HTTPMethod.swift */; };
-		19A9A2D926C134C200BD5AF8 /* APIClient+Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6DA4126B63A750030343D /* APIClient+Endpoints.swift */; };
-		19A9A2DA26C134F200BD5AF8 /* Tneko.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6DA3526B528C90030343D /* Tneko.swift */; };
-		19ABC00126D5500000000001 /* DeliveryTrackingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC00026D5500000000001 /* DeliveryTrackingProtocol.swift */; };
-		19ABC00326D5500000000002 /* DeliveryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC00226D5500000000002 /* DeliveryCache.swift */; };
-		19ABC00526D5500000000003 /* APIClientConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC00426D5500000000003 /* APIClientConfiguration.swift */; };
-		19ABC00726D5500000000004 /* Sagawa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC00626D5500000000004 /* Sagawa.swift */; };
-		19ABC00926D5500000000005 /* DeliveryCarrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC00826D5500000000005 /* DeliveryCarrier.swift */; };
-		19ABC00B26D5500000000006 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC00A26D5500000000006 /* SettingsView.swift */; };
-		19ABC00D26D5500000000007 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC00C26D5500000000007 /* SettingsViewModel.swift */; };
-		19ABC00F26D5500000000008 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC00E26D5500000000008 /* OnboardingView.swift */; };
-		19ABC01126D5500000000009 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC01026D5500000000009 /* NotificationManager.swift */; };
-		19ABC01326D550000000000A /* BackgroundRefreshManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC01226D550000000000A /* BackgroundRefreshManager.swift */; };
-		19ABC01726D550000000000D /* JapanPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC01626D550000000000D /* JapanPost.swift */; };
-		19ABC01826D550000000000E /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC01926D550000000000E /* HelpView.swift */; };
-		19ABC01A26D550000000000F /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC01B26D550000000000F /* HapticManager.swift */; };
-		19ABC01C26D5500000000010 /* JapanPostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC01D26D5500000000010 /* JapanPostTests.swift */; };
-		19ABC02026D5500000000012 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC01F26D5500000000012 /* SplashView.swift */; };
-		19ABC02226D5500000000014 /* DeliveryShareContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC02326D5500000000015 /* DeliveryShareContent.swift */; };
-		19ABC02426D5500000000016 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC02526D5500000000017 /* ShareSheet.swift */; };
-		19ABC02626D5500000000018 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC02726D5500000000019 /* ConfettiView.swift */; };
-		19ABC02826D550000000001A /* SagawaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19ABC02926D550000000001B /* SagawaTests.swift */; };
-		19C26A7B26B9B17200845289 /* TnekoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7A26B9B17200845289 /* TnekoClient.swift */; };
-		19C26A7D26B9B81A00845289 /* DonutsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7C26B9B81A00845289 /* DonutsView.swift */; };
-		19C26A7F26BC329C00845289 /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A7E26BC329C00845289 /* Color+extension.swift */; };
-		19C26A8226BC403900845289 /* DeliveryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C26A8126BC403900845289 /* DeliveryListViewModel.swift */; };
-		19C584EF26EA0947002F4341 /* Notification+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C584EE26EA0947002F4341 /* Notification+extension.swift */; };
-		19DEC71826D5384000D9985B /* LocalDeliveryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DEC71726D5384000D9985B /* LocalDeliveryItems.swift */; };
-		19DEC71B26D53C9400D9985B /* AddListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DEC71A26D53C9400D9985B /* AddListView.swift */; };
-		19DEC71D26D5403E00D9985B /* AddListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DEC71C26D5403E00D9985B /* AddListViewModel.swift */; };
-		2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */; };
-		2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1DE2670EBAF00CB80F6 /* DeliveryListView.swift */; };
-		2B5AC1E12670EBB300CB80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */; };
-		2B5AC1E42670EBB300CB80F6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1E32670EBB300CB80F6 /* Preview Assets.xcassets */; };
 		2B5AC1F32670EDA300CB80F6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5AC1F22670EDA300CB80F6 /* WidgetKit.framework */; };
 		2B5AC1F52670EDA400CB80F6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5AC1F42670EDA400CB80F6 /* SwiftUI.framework */; };
-		2B5AC1F82670EDA400CB80F6 /* BlackCarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F72670EDA400CB80F6 /* BlackCarWidget.swift */; };
-		2B5AC1FB2670EDAB00CB80F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */; };
-		2B5AC1FD2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
-		2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */; };
-		2B5D54B826ED084100189351 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5D54B726ED084100189351 /* View+extension.swift */; };
-		BCWATCH011B442929E4593 /* BlackCatWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH001C4F5793BE31B /* BlackCatWatchApp.swift */; };
-		BCWATCH01214E7882B14E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH002779125FE75CF /* ContentView.swift */; };
-		BCWATCH0130478CB7770DC /* WatchDeliveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH003AEE26FF5EC46 /* WatchDeliveryViewModel.swift */; };
-		BCWATCH014A6F97A76425E /* WatchDeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH0043573586FD0BE /* WatchDeliveryItem.swift */; };
-		BCWATCH015A3263D5BB6CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCWATCH0058C3446B79F39 /* Assets.xcassets */; };
-		BCWATCH0338061C1008830 /* SharedDeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH03175D7F53C6170 /* SharedDeliveryItem.swift */; };
-		BCWATCH034A66BD580E85F /* SharedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH0321B1868BAB38B /* SharedDataManager.swift */; };
-		BCWATCH03599FA2E8BA070 /* SharedDeliveryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH03175D7F53C6170 /* SharedDeliveryItem.swift */; };
-		BCWATCH0369939F397947D /* SharedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH0321B1868BAB38B /* SharedDataManager.swift */; };
 		BCWATCH05000000000000002 /* BlackCatWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BCWATCH04249CA04A97F01 /* BlackCatWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		BCWATCH05A12345678901 /* WatchDeliveryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH05B12345678901 /* WatchDeliveryListView.swift */; };
-		BCWATCH05C12345678901 /* WatchDeliveryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH05D12345678901 /* WatchDeliveryDetailView.swift */; };
-		BCWATCH05E12345678901 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH05F12345678901 /* ComplicationController.swift */; };
-		BCWATCH06012345678901 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCWATCH06112345678901 /* WatchConnectivityManager.swift */; };
-		BCWATCH06212345678901 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCWATCH06312345678901 /* Assets.xcassets */; };
-		WCMGR001A1B2C3D4E5F6 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = WCMGR002A1B2C3D4E5F6 /* WatchConnectivityManager.swift */; };
-		WDATA001A1B2C3D4E5F6 /* WatchDeliveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = WDATA002A1B2C3D4E5F6 /* WatchDeliveryData.swift */; };
-		WDATA003A1B2C3D4E5F6 /* WatchDeliveryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = WDATA002A1B2C3D4E5F6 /* WatchDeliveryData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,96 +79,81 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		19334B9E26C826E800840389 /* TnekoMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TnekoMock.swift; sourceTree = "<group>"; };
-		19334BA326C8283D00840389 /* TnekoMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TnekoMock.json; sourceTree = "<group>"; };
-		19334BA526C8399700840389 /* StateDetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailListView.swift; sourceTree = "<group>"; };
-		19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LuggageItemGrid.swift; sourceTree = "<group>"; };
-		194D26DC27C61E430077DD80 /* APIClient+Futures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient+Futures.swift"; sourceTree = "<group>"; };
-		194D26DE27C645640077DD80 /* Publisher+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Extension.swift"; sourceTree = "<group>"; };
-		1978FCF726E9E587008C0CAB /* StateDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailViewModel.swift; sourceTree = "<group>"; };
 		197A43F529E137F800D111B2 /* BlackCatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlackCatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		197A43F729E137F800D111B2 /* BlackCatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCatTests.swift; sourceTree = "<group>"; };
-		197A43FF29E139F900D111B2 /* DeliveryListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryListViewModelTest.swift; sourceTree = "<group>"; };
-		197A440229E139FA00D111B2 /* AddListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListViewModelTest.swift; sourceTree = "<group>"; };
-		197A440429E139FB00D111B2 /* StateDetailViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailViewModelTest.swift; sourceTree = "<group>"; };
-		19913CA3289554590074B6D6 /* Result+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+extension.swift"; sourceTree = "<group>"; };
-		19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateDetailView.swift; sourceTree = "<group>"; };
-		19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryItem.swift; sourceTree = "<group>"; };
-		19A9A2AE26C128A800BD5AF8 /* DeliveryStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryStatus.swift; sourceTree = "<group>"; };
 		19A9A2B526C1342E00BD5AF8 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		19A9A2B726C1342E00BD5AF8 /* Domain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Domain.h; sourceTree = "<group>"; };
-		19A9A2B826C1342E00BD5AF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19A9A2BD26C1342E00BD5AF8 /* DomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		19A9A2C2026C1342F00BD5AF8 /* APIErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorTests.swift; sourceTree = "<group>"; };
-		19A9A2C2126C1343000BD5AF8 /* HTTPMethodTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethodTests.swift; sourceTree = "<group>"; };
-		19A9A2C426C1342E00BD5AF8 /* TnekoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TnekoTests.swift; sourceTree = "<group>"; };
-		19A9A2C626C1342E00BD5AF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		19ABC00026D5500000000001 /* DeliveryTrackingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryTrackingProtocol.swift; sourceTree = "<group>"; };
-		19ABC00226D5500000000002 /* DeliveryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryCache.swift; sourceTree = "<group>"; };
-		19ABC00426D5500000000003 /* APIClientConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientConfiguration.swift; sourceTree = "<group>"; };
-		19ABC00626D5500000000004 /* Sagawa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sagawa.swift; sourceTree = "<group>"; };
-		19ABC00826D5500000000005 /* DeliveryCarrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryCarrier.swift; sourceTree = "<group>"; };
-		19ABC00A26D5500000000006 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		19ABC00C26D5500000000007 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		19ABC00E26D5500000000008 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		19ABC01026D5500000000009 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
-		19ABC01226D550000000000A /* BackgroundRefreshManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefreshManager.swift; sourceTree = "<group>"; };
-		19ABC01626D550000000000D /* JapanPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapanPost.swift; sourceTree = "<group>"; };
-		19ABC01926D550000000000E /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
-		19ABC01B26D550000000000F /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
-		19ABC01D26D5500000000010 /* JapanPostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapanPostTests.swift; sourceTree = "<group>"; };
-		19ABC01F26D5500000000012 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		19ABC02326D5500000000015 /* DeliveryShareContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryShareContent.swift; sourceTree = "<group>"; };
-		19ABC02526D5500000000017 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
-		19ABC02726D5500000000019 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
-		19ABC02926D550000000001B /* SagawaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SagawaTests.swift; sourceTree = "<group>"; };
-		19C26A7A26B9B17200845289 /* TnekoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TnekoClient.swift; sourceTree = "<group>"; };
-		19C26A7C26B9B81A00845289 /* DonutsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonutsView.swift; sourceTree = "<group>"; };
-		19C26A7E26BC329C00845289 /* Color+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+extension.swift"; sourceTree = "<group>"; };
-		19C26A8126BC403900845289 /* DeliveryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryListViewModel.swift; sourceTree = "<group>"; };
-		19C584EE26EA0947002F4341 /* Notification+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+extension.swift"; sourceTree = "<group>"; };
-		19D6DA3526B528C90030343D /* Tneko.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tneko.swift; sourceTree = "<group>"; };
-		19D6DA3726B559650030343D /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		19D6DA3B26B591850030343D /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
-		19D6DA3D26B592040030343D /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
-		19D6DA3F26B639A50030343D /* ResponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseType.swift; sourceTree = "<group>"; };
-		19D6DA4126B63A750030343D /* APIClient+Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIClient+Endpoints.swift"; sourceTree = "<group>"; };
-		19DEC71726D5384000D9985B /* LocalDeliveryItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDeliveryItems.swift; sourceTree = "<group>"; };
-		19DEC71A26D53C9400D9985B /* AddListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListView.swift; sourceTree = "<group>"; };
-		19DEC71C26D5403E00D9985B /* AddListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListViewModel.swift; sourceTree = "<group>"; };
-		19E5A7FE267219B4000CFC3F /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCatApp.swift; sourceTree = "<group>"; };
-		2B5AC1DE2670EBAF00CB80F6 /* DeliveryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryListView.swift; sourceTree = "<group>"; };
-		2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2B5AC1E32670EBB300CB80F6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2B5AC1E52670EBB300CB80F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BlackCarWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B5AC1F22670EDA300CB80F6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2B5AC1F42670EDA400CB80F6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		2B5AC1F72670EDA400CB80F6 /* BlackCarWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCarWidget.swift; sourceTree = "<group>"; };
-		2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = BlackCarWidget.intentdefinition; sourceTree = "<group>"; };
-		2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2B5AC1FC2670EDAB00CB80F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2B5D54B726ED084100189351 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
-		BCWATCH001C4F5793BE31B /* BlackCatWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCatWatchApp.swift; sourceTree = "<group>"; };
-		BCWATCH002779125FE75CF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BCWATCH003AEE26FF5EC46 /* WatchDeliveryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveryViewModel.swift; sourceTree = "<group>"; };
-		BCWATCH0043573586FD0BE /* WatchDeliveryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveryItem.swift; sourceTree = "<group>"; };
-		BCWATCH0058C3446B79F39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BCWATCH006DDC961025C0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BCWATCH03175D7F53C6170 /* SharedDeliveryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDeliveryItem.swift; sourceTree = "<group>"; };
-		BCWATCH0321B1868BAB38B /* SharedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataManager.swift; sourceTree = "<group>"; };
 		BCWATCH04249CA04A97F01 /* BlackCatWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackCatWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BCWATCH05B12345678901 /* WatchDeliveryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveryListView.swift; sourceTree = "<group>"; };
-		BCWATCH05D12345678901 /* WatchDeliveryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchDeliveryDetailView.swift; sourceTree = "<group>"; };
-		BCWATCH05F12345678901 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
-		BCWATCH06112345678901 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
-		BCWATCH06312345678901 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BCWATCH06412345678901 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		WCMGR002A1B2C3D4E5F6 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
-		WDATA002A1B2C3D4E5F6 /* WatchDeliveryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WatchDeliveryData.swift; path = Shared/WatchDeliveryData.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		195E83202FE6DD1F00AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 2B5AC1D82670EBAF00CB80F6 /* BlackCat */;
+		};
+		195E83212FE6DD1F00AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Utils/Extensions/Result+extension.swift",
+			);
+			target = 19A9A2BC26C1342E00BD5AF8 /* DomainTests */;
+		};
+		195E832C2FE6DD2300AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				BlackCarWidget.intentdefinition,
+			);
+			target = 2B5AC1D82670EBAF00CB80F6 /* BlackCat */;
+		};
+		195E832D2FE6DD2300AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 2B5AC1EF2670EDA300CB80F6 /* BlackCarWidgetExtension */;
+		};
+		195E83822FE6DD2C00AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			publicHeaders = (
+				Domain.h,
+			);
+			target = 19A9A2B426C1342E00BD5AF8 /* Domain */;
+		};
+		195E83832FE6DD2C00AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Complications/Info.plist,
+				Info.plist,
+			);
+			target = BCWATCH041A78B91429135 /* BlackCatWatch */;
+		};
+		195E83842FE6DD2C00AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 19A9A2BC26C1342E00BD5AF8 /* DomainTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		195E82F92FE6DD1F00AA0FC3 /* BlackCat */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (195E83202FE6DD1F00AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 195E83212FE6DD1F00AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = BlackCat; sourceTree = "<group>"; };
+		195E83262FE6DD2300AA0FC3 /* BlackCarWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (195E832C2FE6DD2300AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 195E832D2FE6DD2300AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = BlackCarWidget; sourceTree = "<group>"; };
+		195E83332FE6DD2B00AA0FC3 /* BlackCatTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BlackCatTests; sourceTree = "<group>"; };
+		195E83472FE6DD2B00AA0FC3 /* BlackCatWatch */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (195E83832FE6DD2C00AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = BlackCatWatch; sourceTree = "<group>"; };
+		195E83652FE6DD2B00AA0FC3 /* Domain */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (195E83822FE6DD2C00AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Domain; sourceTree = "<group>"; };
+		195E837B2FE6DD2B00AA0FC3 /* DomainTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (195E83842FE6DD2C00AA0FC3 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = DomainTests; sourceTree = "<group>"; };
+		1988CA072FE6DE420002E68B /* Shared */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shared; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		197A43F229E137F700D111B2 /* Frameworks */ = {
@@ -300,206 +205,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		19334B9826C8185800840389 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				19334B9E26C826E800840389 /* TnekoMock.swift */,
-				19334BA326C8283D00840389 /* TnekoMock.json */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		19468C5326AFD57D00895CBE /* CommonViews */ = {
-			isa = PBXGroup;
-			children = (
-				19468C5426AFD59A00895CBE /* LuggageItemGrid.swift */,
-				19C26A7C26B9B81A00845289 /* DonutsView.swift */,
-				19ABC02526D5500000000017 /* ShareSheet.swift */,
-				19ABC02726D5500000000019 /* ConfettiView.swift */,
-			);
-			path = CommonViews;
-			sourceTree = "<group>";
-		};
-		19468C5626AFD7DE00895CBE /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				19C26A7A26B9B17200845289 /* TnekoClient.swift */,
-				19A9A2AC26C1285800BD5AF8 /* DeliveryItem.swift */,
-				19A9A2AE26C128A800BD5AF8 /* DeliveryStatus.swift */,
-				19DEC71726D5384000D9985B /* LocalDeliveryItems.swift */,
-				19ABC00826D5500000000005 /* DeliveryCarrier.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		197A43F629E137F800D111B2 /* BlackCatTests */ = {
-			isa = PBXGroup;
-			children = (
-				197A43F729E137F800D111B2 /* BlackCatTests.swift */,
-				197A43FE29E138DA00D111B2 /* ViewModelTests */,
-			);
-			path = BlackCatTests;
-			sourceTree = "<group>";
-		};
-		197A43FE29E138DA00D111B2 /* ViewModelTests */ = {
-			isa = PBXGroup;
-			children = (
-				197A43FF29E139F900D111B2 /* DeliveryListViewModelTest.swift */,
-				197A440229E139FA00D111B2 /* AddListViewModelTest.swift */,
-				197A440429E139FB00D111B2 /* StateDetailViewModelTest.swift */,
-			);
-			path = ViewModelTests;
-			sourceTree = "<group>";
-		};
-		19A9A2A926C105F500BD5AF8 /* StateDetail */ = {
-			isa = PBXGroup;
-			children = (
-				19334BA526C8399700840389 /* StateDetailListView.swift */,
-				19A9A2AA26C1060F00BD5AF8 /* StateDetailView.swift */,
-				1978FCF726E9E587008C0CAB /* StateDetailViewModel.swift */,
-			);
-			path = StateDetail;
-			sourceTree = "<group>";
-		};
-		19A9A2B626C1342E00BD5AF8 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				19A9A2B726C1342E00BD5AF8 /* Domain.h */,
-				19A9A2B826C1342E00BD5AF8 /* Info.plist */,
-				19E5A7FD26721992000CFC3F /* APIProtcols */,
-				19B37DF826A4A61E00F36334 /* Endpoints */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		19A9A2C326C1342E00BD5AF8 /* DomainTests */ = {
-			isa = PBXGroup;
-			children = (
-				19A9A2C426C1342E00BD5AF8 /* TnekoTests.swift */,
-				19A9A2C2026C1342F00BD5AF8 /* APIErrorTests.swift */,
-				19A9A2C2126C1343000BD5AF8 /* HTTPMethodTests.swift */,
-				19ABC01D26D5500000000010 /* JapanPostTests.swift */,
-				19ABC02926D550000000001B /* SagawaTests.swift */,
-				19A9A2C626C1342E00BD5AF8 /* Info.plist */,
-			);
-			path = DomainTests;
-			sourceTree = "<group>";
-		};
-		19ABC01426D550000000000B /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				19ABC00A26D5500000000006 /* SettingsView.swift */,
-				19ABC00C26D5500000000007 /* SettingsViewModel.swift */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
-		19ABC01526D550000000000C /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				19ABC00E26D5500000000008 /* OnboardingView.swift */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		19ABC01E26D5500000000011 /* Help */ = {
-			isa = PBXGroup;
-			children = (
-				19ABC01926D550000000000E /* HelpView.swift */,
-			);
-			path = Help;
-			sourceTree = "<group>";
-		};
-		19ABC02126D5500000000013 /* Splash */ = {
-			isa = PBXGroup;
-			children = (
-				19ABC01F26D5500000000012 /* SplashView.swift */,
-			);
-			path = Splash;
-			sourceTree = "<group>";
-		};
-		19B37DF826A4A61E00F36334 /* Endpoints */ = {
-			isa = PBXGroup;
-			children = (
-				19D6DA3526B528C90030343D /* Tneko.swift */,
-				19ABC00626D5500000000004 /* Sagawa.swift */,
-				19ABC01626D550000000000D /* JapanPost.swift */,
-			);
-			path = Endpoints;
-			sourceTree = "<group>";
-		};
-		19C26A8026BC3FBB00845289 /* DeliveryList */ = {
-			isa = PBXGroup;
-			children = (
-				2B5AC1DE2670EBAF00CB80F6 /* DeliveryListView.swift */,
-				19C26A8126BC403900845289 /* DeliveryListViewModel.swift */,
-			);
-			path = DeliveryList;
-			sourceTree = "<group>";
-		};
-		19DEC71926D53C7400D9985B /* AddList */ = {
-			isa = PBXGroup;
-			children = (
-				19DEC71A26D53C9400D9985B /* AddListView.swift */,
-				19DEC71C26D5403E00D9985B /* AddListViewModel.swift */,
-			);
-			path = AddList;
-			sourceTree = "<group>";
-		};
-		19E5A7FD26721992000CFC3F /* APIProtcols */ = {
-			isa = PBXGroup;
-			children = (
-				19E5A7FE267219B4000CFC3F /* ApiClient.swift */,
-				19D6DA3726B559650030343D /* APIError.swift */,
-				19D6DA3B26B591850030343D /* RequestType.swift */,
-				19D6DA3F26B639A50030343D /* ResponseType.swift */,
-				19D6DA3D26B592040030343D /* HTTPMethod.swift */,
-				19D6DA4126B63A750030343D /* APIClient+Endpoints.swift */,
-				194D26DC27C61E430077DD80 /* APIClient+Futures.swift */,
-				19ABC00026D5500000000001 /* DeliveryTrackingProtocol.swift */,
-				19ABC00226D5500000000002 /* DeliveryCache.swift */,
-				19ABC00426D5500000000003 /* APIClientConfiguration.swift */,
-			);
-			path = APIProtcols;
-			sourceTree = "<group>";
-		};
-		19F10FE726B523240068C44D /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				19F10FE826B523310068C44D /* Extensions */,
-				19ABC01026D5500000000009 /* NotificationManager.swift */,
-				19ABC01226D550000000000A /* BackgroundRefreshManager.swift */,
-				19ABC01B26D550000000000F /* HapticManager.swift */,
-				19ABC02326D5500000000015 /* DeliveryShareContent.swift */,
-				WCMGR002A1B2C3D4E5F6 /* WatchConnectivityManager.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		19F10FE826B523310068C44D /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				19C26A7E26BC329C00845289 /* Color+extension.swift */,
-				19C584EE26EA0947002F4341 /* Notification+extension.swift */,
-				2B5D54B726ED084100189351 /* View+extension.swift */,
-				194D26DE27C645640077DD80 /* Publisher+Extension.swift */,
-				19913CA3289554590074B6D6 /* Result+extension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		2B5AC1D02670EBAF00CB80F6 = {
 			isa = PBXGroup;
 			children = (
-				2B5AC1DB2670EBAF00CB80F6 /* BlackCat */,
-				2B5AC1F62670EDA400CB80F6 /* BlackCarWidget */,
-				197A43F629E137F800D111B2 /* BlackCatTests */,
-				19A9A2B626C1342E00BD5AF8 /* Domain */,
-				19A9A2C326C1342E00BD5AF8 /* DomainTests */,
+				195E82F92FE6DD1F00AA0FC3 /* BlackCat */,
+				195E83262FE6DD2300AA0FC3 /* BlackCarWidget */,
+				195E83332FE6DD2B00AA0FC3 /* BlackCatTests */,
+				195E83652FE6DD2B00AA0FC3 /* Domain */,
+				195E837B2FE6DD2B00AA0FC3 /* DomainTests */,
 				2B5AC1F12670EDA300CB80F6 /* Frameworks */,
 				2B5AC1DA2670EBAF00CB80F6 /* Products */,
-				BCWATCH02106BE1DE65B10 /* BlackCatWatch */,
-				BCWATCH0228A49BD09C96F /* Shared */,
+				195E83472FE6DD2B00AA0FC3 /* BlackCatWatch */,
+				1988CA072FE6DE420002E68B /* Shared */,
 			);
 			sourceTree = "<group>";
 		};
@@ -516,30 +233,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2B5AC1DB2670EBAF00CB80F6 /* BlackCat */ = {
-			isa = PBXGroup;
-			children = (
-				2B5AC1DC2670EBAF00CB80F6 /* BlackCatApp.swift */,
-				2B5AC2082670EDF800CB80F6 /* Scenes */,
-				19468C5326AFD57D00895CBE /* CommonViews */,
-				19468C5626AFD7DE00895CBE /* Models */,
-				19F10FE726B523240068C44D /* Utils */,
-				19334B9826C8185800840389 /* Resources */,
-				2B5AC1E02670EBB300CB80F6 /* Assets.xcassets */,
-				2B5AC1E52670EBB300CB80F6 /* Info.plist */,
-				2B5AC1E22670EBB300CB80F6 /* Preview Content */,
-			);
-			path = BlackCat;
-			sourceTree = "<group>";
-		};
-		2B5AC1E22670EBB300CB80F6 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				2B5AC1E32670EBB300CB80F6 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		2B5AC1F12670EDA300CB80F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,84 +242,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2B5AC1F62670EDA400CB80F6 /* BlackCarWidget */ = {
-			isa = PBXGroup;
-			children = (
-				2B5AC1F72670EDA400CB80F6 /* BlackCarWidget.swift */,
-				2B5AC1F92670EDA400CB80F6 /* BlackCarWidget.intentdefinition */,
-				2B5AC1FA2670EDAB00CB80F6 /* Assets.xcassets */,
-				2B5AC1FC2670EDAB00CB80F6 /* Info.plist */,
-			);
-			path = BlackCarWidget;
-			sourceTree = "<group>";
-		};
-		2B5AC2082670EDF800CB80F6 /* Scenes */ = {
-			isa = PBXGroup;
-			children = (
-				19ABC02126D5500000000013 /* Splash */,
-				19C26A8026BC3FBB00845289 /* DeliveryList */,
-				19DEC71926D53C7400D9985B /* AddList */,
-				19A9A2A926C105F500BD5AF8 /* StateDetail */,
-				19ABC01426D550000000000B /* Settings */,
-				19ABC01526D550000000000C /* Onboarding */,
-				19ABC01E26D5500000000011 /* Help */,
-			);
-			path = Scenes;
-			sourceTree = "<group>";
-		};
-		BCWATCH02106BE1DE65B10 /* BlackCatWatch */ = {
-			isa = PBXGroup;
-			children = (
-				BCWATCH001C4F5793BE31B /* BlackCatWatchApp.swift */,
-				BCWATCH002779125FE75CF /* ContentView.swift */,
-				BCWATCH003AEE26FF5EC46 /* WatchDeliveryViewModel.swift */,
-				BCWATCH0043573586FD0BE /* WatchDeliveryItem.swift */,
-				BCWATCH07012345678901 /* Views */,
-				BCWATCH07112345678901 /* Complications */,
-				BCWATCH07212345678901 /* Utils */,
-				BCWATCH0058C3446B79F39 /* Assets.xcassets */,
-				BCWATCH006DDC961025C0A /* Info.plist */,
-			);
-			path = BlackCatWatch;
-			sourceTree = "<group>";
-		};
-		BCWATCH0228A49BD09C96F /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				BCWATCH03175D7F53C6170 /* SharedDeliveryItem.swift */,
-				BCWATCH0321B1868BAB38B /* SharedDataManager.swift */,
-				WDATA002A1B2C3D4E5F6 /* WatchDeliveryData.swift */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		BCWATCH07012345678901 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				BCWATCH05B12345678901 /* WatchDeliveryListView.swift */,
-				BCWATCH05D12345678901 /* WatchDeliveryDetailView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		BCWATCH07112345678901 /* Complications */ = {
-			isa = PBXGroup;
-			children = (
-				BCWATCH05F12345678901 /* ComplicationController.swift */,
-				BCWATCH06312345678901 /* Assets.xcassets */,
-				BCWATCH06412345678901 /* Info.plist */,
-			);
-			path = Complications;
-			sourceTree = "<group>";
-		};
-		BCWATCH07212345678901 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				BCWATCH06112345678901 /* WatchConnectivityManager.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -634,7 +249,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19A9A2C726C1342E00BD5AF8 /* Domain.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,6 +268,9 @@
 			dependencies = (
 				197A43FA29E137F800D111B2 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				195E83332FE6DD2B00AA0FC3 /* BlackCatTests */,
+			);
 			name = BlackCatTests;
 			productName = BlackCatTests;
 			productReference = 197A43F529E137F800D111B2 /* BlackCatTests.xctest */;
@@ -671,6 +288,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				195E83652FE6DD2B00AA0FC3 /* Domain */,
 			);
 			name = Domain;
 			productName = Domain;
@@ -690,6 +310,9 @@
 			dependencies = (
 				19A9A2C026C1342E00BD5AF8 /* PBXTargetDependency */,
 				19A9A2C226C1342E00BD5AF8 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				195E837B2FE6DD2B00AA0FC3 /* DomainTests */,
 			);
 			name = DomainTests;
 			productName = DomainTests;
@@ -712,6 +335,10 @@
 				19A9A2C926C1342E00BD5AF8 /* PBXTargetDependency */,
 				BCWATCH05000000000000003 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				195E82F92FE6DD1F00AA0FC3 /* BlackCat */,
+				1988CA072FE6DE420002E68B /* Shared */,
+			);
 			name = BlackCat;
 			productName = BlackCat;
 			productReference = 2B5AC1D92670EBAF00CB80F6 /* BlackCat.app */;
@@ -729,6 +356,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				195E83262FE6DD2300AA0FC3 /* BlackCarWidget */,
+			);
 			name = BlackCarWidgetExtension;
 			productName = BlackCarWidgetExtension;
 			productReference = 2B5AC1F02670EDA300CB80F6 /* BlackCarWidgetExtension.appex */;
@@ -745,6 +375,10 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				195E83472FE6DD2B00AA0FC3 /* BlackCatWatch */,
+				1988CA072FE6DE420002E68B /* Shared */,
 			);
 			name = BlackCatWatch;
 			productName = BlackCatWatch;
@@ -828,9 +462,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B5AC1E42670EBB300CB80F6 /* Preview Assets.xcassets in Resources */,
-				19334BA426C8283D00840389 /* TnekoMock.json in Resources */,
-				2B5AC1E12670EBB300CB80F6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -838,7 +469,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B5AC1FB2670EDAB00CB80F6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,8 +476,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCWATCH015A3263D5BB6CD /* Assets.xcassets in Resources */,
-				BCWATCH06212345678901 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -858,10 +486,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				197A440029E139F900D111B2 /* DeliveryListViewModelTest.swift in Sources */,
-				197A440129E139FA00D111B2 /* AddListViewModelTest.swift in Sources */,
-				197A440329E139FB00D111B2 /* StateDetailViewModelTest.swift in Sources */,
-				197A43F829E137F800D111B2 /* BlackCatTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -869,19 +493,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19A9A2D926C134C200BD5AF8 /* APIClient+Endpoints.swift in Sources */,
-				19A9A2D326C134AA00BD5AF8 /* ApiClient.swift in Sources */,
-				19A9A2D426C134AC00BD5AF8 /* APIError.swift in Sources */,
-				19A9A2D626C134B400BD5AF8 /* ResponseType.swift in Sources */,
-				194D26DD27C61E430077DD80 /* APIClient+Futures.swift in Sources */,
-				19A9A2DA26C134F200BD5AF8 /* Tneko.swift in Sources */,
-				19A9A2D826C134B800BD5AF8 /* HTTPMethod.swift in Sources */,
-				19A9A2D526C134B000BD5AF8 /* RequestType.swift in Sources */,
-				19ABC00126D5500000000001 /* DeliveryTrackingProtocol.swift in Sources */,
-				19ABC00326D5500000000002 /* DeliveryCache.swift in Sources */,
-				19ABC00526D5500000000003 /* APIClientConfiguration.swift in Sources */,
-				19ABC00726D5500000000004 /* Sagawa.swift in Sources */,
-				19ABC01726D550000000000D /* JapanPost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,12 +500,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19A72FA92956CCA100981186 /* Result+extension.swift in Sources */,
-				19A9A2C526C1342E00BD5AF8 /* TnekoTests.swift in Sources */,
-				19A9A2C1026C1342F00BD5AF8 /* APIErrorTests.swift in Sources */,
-				19A9A2C1126C1343000BD5AF8 /* HTTPMethodTests.swift in Sources */,
-				19ABC01C26D5500000000010 /* JapanPostTests.swift in Sources */,
-				19ABC02826D550000000001A /* SagawaTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,43 +507,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19C584EF26EA0947002F4341 /* Notification+extension.swift in Sources */,
-				2B5AC1DF2670EBAF00CB80F6 /* DeliveryListView.swift in Sources */,
-				19C26A7F26BC329C00845289 /* Color+extension.swift in Sources */,
-				19DEC71D26D5403E00D9985B /* AddListViewModel.swift in Sources */,
-				19DEC71826D5384000D9985B /* LocalDeliveryItems.swift in Sources */,
-				19A9A2AB26C1060F00BD5AF8 /* StateDetailView.swift in Sources */,
-				1978FCF826E9E587008C0CAB /* StateDetailViewModel.swift in Sources */,
-				19C26A7D26B9B81A00845289 /* DonutsView.swift in Sources */,
-				19468C5526AFD59A00895CBE /* LuggageItemGrid.swift in Sources */,
-				19334B9F26C826E800840389 /* TnekoMock.swift in Sources */,
-				2B5AC1FE2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
-				19C26A7B26B9B17200845289 /* TnekoClient.swift in Sources */,
-				2B5AC1DD2670EBAF00CB80F6 /* BlackCatApp.swift in Sources */,
-				19A9A2AF26C128A800BD5AF8 /* DeliveryStatus.swift in Sources */,
-				194D26DF27C645640077DD80 /* Publisher+Extension.swift in Sources */,
-				19913CA4289554590074B6D6 /* Result+extension.swift in Sources */,
-				19C26A8226BC403900845289 /* DeliveryListViewModel.swift in Sources */,
-				19334BA626C8399700840389 /* StateDetailListView.swift in Sources */,
-				19A9A2AD26C1285800BD5AF8 /* DeliveryItem.swift in Sources */,
-				19DEC71B26D53C9400D9985B /* AddListView.swift in Sources */,
-				2B5D54B826ED084100189351 /* View+extension.swift in Sources */,
-				19ABC00926D5500000000005 /* DeliveryCarrier.swift in Sources */,
-				19ABC00B26D5500000000006 /* SettingsView.swift in Sources */,
-				19ABC00D26D5500000000007 /* SettingsViewModel.swift in Sources */,
-				19ABC00F26D5500000000008 /* OnboardingView.swift in Sources */,
-				19ABC01126D5500000000009 /* NotificationManager.swift in Sources */,
-				19ABC01326D550000000000A /* BackgroundRefreshManager.swift in Sources */,
-				19ABC01826D550000000000E /* HelpView.swift in Sources */,
-				19ABC01A26D550000000000F /* HapticManager.swift in Sources */,
-				19ABC02026D5500000000012 /* SplashView.swift in Sources */,
-				19ABC02226D5500000000014 /* DeliveryShareContent.swift in Sources */,
-				19ABC02426D5500000000016 /* ShareSheet.swift in Sources */,
-				19ABC02626D5500000000018 /* ConfettiView.swift in Sources */,
-				BCWATCH03599FA2E8BA070 /* SharedDeliveryItem.swift in Sources */,
-				BCWATCH0369939F397947D /* SharedDataManager.swift in Sources */,
-				WCMGR001A1B2C3D4E5F6 /* WatchConnectivityManager.swift in Sources */,
-				WDATA001A1B2C3D4E5F6 /* WatchDeliveryData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -946,8 +514,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B5AC1F82670EDA400CB80F6 /* BlackCarWidget.swift in Sources */,
-				2B5AC1FD2670EDAB00CB80F6 /* BlackCarWidget.intentdefinition in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -955,17 +521,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCWATCH011B442929E4593 /* BlackCatWatchApp.swift in Sources */,
-				BCWATCH01214E7882B14E5 /* ContentView.swift in Sources */,
-				BCWATCH0130478CB7770DC /* WatchDeliveryViewModel.swift in Sources */,
-				BCWATCH014A6F97A76425E /* WatchDeliveryItem.swift in Sources */,
-				BCWATCH0338061C1008830 /* SharedDeliveryItem.swift in Sources */,
-				BCWATCH034A66BD580E85F /* SharedDataManager.swift in Sources */,
-				WDATA003A1B2C3D4E5F6 /* WatchDeliveryData.swift in Sources */,
-				BCWATCH05A12345678901 /* WatchDeliveryListView.swift in Sources */,
-				BCWATCH05C12345678901 /* WatchDeliveryDetailView.swift in Sources */,
-				BCWATCH05E12345678901 /* ComplicationController.swift in Sources */,
-				BCWATCH06012345678901 /* WatchConnectivityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1101,7 +656,6 @@
 		19A9A2D126C1342E00BD5AF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				INFOPLIST_FILE = DomainTests/Info.plist;
@@ -1122,7 +676,6 @@
 		19A9A2D226C1342E00BD5AF8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56787CM63P;
 				INFOPLIST_FILE = DomainTests/Info.plist;
@@ -1261,7 +814,6 @@
 		2B5AC1E92670EBB300CB80F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -1286,7 +838,6 @@
 		2B5AC1EA2670EBB300CB80F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
