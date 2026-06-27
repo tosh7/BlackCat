@@ -8,59 +8,66 @@ public extension ApiClient {
     ///   - useCache: キャッシュを使用するかどうか（デフォルト: true）
     ///   - completion: 結果のコールバック
     func tneko(_ request: TnekoRequest, useCache: Bool = true, completion: @escaping (Result<Tneko, APIError>) -> Void) {
-        // キャッシュチェック
-        if useCache && configuration.cacheEnabled {
-            let trackingNumbers = request.idList().map { String($0) }
-            var cachedInfos: [UnifiedDeliveryInfo] = []
+        let completionBox = UncheckedSendableBox(value: completion)
+        Task {
+            let completion = completionBox.value
+            // キャッシュチェック
+            if useCache && configuration.cacheEnabled {
+                let trackingNumbers = request.idList().map { String($0) }
+                var cachedInfos: [UnifiedDeliveryInfo] = []
 
-            for trackingNumber in trackingNumbers {
-                if let cached = cache.get(for: trackingNumber, carrier: .yamato) {
-                    cachedInfos.append(cached)
+                for trackingNumber in trackingNumbers {
+                    if let cached = await cache.get(for: trackingNumber, carrier: .yamato) {
+                        cachedInfos.append(cached)
+                    }
+                }
+
+                // すべてのトラッキング番号がキャッシュにある場合
+                if cachedInfos.count == trackingNumbers.count && !cachedInfos.isEmpty {
+                    let tneko = tnekoFromCache(cachedInfos)
+                    completion(.success(tneko))
+                    return
                 }
             }
 
-            // すべてのトラッキング番号がキャッシュにある場合
-            if cachedInfos.count == trackingNumbers.count && !cachedInfos.isEmpty {
-                let tneko = tnekoFromCache(cachedInfos)
-                completion(.success(tneko))
-                return
-            }
-        }
-
-        guard let urlRequest: URLRequest = URLRequest(request, baseURL: baseURL) else {
-            completion(.failure(.invalidURL))
-            return
-        }
-
-        fetchWithRetry(urlRequest: urlRequest) { [weak self] result in
-            guard let self = self else {
-                completion(.failure(.unknownError("ApiClient was deallocated")))
+            guard let urlRequest: URLRequest = URLRequest(request, baseURL: baseURL) else {
+                completion(.failure(.invalidURL))
                 return
             }
 
-            switch result {
-            case .success(let data):
-                // Tnekoは生のHTMLを直接パースする（HTMLタグを検索するため）
-                guard let htmlString = String(data: data, encoding: .utf8) ??
-                                       String(data: data, encoding: .shiftJIS) else {
-                    self.handleErrorWithCache(error: .htmlParseError("Failed to decode HTML"), request: request, completion: completion)
+            fetchWithRetry(urlRequest: urlRequest) { [weak self] result in
+                guard let self = self else {
+                    completionBox.value(.failure(.unknownError("ApiClient was deallocated")))
                     return
                 }
 
-                let tneko = Tneko(
-                    idList: request.idList(),
-                    response: htmlString
-                )
+                Task {
+                    let completion = completionBox.value
+                    switch result {
+                    case .success(let data):
+                        // Tnekoは生のHTMLを直接パースする（HTMLタグを検索するため）
+                        guard let htmlString = String(data: data, encoding: .utf8) ??
+                                               String(data: data, encoding: .shiftJIS) else {
+                            await self.handleErrorWithCache(error: .htmlParseError("Failed to decode HTML"), request: request, completion: completion)
+                            return
+                        }
 
-                // キャッシュに保存
-                if self.configuration.cacheEnabled {
-                    self.cacheDeliveryInfo(tneko)
+                        let tneko = Tneko(
+                            idList: request.idList(),
+                            response: htmlString
+                        )
+
+                        // キャッシュに保存
+                        if self.configuration.cacheEnabled {
+                            await self.cacheDeliveryInfo(tneko)
+                        }
+
+                        completion(.success(tneko))
+
+                    case .failure(let error):
+                        await self.handleErrorWithCache(error: error, request: request, completion: completion)
+                    }
                 }
-
-                completion(.success(tneko))
-
-            case .failure(let error):
-                self.handleErrorWithCache(error: error, request: request, completion: completion)
             }
         }
     }
@@ -71,48 +78,55 @@ public extension ApiClient {
     ///   - useCache: キャッシュを使用するかどうか（デフォルト: true）
     ///   - completion: 結果のコールバック
     func sagawa(_ request: SagawaRequest, useCache: Bool = true, completion: @escaping (Result<Sagawa, APIError>) -> Void) {
-        // キャッシュチェック
-        if useCache && configuration.cacheEnabled {
-            if let cached = cache.get(for: request.trackingNumber, carrier: .sagawa) {
-                let sagawa = sagawaFromCache([cached])
-                completion(.success(sagawa))
-                return
-            }
-        }
-
-        guard let urlRequest: URLRequest = URLRequest(request, baseURL: sagawaBaseURL) else {
-            completion(.failure(.invalidURL))
-            return
-        }
-
-        fetchWithRetry(urlRequest: urlRequest) { [weak self] result in
-            guard let self = self else {
-                completion(.failure(.unknownError("ApiClient was deallocated")))
-                return
-            }
-
-            switch result {
-            case .success(let data):
-                switch self.parseHTML(from: data) {
-                case .success(let htmlString):
-                    let sagawa = Sagawa(
-                        trackingNumber: request.trackingNumber,
-                        response: htmlString
-                    )
-
-                    // キャッシュに保存
-                    if self.configuration.cacheEnabled {
-                        self.cacheDeliveryInfo(sagawa)
-                    }
-
+        let completionBox = UncheckedSendableBox(value: completion)
+        Task {
+            let completion = completionBox.value
+            // キャッシュチェック
+            if useCache && configuration.cacheEnabled {
+                if let cached = await cache.get(for: request.trackingNumber, carrier: .sagawa) {
+                    let sagawa = sagawaFromCache([cached])
                     completion(.success(sagawa))
+                    return
+                }
+            }
 
-                case .failure(let error):
-                    self.handleErrorWithCache(error: error, request: request, completion: completion)
+            guard let urlRequest: URLRequest = URLRequest(request, baseURL: sagawaBaseURL) else {
+                completion(.failure(.invalidURL))
+                return
+            }
+
+            fetchWithRetry(urlRequest: urlRequest) { [weak self] result in
+                guard let self = self else {
+                    completionBox.value(.failure(.unknownError("ApiClient was deallocated")))
+                    return
                 }
 
-            case .failure(let error):
-                self.handleErrorWithCache(error: error, request: request, completion: completion)
+                Task {
+                    let completion = completionBox.value
+                    switch result {
+                    case .success(let data):
+                        switch self.parseHTML(from: data) {
+                        case .success(let htmlString):
+                            let sagawa = Sagawa(
+                                trackingNumber: request.trackingNumber,
+                                response: htmlString
+                            )
+
+                            // キャッシュに保存
+                            if self.configuration.cacheEnabled {
+                                await self.cacheDeliveryInfo(sagawa)
+                            }
+
+                            completion(.success(sagawa))
+
+                        case .failure(let error):
+                            await self.handleErrorWithCache(error: error, request: request, completion: completion)
+                        }
+
+                    case .failure(let error):
+                        await self.handleErrorWithCache(error: error, request: request, completion: completion)
+                    }
+                }
             }
         }
     }
@@ -123,48 +137,55 @@ public extension ApiClient {
     ///   - useCache: キャッシュを使用するかどうか（デフォルト: true）
     ///   - completion: 結果のコールバック
     func japanPost(_ request: JapanPostRequest, useCache: Bool = true, completion: @escaping (Result<JapanPost, APIError>) -> Void) {
-        // キャッシュチェック
-        if useCache && configuration.cacheEnabled {
-            if let cached = cache.get(for: request.trackingNumber, carrier: .japanPost) {
-                let japanPost = japanPostFromCache([cached])
-                completion(.success(japanPost))
-                return
-            }
-        }
-
-        guard let urlRequest: URLRequest = URLRequest(request, baseURL: japanPostBaseURL) else {
-            completion(.failure(.invalidURL))
-            return
-        }
-
-        fetchWithRetry(urlRequest: urlRequest) { [weak self] result in
-            guard let self = self else {
-                completion(.failure(.unknownError("ApiClient was deallocated")))
-                return
-            }
-
-            switch result {
-            case .success(let data):
-                switch self.parseHTML(from: data) {
-                case .success(let htmlString):
-                    let japanPost = JapanPost(
-                        trackingNumber: request.trackingNumber,
-                        response: htmlString
-                    )
-
-                    // キャッシュに保存
-                    if self.configuration.cacheEnabled {
-                        self.cacheDeliveryInfo(japanPost)
-                    }
-
+        let completionBox = UncheckedSendableBox(value: completion)
+        Task {
+            let completion = completionBox.value
+            // キャッシュチェック
+            if useCache && configuration.cacheEnabled {
+                if let cached = await cache.get(for: request.trackingNumber, carrier: .japanPost) {
+                    let japanPost = japanPostFromCache([cached])
                     completion(.success(japanPost))
+                    return
+                }
+            }
 
-                case .failure(let error):
-                    self.handleErrorWithCache(error: error, request: request, completion: completion)
+            guard let urlRequest: URLRequest = URLRequest(request, baseURL: japanPostBaseURL) else {
+                completion(.failure(.invalidURL))
+                return
+            }
+
+            fetchWithRetry(urlRequest: urlRequest) { [weak self] result in
+                guard let self = self else {
+                    completionBox.value(.failure(.unknownError("ApiClient was deallocated")))
+                    return
                 }
 
-            case .failure(let error):
-                self.handleErrorWithCache(error: error, request: request, completion: completion)
+                Task {
+                    let completion = completionBox.value
+                    switch result {
+                    case .success(let data):
+                        switch self.parseHTML(from: data) {
+                        case .success(let htmlString):
+                            let japanPost = JapanPost(
+                                trackingNumber: request.trackingNumber,
+                                response: htmlString
+                            )
+
+                            // キャッシュに保存
+                            if self.configuration.cacheEnabled {
+                                await self.cacheDeliveryInfo(japanPost)
+                            }
+
+                            completion(.success(japanPost))
+
+                        case .failure(let error):
+                            await self.handleErrorWithCache(error: error, request: request, completion: completion)
+                        }
+
+                    case .failure(let error):
+                        await self.handleErrorWithCache(error: error, request: request, completion: completion)
+                    }
+                }
             }
         }
     }
@@ -184,7 +205,7 @@ public extension ApiClient {
             var cachedInfos: [UnifiedDeliveryInfo] = []
 
             for trackingNumber in trackingNumbers {
-                if let cached = cache.get(for: trackingNumber, carrier: .yamato) {
+                if let cached = await cache.get(for: trackingNumber, carrier: .yamato) {
                     cachedInfos.append(cached)
                 }
             }
@@ -207,7 +228,7 @@ public extension ApiClient {
             // Tnekoは生のHTMLを直接パースする（HTMLタグを検索するため）
             guard let htmlString = String(data: data, encoding: .utf8) ??
                                    String(data: data, encoding: .shiftJIS) else {
-                return handleErrorWithCacheAsync(error: .htmlParseError("Failed to decode HTML"), request: request)
+                return await handleErrorWithCacheAsync(error: .htmlParseError("Failed to decode HTML"), request: request)
             }
 
             let tneko = Tneko(
@@ -217,13 +238,13 @@ public extension ApiClient {
 
             // キャッシュに保存
             if configuration.cacheEnabled {
-                cacheDeliveryInfo(tneko)
+                await cacheDeliveryInfo(tneko)
             }
 
             return .success(tneko)
 
         case .failure(let error):
-            return handleErrorWithCacheAsync(error: error, request: request)
+            return await handleErrorWithCacheAsync(error: error, request: request)
         }
     }
 
@@ -235,7 +256,7 @@ public extension ApiClient {
     func sagawa(_ request: SagawaRequest, useCache: Bool = true) async -> Result<Sagawa, APIError> {
         // キャッシュチェック
         if useCache && configuration.cacheEnabled {
-            if let cached = cache.get(for: request.trackingNumber, carrier: .sagawa) {
+            if let cached = await cache.get(for: request.trackingNumber, carrier: .sagawa) {
                 let sagawa = sagawaFromCache([cached])
                 return .success(sagawa)
             }
@@ -258,17 +279,17 @@ public extension ApiClient {
 
                 // キャッシュに保存
                 if configuration.cacheEnabled {
-                    cacheDeliveryInfo(sagawa)
+                    await cacheDeliveryInfo(sagawa)
                 }
 
                 return .success(sagawa)
 
             case .failure(let error):
-                return handleErrorWithCacheAsync(error: error, request: request)
+                return await handleErrorWithCacheAsync(error: error, request: request)
             }
 
         case .failure(let error):
-            return handleErrorWithCacheAsync(error: error, request: request)
+            return await handleErrorWithCacheAsync(error: error, request: request)
         }
     }
 
@@ -280,7 +301,7 @@ public extension ApiClient {
     func japanPost(_ request: JapanPostRequest, useCache: Bool = true) async -> Result<JapanPost, APIError> {
         // キャッシュチェック
         if useCache && configuration.cacheEnabled {
-            if let cached = cache.get(for: request.trackingNumber, carrier: .japanPost) {
+            if let cached = await cache.get(for: request.trackingNumber, carrier: .japanPost) {
                 let japanPost = japanPostFromCache([cached])
                 return .success(japanPost)
             }
@@ -303,17 +324,17 @@ public extension ApiClient {
 
                 // キャッシュに保存
                 if configuration.cacheEnabled {
-                    cacheDeliveryInfo(japanPost)
+                    await cacheDeliveryInfo(japanPost)
                 }
 
                 return .success(japanPost)
 
             case .failure(let error):
-                return handleErrorWithCacheAsync(error: error, request: request)
+                return await handleErrorWithCacheAsync(error: error, request: request)
             }
 
         case .failure(let error):
-            return handleErrorWithCacheAsync(error: error, request: request)
+            return await handleErrorWithCacheAsync(error: error, request: request)
         }
     }
 }
@@ -333,7 +354,7 @@ public extension ApiClient {
     ) async -> Result<UnifiedDeliveryInfo, APIError> {
         // キャッシュチェック
         if useCache && configuration.cacheEnabled {
-            if let cached = cache.get(for: trackingNumber, carrier: carrier) {
+            if let cached = await cache.get(for: trackingNumber, carrier: carrier) {
                 return .success(cached)
             }
         }
@@ -427,26 +448,26 @@ public extension ApiClient {
 // MARK: - キャッシュヘルパー
 private extension ApiClient {
     /// Tnekoの配送情報をキャッシュに保存
-    func cacheDeliveryInfo(_ tneko: Tneko) {
+    func cacheDeliveryInfo(_ tneko: Tneko) async {
         let infos = tneko.toUnifiedDeliveryInfo()
         for info in infos {
-            cache.set(info, for: info.trackingNumber, carrier: .yamato)
+            await cache.set(info, for: info.trackingNumber, carrier: .yamato)
         }
     }
 
     /// Sagawaの配送情報をキャッシュに保存
-    func cacheDeliveryInfo(_ sagawa: Sagawa) {
+    func cacheDeliveryInfo(_ sagawa: Sagawa) async {
         let infos = sagawa.toUnifiedDeliveryInfo()
         for info in infos {
-            cache.set(info, for: info.trackingNumber, carrier: .sagawa)
+            await cache.set(info, for: info.trackingNumber, carrier: .sagawa)
         }
     }
 
     /// JapanPostの配送情報をキャッシュに保存
-    func cacheDeliveryInfo(_ japanPost: JapanPost) {
+    func cacheDeliveryInfo(_ japanPost: JapanPost) async {
         let infos = japanPost.toUnifiedDeliveryInfo()
         for info in infos {
-            cache.set(info, for: info.trackingNumber, carrier: .japanPost)
+            await cache.set(info, for: info.trackingNumber, carrier: .japanPost)
         }
     }
 
@@ -508,13 +529,13 @@ private extension ApiClient {
     }
 
     /// エラー時にキャッシュからフォールバック（completion版 - Tneko）
-    func handleErrorWithCache(error: APIError, request: TnekoRequest, completion: @escaping (Result<Tneko, APIError>) -> Void) {
+    func handleErrorWithCache(error: APIError, request: TnekoRequest, completion: @escaping (Result<Tneko, APIError>) -> Void) async {
         if configuration.returnCacheOnError {
             let trackingNumbers = request.idList().map { String($0) }
             var cachedInfos: [UnifiedDeliveryInfo] = []
 
             for trackingNumber in trackingNumbers {
-                if let cached = cache.get(for: trackingNumber, carrier: .yamato) {
+                if let cached = await cache.get(for: trackingNumber, carrier: .yamato) {
                     cachedInfos.append(cached)
                 }
             }
@@ -529,9 +550,9 @@ private extension ApiClient {
     }
 
     /// エラー時にキャッシュからフォールバック（completion版 - Sagawa）
-    func handleErrorWithCache(error: APIError, request: SagawaRequest, completion: @escaping (Result<Sagawa, APIError>) -> Void) {
+    func handleErrorWithCache(error: APIError, request: SagawaRequest, completion: @escaping (Result<Sagawa, APIError>) -> Void) async {
         if configuration.returnCacheOnError {
-            if let cached = cache.get(for: request.trackingNumber, carrier: .sagawa) {
+            if let cached = await cache.get(for: request.trackingNumber, carrier: .sagawa) {
                 let sagawa = sagawaFromCache([cached])
                 completion(.success(sagawa))
                 return
@@ -541,13 +562,13 @@ private extension ApiClient {
     }
 
     /// エラー時にキャッシュからフォールバック（async版 - Tneko）
-    func handleErrorWithCacheAsync(error: APIError, request: TnekoRequest) -> Result<Tneko, APIError> {
+    func handleErrorWithCacheAsync(error: APIError, request: TnekoRequest) async -> Result<Tneko, APIError> {
         if configuration.returnCacheOnError {
             let trackingNumbers = request.idList().map { String($0) }
             var cachedInfos: [UnifiedDeliveryInfo] = []
 
             for trackingNumber in trackingNumbers {
-                if let cached = cache.get(for: trackingNumber, carrier: .yamato) {
+                if let cached = await cache.get(for: trackingNumber, carrier: .yamato) {
                     cachedInfos.append(cached)
                 }
             }
@@ -561,9 +582,9 @@ private extension ApiClient {
     }
 
     /// エラー時にキャッシュからフォールバック（async版 - Sagawa）
-    func handleErrorWithCacheAsync(error: APIError, request: SagawaRequest) -> Result<Sagawa, APIError> {
+    func handleErrorWithCacheAsync(error: APIError, request: SagawaRequest) async -> Result<Sagawa, APIError> {
         if configuration.returnCacheOnError {
-            if let cached = cache.get(for: request.trackingNumber, carrier: .sagawa) {
+            if let cached = await cache.get(for: request.trackingNumber, carrier: .sagawa) {
                 let sagawa = sagawaFromCache([cached])
                 return .success(sagawa)
             }
@@ -572,9 +593,9 @@ private extension ApiClient {
     }
 
     /// エラー時にキャッシュからフォールバック（completion版 - JapanPost）
-    func handleErrorWithCache(error: APIError, request: JapanPostRequest, completion: @escaping (Result<JapanPost, APIError>) -> Void) {
+    func handleErrorWithCache(error: APIError, request: JapanPostRequest, completion: @escaping (Result<JapanPost, APIError>) -> Void) async {
         if configuration.returnCacheOnError {
-            if let cached = cache.get(for: request.trackingNumber, carrier: .japanPost) {
+            if let cached = await cache.get(for: request.trackingNumber, carrier: .japanPost) {
                 let japanPost = japanPostFromCache([cached])
                 completion(.success(japanPost))
                 return
@@ -584,9 +605,9 @@ private extension ApiClient {
     }
 
     /// エラー時にキャッシュからフォールバック（async版 - JapanPost）
-    func handleErrorWithCacheAsync(error: APIError, request: JapanPostRequest) -> Result<JapanPost, APIError> {
+    func handleErrorWithCacheAsync(error: APIError, request: JapanPostRequest) async -> Result<JapanPost, APIError> {
         if configuration.returnCacheOnError {
-            if let cached = cache.get(for: request.trackingNumber, carrier: .japanPost) {
+            if let cached = await cache.get(for: request.trackingNumber, carrier: .japanPost) {
                 let japanPost = japanPostFromCache([cached])
                 return .success(japanPost)
             }

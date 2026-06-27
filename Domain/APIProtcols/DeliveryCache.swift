@@ -18,24 +18,23 @@ public struct CacheEntry<T: Codable>: Codable {
 }
 
 // MARK: - キャッシュプロトコル
-public protocol DeliveryCacheProtocol {
-    func get(for trackingNumber: String, carrier: DeliveryCarrierType) -> UnifiedDeliveryInfo?
-    func set(_ info: UnifiedDeliveryInfo, for trackingNumber: String, carrier: DeliveryCarrierType)
-    func remove(for trackingNumber: String, carrier: DeliveryCarrierType)
-    func removeAll()
-    func removeExpired()
+public protocol DeliveryCacheProtocol: Sendable {
+    func get(for trackingNumber: String, carrier: DeliveryCarrierType) async -> UnifiedDeliveryInfo?
+    func set(_ info: UnifiedDeliveryInfo, for trackingNumber: String, carrier: DeliveryCarrierType) async
+    func remove(for trackingNumber: String, carrier: DeliveryCarrierType) async
+    func removeAll() async
+    func removeExpired() async
 }
 
 // MARK: - メモリキャッシュ
-public final class DeliveryMemoryCache: DeliveryCacheProtocol {
+public actor DeliveryMemoryCache: DeliveryCacheProtocol {
     public static let shared = DeliveryMemoryCache()
 
     private var cache: [String: CacheEntry<UnifiedDeliveryInfo>] = [:]
-    private let lock = NSLock()
     private let defaultTTL: TimeInterval
 
     /// キャッシュの最大エントリ数
-    public var maxEntries: Int = 100
+    public let maxEntries: Int = 100
 
     public init(defaultTTL: TimeInterval = 300) { // デフォルト5分
         self.defaultTTL = defaultTTL
@@ -46,9 +45,6 @@ public final class DeliveryMemoryCache: DeliveryCacheProtocol {
     }
 
     public func get(for trackingNumber: String, carrier: DeliveryCarrierType) -> UnifiedDeliveryInfo? {
-        lock.lock()
-        defer { lock.unlock() }
-
         let key = cacheKey(trackingNumber: trackingNumber, carrier: carrier)
         guard let entry = cache[key] else { return nil }
 
@@ -61,9 +57,6 @@ public final class DeliveryMemoryCache: DeliveryCacheProtocol {
     }
 
     public func set(_ info: UnifiedDeliveryInfo, for trackingNumber: String, carrier: DeliveryCarrierType) {
-        lock.lock()
-        defer { lock.unlock() }
-
         // キャッシュサイズの制限チェック
         if cache.count >= maxEntries {
             removeOldestEntry()
@@ -75,25 +68,15 @@ public final class DeliveryMemoryCache: DeliveryCacheProtocol {
     }
 
     public func remove(for trackingNumber: String, carrier: DeliveryCarrierType) {
-        lock.lock()
-        defer { lock.unlock() }
-
         let key = cacheKey(trackingNumber: trackingNumber, carrier: carrier)
         cache.removeValue(forKey: key)
     }
 
     public func removeAll() {
-        lock.lock()
-        defer { lock.unlock() }
-
         cache.removeAll()
     }
 
     public func removeExpired() {
-        lock.lock()
-        defer { lock.unlock() }
-
-        let now = Date()
         cache = cache.filter { !$0.value.isExpired }
     }
 
@@ -104,7 +87,7 @@ public final class DeliveryMemoryCache: DeliveryCacheProtocol {
 }
 
 // MARK: - ディスクキャッシュ
-public final class DeliveryDiskCache: DeliveryCacheProtocol {
+public actor DeliveryDiskCache: DeliveryCacheProtocol {
     public static let shared = DeliveryDiskCache()
 
     private let fileManager = FileManager.default
@@ -175,7 +158,7 @@ public final class DeliveryDiskCache: DeliveryCacheProtocol {
 }
 
 // MARK: - 2段キャッシュ (メモリ + ディスク)
-public final class DeliveryTieredCache: DeliveryCacheProtocol {
+public actor DeliveryTieredCache: DeliveryCacheProtocol {
     public static let shared = DeliveryTieredCache()
 
     private let memoryCache: DeliveryMemoryCache
@@ -186,39 +169,39 @@ public final class DeliveryTieredCache: DeliveryCacheProtocol {
         self.diskCache = diskCache
     }
 
-    public func get(for trackingNumber: String, carrier: DeliveryCarrierType) -> UnifiedDeliveryInfo? {
+    public func get(for trackingNumber: String, carrier: DeliveryCarrierType) async -> UnifiedDeliveryInfo? {
         // まずメモリキャッシュを確認
-        if let info = memoryCache.get(for: trackingNumber, carrier: carrier) {
+        if let info = await memoryCache.get(for: trackingNumber, carrier: carrier) {
             return info
         }
 
         // メモリになければディスクキャッシュを確認
-        if let info = diskCache.get(for: trackingNumber, carrier: carrier) {
+        if let info = await diskCache.get(for: trackingNumber, carrier: carrier) {
             // ディスクにあればメモリにも保存
-            memoryCache.set(info, for: trackingNumber, carrier: carrier)
+            await memoryCache.set(info, for: trackingNumber, carrier: carrier)
             return info
         }
 
         return nil
     }
 
-    public func set(_ info: UnifiedDeliveryInfo, for trackingNumber: String, carrier: DeliveryCarrierType) {
-        memoryCache.set(info, for: trackingNumber, carrier: carrier)
-        diskCache.set(info, for: trackingNumber, carrier: carrier)
+    public func set(_ info: UnifiedDeliveryInfo, for trackingNumber: String, carrier: DeliveryCarrierType) async {
+        await memoryCache.set(info, for: trackingNumber, carrier: carrier)
+        await diskCache.set(info, for: trackingNumber, carrier: carrier)
     }
 
-    public func remove(for trackingNumber: String, carrier: DeliveryCarrierType) {
-        memoryCache.remove(for: trackingNumber, carrier: carrier)
-        diskCache.remove(for: trackingNumber, carrier: carrier)
+    public func remove(for trackingNumber: String, carrier: DeliveryCarrierType) async {
+        await memoryCache.remove(for: trackingNumber, carrier: carrier)
+        await diskCache.remove(for: trackingNumber, carrier: carrier)
     }
 
-    public func removeAll() {
-        memoryCache.removeAll()
-        diskCache.removeAll()
+    public func removeAll() async {
+        await memoryCache.removeAll()
+        await diskCache.removeAll()
     }
 
-    public func removeExpired() {
-        memoryCache.removeExpired()
-        diskCache.removeExpired()
+    public func removeExpired() async {
+        await memoryCache.removeExpired()
+        await diskCache.removeExpired()
     }
 }

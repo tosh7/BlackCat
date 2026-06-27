@@ -1,7 +1,7 @@
 import Foundation
 
 /// API通信で発生するエラーを表す列挙型
-public enum APIError: Error, Equatable, Hashable {
+public enum APIError: Error, Equatable, Hashable, Sendable {
     // MARK: - ネットワークエラー
     /// URLが無効
     case invalidURL
