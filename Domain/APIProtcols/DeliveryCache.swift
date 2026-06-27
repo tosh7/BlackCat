@@ -18,7 +18,7 @@ public struct CacheEntry<T: Codable>: Codable {
 }
 
 // MARK: - キャッシュプロトコル
-public protocol DeliveryCacheProtocol {
+public protocol DeliveryCacheProtocol: Sendable {
     func get(for trackingNumber: String, carrier: DeliveryCarrierType) -> UnifiedDeliveryInfo?
     func set(_ info: UnifiedDeliveryInfo, for trackingNumber: String, carrier: DeliveryCarrierType)
     func remove(for trackingNumber: String, carrier: DeliveryCarrierType)
@@ -27,7 +27,7 @@ public protocol DeliveryCacheProtocol {
 }
 
 // MARK: - メモリキャッシュ
-public final class DeliveryMemoryCache: DeliveryCacheProtocol {
+public final class DeliveryMemoryCache: DeliveryCacheProtocol, @unchecked Sendable {
     public static let shared = DeliveryMemoryCache()
 
     private var cache: [String: CacheEntry<UnifiedDeliveryInfo>] = [:]
@@ -35,7 +35,7 @@ public final class DeliveryMemoryCache: DeliveryCacheProtocol {
     private let defaultTTL: TimeInterval
 
     /// キャッシュの最大エントリ数
-    public var maxEntries: Int = 100
+    public let maxEntries: Int = 100
 
     public init(defaultTTL: TimeInterval = 300) { // デフォルト5分
         self.defaultTTL = defaultTTL
@@ -92,8 +92,6 @@ public final class DeliveryMemoryCache: DeliveryCacheProtocol {
     public func removeExpired() {
         lock.lock()
         defer { lock.unlock() }
-
-        let now = Date()
         cache = cache.filter { !$0.value.isExpired }
     }
 
@@ -104,7 +102,7 @@ public final class DeliveryMemoryCache: DeliveryCacheProtocol {
 }
 
 // MARK: - ディスクキャッシュ
-public final class DeliveryDiskCache: DeliveryCacheProtocol {
+public final class DeliveryDiskCache: DeliveryCacheProtocol, @unchecked Sendable {
     public static let shared = DeliveryDiskCache()
 
     private let fileManager = FileManager.default
@@ -175,7 +173,7 @@ public final class DeliveryDiskCache: DeliveryCacheProtocol {
 }
 
 // MARK: - 2段キャッシュ (メモリ + ディスク)
-public final class DeliveryTieredCache: DeliveryCacheProtocol {
+public final class DeliveryTieredCache: DeliveryCacheProtocol, Sendable {
     public static let shared = DeliveryTieredCache()
 
     private let memoryCache: DeliveryMemoryCache
