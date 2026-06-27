@@ -1,4 +1,5 @@
 import Foundation
+import Synchronization
 
 // MARK: - キャッシュエントリ
 public struct CacheEntry<T: Codable>: Codable {
@@ -17,6 +18,8 @@ public struct CacheEntry<T: Codable>: Codable {
     }
 }
 
+extension CacheEntry: Sendable where T: Sendable {}
+
 // MARK: - キャッシュプロトコル
 public protocol DeliveryCacheProtocol: Sendable {
     func get(for trackingNumber: String, carrier: DeliveryCarrierType) -> UnifiedDeliveryInfo?
@@ -27,11 +30,10 @@ public protocol DeliveryCacheProtocol: Sendable {
 }
 
 // MARK: - メモリキャッシュ
-public final class DeliveryMemoryCache: DeliveryCacheProtocol, @unchecked Sendable {
+public final class DeliveryMemoryCache: DeliveryCacheProtocol, Sendable {
     public static let shared = DeliveryMemoryCache()
 
-    private var cache: [String: CacheEntry<UnifiedDeliveryInfo>] = [:]
-    private let lock = NSLock()
+    private let storage = Mutex<[String: CacheEntry<UnifiedDeliveryInfo>]>([:])
     private let defaultTTL: TimeInterval
 
     /// キャッシュの最大エントリ数
@@ -46,74 +48,59 @@ public final class DeliveryMemoryCache: DeliveryCacheProtocol, @unchecked Sendab
     }
 
     public func get(for trackingNumber: String, carrier: DeliveryCarrierType) -> UnifiedDeliveryInfo? {
-        lock.lock()
-        defer { lock.unlock() }
-
         let key = cacheKey(trackingNumber: trackingNumber, carrier: carrier)
-        guard let entry = cache[key] else { return nil }
+        return storage.withLock { cache in
+            guard let entry = cache[key] else { return nil }
 
-        if entry.isExpired {
-            cache.removeValue(forKey: key)
-            return nil
+            if entry.isExpired {
+                cache.removeValue(forKey: key)
+                return nil
+            }
+
+            return entry.value
         }
-
-        return entry.value
     }
 
     public func set(_ info: UnifiedDeliveryInfo, for trackingNumber: String, carrier: DeliveryCarrierType) {
-        lock.lock()
-        defer { lock.unlock() }
-
-        // キャッシュサイズの制限チェック
-        if cache.count >= maxEntries {
-            removeOldestEntry()
-        }
-
         let key = cacheKey(trackingNumber: trackingNumber, carrier: carrier)
         let entry = CacheEntry(value: info, ttl: defaultTTL)
-        cache[key] = entry
+        storage.withLock { cache in
+            // キャッシュサイズの制限チェック（最古エントリを削除）
+            if cache.count >= maxEntries,
+               let oldest = cache.min(by: { $0.value.timestamp < $1.value.timestamp }) {
+                cache.removeValue(forKey: oldest.key)
+            }
+            cache[key] = entry
+        }
     }
 
     public func remove(for trackingNumber: String, carrier: DeliveryCarrierType) {
-        lock.lock()
-        defer { lock.unlock() }
-
         let key = cacheKey(trackingNumber: trackingNumber, carrier: carrier)
-        cache.removeValue(forKey: key)
+        storage.withLock { $0.removeValue(forKey: key) }
     }
 
     public func removeAll() {
-        lock.lock()
-        defer { lock.unlock() }
-
-        cache.removeAll()
+        storage.withLock { $0.removeAll() }
     }
 
     public func removeExpired() {
-        lock.lock()
-        defer { lock.unlock() }
-        cache = cache.filter { !$0.value.isExpired }
-    }
-
-    private func removeOldestEntry() {
-        guard let oldest = cache.min(by: { $0.value.timestamp < $1.value.timestamp }) else { return }
-        cache.removeValue(forKey: oldest.key)
+        storage.withLock { cache in
+            cache = cache.filter { !$0.value.isExpired }
+        }
     }
 }
 
 // MARK: - ディスクキャッシュ
-public final class DeliveryDiskCache: DeliveryCacheProtocol, @unchecked Sendable {
+public final class DeliveryDiskCache: DeliveryCacheProtocol, Sendable {
     public static let shared = DeliveryDiskCache()
 
-    private let fileManager = FileManager.default
     private let cacheDirectory: URL
     private let defaultTTL: TimeInterval
-    private let encoder = JSONEncoder()
-    private let decoder = JSONDecoder()
 
     public init(defaultTTL: TimeInterval = 3600) { // デフォルト1時間
         self.defaultTTL = defaultTTL
 
+        let fileManager = FileManager.default
         let cacheDir = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
         self.cacheDirectory = cacheDir.appendingPathComponent("DeliveryCache", isDirectory: true)
 
@@ -129,12 +116,12 @@ public final class DeliveryDiskCache: DeliveryCacheProtocol, @unchecked Sendable
         let url = fileURL(trackingNumber: trackingNumber, carrier: carrier)
 
         guard let data = try? Data(contentsOf: url),
-              let entry = try? decoder.decode(CacheEntry<UnifiedDeliveryInfo>.self, from: data) else {
+              let entry = try? JSONDecoder().decode(CacheEntry<UnifiedDeliveryInfo>.self, from: data) else {
             return nil
         }
 
         if entry.isExpired {
-            try? fileManager.removeItem(at: url)
+            try? FileManager.default.removeItem(at: url)
             return nil
         }
 
@@ -145,26 +132,28 @@ public final class DeliveryDiskCache: DeliveryCacheProtocol, @unchecked Sendable
         let url = fileURL(trackingNumber: trackingNumber, carrier: carrier)
         let entry = CacheEntry(value: info, ttl: defaultTTL)
 
-        guard let data = try? encoder.encode(entry) else { return }
+        guard let data = try? JSONEncoder().encode(entry) else { return }
         try? data.write(to: url, options: .atomic)
     }
 
     public func remove(for trackingNumber: String, carrier: DeliveryCarrierType) {
         let url = fileURL(trackingNumber: trackingNumber, carrier: carrier)
-        try? fileManager.removeItem(at: url)
+        try? FileManager.default.removeItem(at: url)
     }
 
     public func removeAll() {
+        let fileManager = FileManager.default
         try? fileManager.removeItem(at: cacheDirectory)
         try? fileManager.createDirectory(at: cacheDirectory, withIntermediateDirectories: true)
     }
 
     public func removeExpired() {
+        let fileManager = FileManager.default
         guard let files = try? fileManager.contentsOfDirectory(at: cacheDirectory, includingPropertiesForKeys: nil) else { return }
 
         for file in files {
             if let data = try? Data(contentsOf: file),
-               let entry = try? decoder.decode(CacheEntry<UnifiedDeliveryInfo>.self, from: data),
+               let entry = try? JSONDecoder().decode(CacheEntry<UnifiedDeliveryInfo>.self, from: data),
                entry.isExpired {
                 try? fileManager.removeItem(at: file)
             }
