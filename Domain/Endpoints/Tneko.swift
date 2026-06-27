@@ -1,6 +1,6 @@
 import Foundation
 
-public struct TnekoRequest: RequestType, URLQueryEncodable {
+public struct TnekoRequest: RequestType, URLQueryEncodable, Sendable {
     public static let path: String = "tneko"
     public static let method: HTTPMethod = .post
 

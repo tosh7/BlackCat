@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SagawaRequest: RequestType, URLQueryEncodable {
+public struct SagawaRequest: RequestType, URLQueryEncodable, Sendable {
     public static let path: String = "web/okurijosearch.do"
     public static let method: HTTPMethod = .get
 

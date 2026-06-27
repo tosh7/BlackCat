@@ -1,5 +1,10 @@
 import Foundation
 
+/// actorキャッシュを跨ぐためにSendableでないクロージャをTaskへ渡すラッパー
+struct UncheckedSendableBox<Value>: @unchecked Sendable {
+    let value: Value
+}
+
 public final class ApiClient: Sendable {
     public static let shared: ApiClient = ApiClient()
     public let basePath: String = "https://toi.kuronekoyamato.co.jp/cgi-bin"
@@ -51,13 +56,13 @@ public final class ApiClient: Sendable {
     }
 
     /// キャッシュをクリア
-    public func clearCache() {
-        cache.removeAll()
+    public func clearCache() async {
+        await cache.removeAll()
     }
 
     /// 期限切れキャッシュを削除
-    public func cleanExpiredCache() {
-        cache.removeExpired()
+    public func cleanExpiredCache() async {
+        await cache.removeExpired()
     }
 }
 

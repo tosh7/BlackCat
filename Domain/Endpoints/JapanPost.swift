@@ -1,6 +1,6 @@
 import Foundation
 
-public struct JapanPostRequest: RequestType, URLQueryEncodable {
+public struct JapanPostRequest: RequestType, URLQueryEncodable, Sendable {
     public static let path: String = "services/srv/search/"
     public static let method: HTTPMethod = .post
 
