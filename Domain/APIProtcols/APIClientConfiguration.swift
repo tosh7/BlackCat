@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - APIクライアント設定
-public struct APIClientConfiguration {
+public struct APIClientConfiguration: Sendable {
     /// タイムアウト時間（秒）
     public var timeoutInterval: TimeInterval
 
@@ -62,7 +62,7 @@ public struct APIClientConfiguration {
 }
 
 // MARK: - リトライポリシー
-public struct RetryPolicy {
+public struct RetryPolicy: Sendable {
     public let maxRetryCount: Int
     public let baseDelay: TimeInterval
     public let useExponentialBackoff: Bool

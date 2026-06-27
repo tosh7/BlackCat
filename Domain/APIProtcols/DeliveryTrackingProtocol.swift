@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - 配達業者の種別
-public enum DeliveryCarrierType: String, Codable, CaseIterable {
+public enum DeliveryCarrierType: String, Codable, CaseIterable, Sendable {
     case yamato = "yamato"      // ヤマト運輸
     case sagawa = "sagawa"      // 佐川急便
     case japanPost = "japanPost" // 日本郵便
@@ -19,7 +19,7 @@ public enum DeliveryCarrierType: String, Codable, CaseIterable {
 }
 
 // MARK: - 統一配送ステータス
-public struct UnifiedDeliveryStatus: Codable, Equatable {
+public struct UnifiedDeliveryStatus: Codable, Equatable, Sendable {
     public let status: String
     public let date: String
     public let time: String?
@@ -34,7 +34,7 @@ public struct UnifiedDeliveryStatus: Codable, Equatable {
 }
 
 // MARK: - 統一配送情報
-public struct UnifiedDeliveryInfo: Codable, Equatable {
+public struct UnifiedDeliveryInfo: Codable, Equatable, Sendable {
     public let trackingNumber: String
     public let carrier: DeliveryCarrierType
     public let statusList: [UnifiedDeliveryStatus]

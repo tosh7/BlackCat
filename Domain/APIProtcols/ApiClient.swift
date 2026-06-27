@@ -1,22 +1,22 @@
 import Foundation
 
-public final class ApiClient {
+public final class ApiClient: Sendable {
     public static let shared: ApiClient = ApiClient()
     public let basePath: String = "https://toi.kuronekoyamato.co.jp/cgi-bin"
     public let sagawaBasePath: String = "https://k2k.sagawa-exp.co.jp/p"
     public let japanPostBasePath: String = "https://trackings.post.japanpost.jp"
 
     /// APIクライアント設定
-    public var configuration: APIClientConfiguration
+    public let configuration: APIClientConfiguration
 
     /// キャッシュ
-    public var cache: DeliveryCacheProtocol
+    public let cache: DeliveryCacheProtocol
 
     /// リトライポリシー
-    public var retryPolicy: RetryPolicy
+    public let retryPolicy: RetryPolicy
 
     /// カスタムURLSession
-    private(set) var urlSession: URLSession
+    private let urlSession: URLSession
 
     public var baseURL: URL {
         return URL(string: basePath)!
@@ -43,23 +43,6 @@ public final class ApiClient {
         )
 
         // タイムアウト設定を含むURLSessionを作成
-        let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = configuration.timeoutInterval
-        sessionConfig.timeoutIntervalForResource = configuration.timeoutInterval * 2
-        sessionConfig.waitsForConnectivity = true
-        self.urlSession = URLSession(configuration: sessionConfig)
-    }
-
-    /// 設定を更新
-    public func updateConfiguration(_ configuration: APIClientConfiguration) {
-        self.configuration = configuration
-        self.retryPolicy = RetryPolicy(
-            maxRetryCount: configuration.maxRetryCount,
-            baseDelay: configuration.retryBaseDelay,
-            useExponentialBackoff: configuration.useExponentialBackoff
-        )
-
-        // URLSessionを再作成
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.timeoutIntervalForRequest = configuration.timeoutInterval
         sessionConfig.timeoutIntervalForResource = configuration.timeoutInterval * 2
