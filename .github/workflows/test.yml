@@ -1,0 +1,33 @@
+name: Test
+
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: macos-26
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run BlackCatTests
+        run: |
+          xcodebuild test \
+            -scheme BlackCat \
+            -destination "platform=iOS Simulator,name=iPhone 16e" \
+            -resultBundlePath TestResults/BlackCatTests \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Run DomainTests
+        run: |
+          xcodebuild test \
+            -scheme DomainTests \
+            -destination "platform=iOS Simulator,name=iPhone 16e" \
+            -resultBundlePath TestResults/DomainTests \
+            CODE_SIGNING_ALLOWED=NO
